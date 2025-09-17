@@ -1,32 +1,32 @@
 import express from "express";
-import pkg from "pg";
+import cors from "cors";
 import dotenv from "dotenv";
 
+import hallsRoutes from "./routes/halls.js";
+import dishesRoutes from "./routes/dishes.js";
+import servicesRoutes from "./routes/services.js";
+import bookingsRoutes from "./routes/bookings.js";
+import invoicesRoutes from "./routes/invoices.js";
+import rulesRoutes from "./routes/rules.js";
+import reportsRoutes from "./routes/reports.js";
+
 dotenv.config();
-
-const { Pool } = pkg;
-
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }, // Supabase requires SSL
-});
+app.use(cors());
+app.use(express.json());
 
-// Test connection at startup
-(async () => {
-  try {
-    const res = await pool.query("SELECT NOW()");
-    console.log("✅ Database connected:", res.rows[0]);
-  } catch (err) {
-    console.error("❌ Database connection error:", err.message);
-  }
-})();
+// API routes
+app.use("/api/halls", hallsRoutes);
+app.use("/api/dishes", dishesRoutes);
+app.use("/api/services", servicesRoutes);
+app.use("/api/bookings", bookingsRoutes);
+app.use("/api/invoices", invoicesRoutes);
+app.use("/api/rules", rulesRoutes);
+app.use("/api/reports", reportsRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get("/", (req, res) => res.send("Wedding Planner API is running 🚀"));
 
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
