@@ -12,3 +12,5 @@ db.raw('SELECT 1+1 AS result')
     console.error("❌ Lỗi kết nối DB:", err.message);
     process.exit(1);
   });
+
+  export default db;
