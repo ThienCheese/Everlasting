@@ -10,13 +10,13 @@ const errorHandler = (err, req, res, next) => {
     //xu li loi
     if(err.name === 'ValidationError'){
         statusCode = 400;
-        message = err.detail?.map(d=>d.message).join(', ') || 'Valdation Error';
+        message = err.detail?.map(d=>d.message).join(', ') || 'Validation Error';
     }
     else if(err.name === 'JsonWebTokenError'){
         statusCode=401;
         message = 'Unauthorized';
     }
-    else if(err.name ==='TokenExpireError'){
+    else if(err.name ==='TokenExpiredError'){
         statusCode = 401;
         message = 'Token Expired';
     }

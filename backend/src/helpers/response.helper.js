@@ -2,7 +2,7 @@ import logger from './logger.js';
 
 export const successResponse = (res, data = null, message, statusCode = 200) => {
     logger.info(`[SUCCESS]${message}`);
-    return res.stastus(statusCode).json({
+    return res.status(statusCode).json({
         status: 'success',
         message,
         data,

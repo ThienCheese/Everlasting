@@ -13,11 +13,11 @@ const login =async (req, res) => {
         const user = await User.findByEmail(email);
         if(!user){
             logger.error('[LOGIN] User not found');
-            return errorResponse(res, 404, 'User not found');
+            return errorResponse(res, 'User not found', 404);
         }
         if(!isSamePassword(password, user.password, email)){
             logger.error('[LOGIN] Invalid password');
-            return errorResponse(res, 401, 'Invalid password');
+            return errorResponse(res, 'Invalid password', 401);
         }
         const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_SECRET,{
             expiresIn:'1d'
@@ -27,7 +27,7 @@ const login =async (req, res) => {
     }
     catch(error){
         logger.error(`[LOGIN] Error: ${error.message}`);
-        return errorResponse(res, 500, error.message);
+        return errorResponse(res, error.message, 500);
     }
 }
 
