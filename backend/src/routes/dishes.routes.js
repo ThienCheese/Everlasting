@@ -1,33 +1,32 @@
 import { Router } from 'express';
 import {
-  getHalls,
-  getHall,
-  createHall,
-  updateHall,
-  deleteHall,
-} from '../controller/halls.controller.js';
+  getDishes,
+  getDish,
+  createDish,
+  updateDish,
+  deleteDish,
+} from '../controller/dishes.controller.js';
 
 const router = Router();
 
 router.post(
   '/create',
-  createHall
+  createDish
 );
 router.get(
   '/lists',
-  getHalls
+  getDishes
 );
 router.get(
   '/details/:id',
-  getHall
+  getDish
 );
 router.put(
   '/update/:id',
-  updateHall
+  updateDish
 );
 router.delete(
   '/delete/:id',
-  deleteHall
+  deleteDish
 );
-
 export default router;
