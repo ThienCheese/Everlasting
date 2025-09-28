@@ -1,0 +1,22 @@
+2025-09-25T03:17:36.304Z [INFO] : [SUCCESS]Products retrieved successfully
+2025-09-25T14:51:26.911Z [INFO] : [SUCCESS]Products retrieved successfully
+2025-09-28T09:03:45.603Z [INFO] : [SUCCESS]Halls retrieved successfully
+2025-09-28T09:06:42.323Z [ERROR] : [ERROR] Cannot destructure property 'ten_sanh' of 'undefined' as it is undefined.
+2025-09-28T09:06:42.324Z [ERROR] : [ERROR] res.stastus is not a function res.stastus is not a function
+2025-09-28T09:06:42.325Z [ERROR] : [ERROR] 500
+2025-09-28T09:08:24.391Z [ERROR] : [ERROR] Cannot destructure property 'ten_sanh' of 'undefined' as it is undefined.
+2025-09-28T09:09:48.337Z [ERROR] : [ERROR] Cannot destructure property 'ten_sanh' of 'undefined' as it is undefined.
+2025-09-28T09:10:40.740Z [ERROR] : [ERROR] Cannot destructure property 'ten_sanh' of 'undefined' as it is undefined.
+2025-09-28T09:13:47.983Z [ERROR] : [ERROR] Cannot destructure property 'ten_sanh' of 'undefined' as it is undefined.
+2025-09-28T09:15:57.031Z [INFO] : [SUCCESS]Hall created successfully
+2025-09-28T09:16:51.477Z [INFO] : [SUCCESS]Hall created successfully
+2025-09-28T09:18:01.667Z [ERROR] : [ERROR] select * from "halls" where "id" = $1 limit $2 - invalid input syntax for type integer: "{3}"
+2025-09-28T09:18:18.200Z [ERROR] : [ERROR] select * from "halls" where "id" = $1 limit $2 - invalid input syntax for type integer: "{1}"
+2025-09-28T09:19:08.171Z [INFO] : [SUCCESS]Hall retrieved successfully
+2025-09-28T09:19:13.682Z [INFO] : [SUCCESS]Hall retrieved successfully
+2025-09-28T09:19:17.867Z [INFO] : [SUCCESS]Hall retrieved successfully
+2025-09-28T09:19:23.983Z [INFO] : [SUCCESS]Hall retrieved successfully
+2025-09-28T09:20:30.517Z [ERROR] : [ERROR] select * from "halls" where "id" = $1 limit $2 - invalid input syntax for type integer: "{4}"
+2025-09-28T09:23:54.705Z [ERROR] : [ERROR] Empty .update() call detected! Update data does not contain any values to update. This will result in a faulty query. Table: halls. Columns: ten_sanh,loai_sanh,so_luong_ban_toi_da,don_gia_ban_toi_thieu,ghi_chu.
+2025-09-28T09:25:33.580Z [INFO] : [SUCCESS]Hall updated successfully
+2025-09-28T09:26:17.565Z [INFO] : [SUCCESS]Hall deleted successfully

@@ -11,7 +11,7 @@ export const successResponse = (res, data = null, message, statusCode = 200) => 
 
 export const errorResponse = (res, message, statusCode = 500) => {
     logger.error(`[ERROR] ${message}`);
-    return res.stastus(statusCode).json({
+    return res.status(statusCode).json({
         status: 'error',
         message,
     });

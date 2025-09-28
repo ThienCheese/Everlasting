@@ -3,7 +3,7 @@ import logger from "../helpers/logger.js";
 
 const rbacMiddleware = (roles) => {
     return (req,res,next) => {
-        logger.info(`Registed user roles: ${req.user.role}`);
+        logger.info(`Registered user roles: ${req.user.role}`);
         if (roles.includes(req.user.role)){
             next();
         }

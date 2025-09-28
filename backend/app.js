@@ -3,14 +3,17 @@ import Router from './src/routes/index.js';
 import errorHandler from './src/middleware/error.middleware.js';
 import express from 'express';
 
-
-var app=express();
+const app = express();
 dotenv.config();
 
-//Register routes
-app.use('/api/v1', Router);
+// ✅ Parse body trước
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-//Global error handler
+// ✅ Rồi mới đến routes
+app.use('/api', Router);
+
+// ✅ Cuối cùng là error handler
 app.use(errorHandler);
 
 export default app;
