@@ -4,50 +4,41 @@ import db from '../../database/connection.js';
 const Hall = {
   // Lấy tất cả halls
   async getAll() {
-    return db('halls').select('*').orderBy('id');
+    return await db('SANH')
+      .select('SANH.*', 'LOAISANH.TenLoaiSanh', 'LOAISANH.DonGiaBanToiThieu')
+      .leftJoin('LOAISANH', 'SANH.MaLoaiSanh', 'LOAISANH.MaLoaiSanh')
+      .orderBy([
+        { column: 'LOAISANH.TenLoaiSanh', order: 'asc' },
+        { column: 'SANH.TenSanh', order: 'asc' },
+      ]);
   },
 
   // Lấy hall theo id
   async findById(id) {
-    return db('halls').where({ id }).first();
+    return await db('SANH')
+      .select('SANH.*', 'LOAISANH.TenLoaiSanh', 'LOAISANH.DonGiaBanToiThieu')
+      .leftJoin('LOAISANH', 'SANH.MaLoaiSanh', 'LOAISANH.MaLoaiSanh')
+      .where({ MaSanh: id })
+      .first();
   },
 
   // Tạo hall mới
-  async create({ ten_sanh, loai_sanh, so_luong_ban_toi_da, don_gia_ban_toi_thieu, ghi_chu }) {
-    const [hall] = await db('halls')
-      .insert({
-        ten_sanh,
-        loai_sanh,
-        so_luong_ban_toi_da,
-        don_gia_ban_toi_thieu,
-        ghi_chu,
-      })
-      .returning('*');
-    return hall;
+   create: async (data) => {
+    const [sanh] = await db('SANH').insert(data).returning('*');
+    return sanh;
   },
 
   // Cập nhật hall theo id
-  async update(id, { ten_sanh, loai_sanh, so_luong_ban_toi_da, don_gia_ban_toi_thieu, ghi_chu }) {
-    const [hall] = await db('halls')
-      .where({ id })
-      .update({
-        ten_sanh,
-        loai_sanh,
-        so_luong_ban_toi_da,
-        don_gia_ban_toi_thieu,
-        ghi_chu,
-      })
+  update: async (id, data) => {
+    const [sanh] = await db('SANH')
+      .where({ MaSanh: id })
+      .update(data)
       .returning('*');
-    return hall;
+    return sanh;
   },
-
   // Xoá hall theo id
   async remove(id) {
-    const [deleted] = await db('halls')
-      .where({ id })
-      .del()
-      .returning('id'); // để trả lại id đã xoá
-    return deleted;
+    return await db('SANH').where({ MaSanh: id }).delete();
   },
 };
 

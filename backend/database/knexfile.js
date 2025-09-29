@@ -8,7 +8,7 @@ export default {
     client: 'pg',
     connection: {
       connectionString:
-        'postgres://postgres.cpxnvojykxxolexbqshd:yuK%23t7qa9%21NqH%21W%2A@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres',
+        'postgresql://postgres.lmisyrpfdngxdhprmcyc:Quoc1234567890@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres',
       ssl: { rejectUnauthorized: false } // needed for supabase
     }
   },
