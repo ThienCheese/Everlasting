@@ -1,4 +1,4 @@
-import { knex } from '../config/database.js';
+import { knex } from '../../database/connection.js';
 
 const LoaiSanh = {
   create: async (data) => {
