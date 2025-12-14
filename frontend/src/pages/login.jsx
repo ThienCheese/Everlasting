@@ -1,142 +1,111 @@
-import { useState } from 'react'
-import './login.css'
-import { FaRegUserCircle } from "react-icons/fa";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import './login.css';
+import logoImg from '../assets/weblogo.png'; 
+import starImg from '../assets/star-img.png'; 
+import sparkleSound from '../assets/bell-notification.mp3';
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import { SiKeybase } from "react-icons/si";
-export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [success, setSuccess] = useState(null)
+import clickSound from '../assets/mouse-click.mp3';
+import sunIcon from '../assets/dark_mode_light.webp';       
+import speakerIcon from '../assets/sfx_on_light.webp';
+import moonIcon from '../assets/dark_mode_dark.webp';
+import speakerIcondarkmode from '../assets/sfx_on_dark.webp';
+import speakerIconOff from '../assets/sfx_off_light.webp';
+import speakerIcondarkmodeOff from '../assets/sfx_off_dark.webp';
+  const playStarSound = () => {
+  const audio = new Audio(sparkleSound);
+  audio.volume = 0.5;
+  audio.play();
+};
 
-  const backendUrl = 'http://localhost:3000/api/v1/auth/login'
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError(null)
-    setSuccess(null)
 
-    if (!email || !password) {
-      setError('Vui lòng nhập email và mật khẩu')
-      return
+const Login = () => {
+const navigate = useNavigate();
+/* const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    playClickSound();
+    
+    // Logic kiểm tra user/pass ở đây...
+    
+    console.log("Chuyển trang...");
+    navigate("/home"); 
+  }; */
+const playClickSound = () =>{
+  const audio= new Audio(clickSound);
+  audio.play();
+};
+  const [isDarkMode, setIsDarkMode] = useState(false); 
+  const [isSoundOn, setIsSoundOn] = useState(true);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    document.body.classList.toggle('dark-mode'); 
+  };
+  const toggleSound = () => {
+    setIsSoundOn(!isSoundOn);
+  };
+  const getSpeakerImage = () => {
+    if (isDarkMode) {
+        return isSoundOn ? speakerIcondarkmode : speakerIcondarkmodeOff;
+    } else {
+        return isSoundOn ? speakerIcon : speakerIconOff;
     }
-
-    setLoading(true)
-    try {
-      const res = await fetch(backendUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      })
-
-      const data = await res.json().catch(() => ({}))
-
-      if (!res.ok) {
-        const msg = data && data.message ? data.message : `Lỗi: ${res.status}`
-        setError(msg)
-        setLoading(false)
-        return
-      }
-
-      if (data && data.data && data.data.token) {
-        localStorage.setItem('token', data.data.token)
-        setSuccess('Đăng nhập thành công')
-        setError(null)
-        // small delay then redirect to home
-        setTimeout(() => {
-          window.location.href = '/'
-        }, 700)
-      } else {
-        setError('Không nhận được token từ máy chủ')
-      }
-    } catch (err) {
-      setError(err.message || 'Lỗi kết nối')
-    } finally {
-      setLoading(false)
-    }
-  }
-
+  };
   return (
-    <>
-      <header className="top-nav">
-        <div className="top-nav-inner">
-          <div className="brand">Everlasting</div>
-          <nav>
-            <a href="#about">About</a>
-            <a href="#help">Help</a>
-          </nav>
+    <div className={`login-page ${isDarkMode ? 'dark' : ''}`}>
+      <header className="header">
+        <div className="logo-container">
+          <img src={logoImg} alt="Everlasting Logo" className="logo-img" />
+          <span className="brand-name">EVER<span className="brand-bold">LASTING</span></span>
+        </div>
+        <div className="header-actions">
+            <button className="icon-btn" onClick={() => {toggleDarkMode(); playClickSound();}} title="Chế độ Sáng/Tối" >
+                <img src={isDarkMode ? moonIcon : sunIcon} alt="Mode" className="custom-icon" />     
+            </button>
+            <button className="icon-btn" onClick={() => {toggleSound(); playClickSound();}} title="Bật/Tắt âm thanh" >
+                <img src={getSpeakerImage()} alt="Sound" className="custom-icon" />    
+            </button>
+
         </div>
       </header>
 
-      <div className="login-container">
-        <h2 className="login-title">Đăng nhập</h2>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">Email</label>
-          <div className="input-with-icon">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="mine@gmail.com"
-              className="form-input"
-              required
-            />
-            <div className="input-icon"><FaRegUserCircle size={22} /></div>
-          </div>
+      <main className="main-content">
+        <div className="star-container">
+          <img src={starImg} alt="Star" className="star-icon" onMouseEnter={playStarSound}/>
         </div>
 
-        <div className="form-group">
-          <label className="form-label">Mật khẩu</label>
-          <div className="input-with-icon">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="form-input"
-              required
-            />
-            <div className="input-icon"><SiKeybase size={22} /></div>
-          </div>
+        <div className="login-box">
+          <h2 className="login-title">SIGN IN</h2>
+          <form className="login-form">
+            <div className="input-group">
+              <input type="text" placeholder="Username" className="input-field" />
+            </div>
+            <div className="input-group">
+              <input type="password" placeholder="Password" className="input-field" />
+            </div>
+            <button type="submit" className="confirm-btn" >Confirm</button>
+          </form>
         </div>
+      </main>
 
-        <div className="button-row">
-          <button type="submit" disabled={loading} className="btn">
-            {loading ? 'Đang xử lý...' : 'Đăng nhập'}
-          </button>
-          <button
-            type="button"
-            onClick={() => { setEmail(''); setPassword(''); setError(null); setSuccess(null); }}
-            className="btn btn-secondary"
-          >
-            Xóa
-          </button>
+      <footer className="footer">
+        <div className="footer-left">
+           <span className="footer-logo"></span>
         </div>
-      </form>
-
-      {error && <div className="form-error">{error}</div>}
-      {success && <div className="form-success">{success}</div>}
-      </div>
-
-      <footer className="footer-contact">
-        <div className="footer-inner">
-          <div>Hỗ trợ: +84 123 456 789</div>
-          <div>Email: support@everlasting.example</div>
-          <div className="social-links">
-            <a className="social-link" href="https://facebook.com/yourpage" target="_blank" rel="noreferrer">
-              <FaFacebookF />
-              <span className="sr-only">Facebook</span>
-            </a>
-            <a className="social-link" href="https://instagram.com/yourpage" target="_blank" rel="noreferrer">
-              <FaInstagram />
-              <span className="sr-only">Instagram</span>
-            </a>
-          </div>
+        <div className="footer-right">
+            <span className="copyright-text">© Copyrighted by Group05</span>
+            <div className="social-icons">
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="social-link" onClick={playClickSound}>
+                    <FaFacebookF />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="social-link" onClick={playClickSound}>
+                    <FaInstagram />
+                </a>
+            </div>
         </div>
       </footer>
-    </>
-  )
-}
+    </div>
+  );
+};
+
+export default Login;
