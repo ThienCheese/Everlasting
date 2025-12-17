@@ -20,3 +20,17 @@
 2025-09-28T09:23:54.705Z [ERROR] : [ERROR] Empty .update() call detected! Update data does not contain any values to update. This will result in a faulty query. Table: halls. Columns: ten_sanh,loai_sanh,so_luong_ban_toi_da,don_gia_ban_toi_thieu,ghi_chu.
 2025-09-28T09:25:33.580Z [INFO] : [SUCCESS]Hall updated successfully
 2025-09-28T09:26:17.565Z [INFO] : [SUCCESS]Hall deleted successfully
+2025-12-17T08:20:58.712Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-17T08:22:18.582Z [INFO] : [SUCCESS]Lấy thông tin món ăn thành công
+2025-12-17T08:29:35.859Z [INFO] : [SUCCESS]Tạo món ăn thành công
+2025-12-17T08:29:56.114Z [INFO] : [SUCCESS]Lấy thông tin món ăn thành công
+2025-12-17T08:44:37.931Z [INFO] : [REGISTER] Register request received
+2025-12-17T08:44:38.181Z [INFO] : [REGISTER] User registered successfully: admin
+2025-12-17T08:44:38.181Z [INFO] : [SUCCESS]Đăng ký thành công
+2025-12-17T08:51:46.088Z [ERROR] : [ERROR] Unexpected token 'P', "POST /api/"... is not valid JSON Unexpected token 'P', "POST /api/"... is not valid JSON
+2025-12-17T08:51:46.089Z [ERROR] : [ERROR] 400
+2025-12-17T08:52:17.758Z [INFO] : [LOGIN] Login request received
+2025-12-17T08:52:17.981Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-17T08:52:17.981Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-17T09:00:36.606Z [INFO] : [AUTH] User authenticated: admin
+2025-12-17T09:00:36.647Z [INFO] : [SUCCESS]Lấy thông tin user thành công
