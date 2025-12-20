@@ -1,0 +1,298 @@
+/* --- LAYOUT CHUNG --- */
+.mb-wrapper {
+    background-color: #ffffff;
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+    /* width: 100%; */
+}
+
+.mb-header {
+    max-width: 1400px; margin: 30px auto 20px; padding: 0 20px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+}
+.mb-header h2 { margin: 0; color: #000000; display: flex; align-items: center; gap: 10px; }
+.mb-booking-id { background: #000000; color: white; padding: 5px 10px; border-radius: 4px; font-weight: 700; font-size: 14px; }
+
+.mb-container {
+    max-width: 1400px; margin: 0 auto; padding: 0 20px;
+    display: flex; gap: 20px; align-items: flex-start;
+}
+
+/* --- CỘT TRÁI (MAIN) --- */
+.mb-main { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+.mb-card {
+    background: white; border-radius: 10px; padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.mb-card-header {
+    margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.mb-card-header h3 { margin: 0; font-size: 16px; color: #333; display: flex; align-items: center; gap: 8px; }
+
+/* Filter Tabs */
+.hall-type-tabs, .menu-tabs { display: flex; gap: 10px; }
+.type-btn, .menu-tabs button {
+    background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 20px;
+    font-size: 13px; font-weight: 600; color: #666; cursor: pointer; transition: all 0.2s;
+}
+.type-btn.active, .menu-tabs button.active {
+    background: #8A7CDF; color: white;
+}
+
+/* 1. Form Khách hàng */
+.mb-form-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
+}
+.mb-input { display: flex; flex-direction: column; gap: 5px; }
+.mb-input.full { grid-column: span 4; }
+.mb-input label { font-size: 12px; font-weight: 700; color: #666; }
+.mb-input input, .mb-input select {
+    padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; outline: none; font-size: 14px;
+}
+.mb-input input:focus { border-color: #8A7CDF; }
+.guest-input-group { display: flex; align-items: center; gap: 10px; }
+.table-calc { font-weight: 700; color: #8A7CDF; font-size: 14px; white-space: nowrap; }
+
+/* 2. Danh sách Sảnh */
+.mb-halls-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;
+}
+.mb-hall-item {
+    display: flex; gap: 10px; background: #f9f9f9; border: 2px solid transparent;
+    padding: 10px; border-radius: 8px; cursor: pointer; position: relative;
+    transition: all 0.2s;
+}
+.mb-hall-item:hover { border-color: #ddd; }
+.mb-hall-item.selected { background: #f4f2ff; border-color: #8A7CDF; }
+.mb-hall-item img { width: 80px; height: 80px; border-radius: 6px; object-fit: cover; }
+.hall-details { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.hall-details h4 { margin: 0 0 5px; font-size: 15px; }
+.hall-badge { 
+    display: inline-block; background: #333; color: white; font-size: 10px; 
+    padding: 2px 6px; border-radius: 4px; width: fit-content; margin-bottom: 5px;
+}
+.hall-specs { display: flex; justify-content: space-between; font-size: 13px; color: #666; }
+.hall-specs .price { font-weight: 700; color: #8A7CDF; }
+.check-icon { position: absolute; top: 10px; right: 10px; color: #8A7CDF; font-size: 18px; }
+
+/* 3. Thực đơn */
+.mb-menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;
+}
+.mb-dish-item {
+    border: 1px solid #eee; border-radius: 8px; overflow: hidden; cursor: pointer;
+    transition: all 0.2s; position: relative;
+}
+.mb-dish-item.selected { border-color: #8A7CDF; box-shadow: 0 0 0 1px #8A7CDF; }
+.mb-dish-item img { width: 100%; height: 120px; object-fit: cover; }
+.dish-details { padding: 10px; }
+.dish-details h5 { margin: 0 0 5px; font-size: 14px; }
+.dish-details p { margin: 0; font-size: 13px; font-weight: 700; color: #8A7CDF; }
+.dish-check { 
+    position: absolute; top: 5px; right: 5px; color: #8A7CDF; background: white; 
+    border-radius: 50%; width: 20px; height: 20px;
+}
+
+/* 4. Dịch vụ */
+.mb-services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.mb-service-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 15px; border: 1px solid #eee; border-radius: 6px; cursor: pointer;
+}
+.mb-service-item.selected { background: #f4f2ff; border-color: #8A7CDF; }
+.srv-name { font-size: 13px; font-weight: 500; }
+.srv-price { font-size: 13px; font-weight: 700; color: #8A7CDF; }
+.srv-check { color: #8A7CDF; }
+
+/* --- CỘT PHẢI: BILL PANEL --- */
+/* .mb-sidebar {
+    width: 380px; flex-shrink: 0;
+    position: sticky; top: 110px;
+} */
+ /* --- CỘT PHẢI: BILL PANEL (ĐÃ SỬA) --- */
+.mb-sidebar {
+    /* Đổi width thành min-width và max-width để linh hoạt hơn */
+    min-width: 350px; 
+    max-width: 380px;
+    width: 100%;
+    
+    /* Cho phép co lại nếu cần thiết, nhưng ưu tiên giữ nguyên kích thước */
+    flex-shrink: 1; 
+    
+    position: sticky; 
+    top: 110px;
+}
+.mb-bill-panel {
+    background: white; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1); border: 1px solid #ddd;
+}
+.bill-top { background: #333; color: white; padding: 12px 20px; font-weight: 700; text-align: center; }
+
+.bill-content { padding: 20px; font-size: 13px; }
+.bill-customer-info p { margin: 4px 0; border-bottom: 1px dashed #f0f0f0; padding-bottom: 4px; display: flex; justify-content: space-between; }
+
+.divider { height: 1px; background: #eee; margin: 15px 0; }
+.bill-section-title { font-weight: 800; color: #444; margin: 10px 0 5px; text-transform: uppercase; font-size: 12px; }
+
+.bill-item-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.bill-sub-item { display: flex; justify-content: space-between; color: #666; padding-left: 10px; margin-bottom: 2px; }
+.bill-item-row.highlight { font-weight: 700; color: #333; margin-top: 5px; border-top: 1px dashed #eee; padding-top: 5px; }
+.bill-item-row.total-sub { font-weight: 700; color: #8A7CDF; font-size: 14px; margin-top: 5px; }
+.bill-empty { font-style: italic; color: #aaa; font-size: 12px; }
+
+.divider-bold { height: 2px; background: #333; margin: 15px 0; }
+.bill-grand-total { display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: 800; color: #333; }
+.bill-grand-total .money { color: #d32f2f; font-size: 20px; }
+
+.bill-actions { padding: 20px; background: #f5f5f5; display: flex; flex-direction: column; gap: 10px; }
+.btn-confirm-booking {
+    width: 100%; padding: 12px; border: none; background: #8A7CDF; color: white;
+    font-weight: 700; font-size: 16px; border-radius: 6px; cursor: pointer;
+    display: flex; justify-content: center; align-items: center; gap: 8px;
+}
+.btn-confirm-booking:hover { background: #705ecf; }
+.btn-print-quote {
+    width: 100%; padding: 10px; border: 1px solid #8A7CDF; background: white; color: #8A7CDF;
+    font-weight: 600; border-radius: 6px; cursor: pointer;
+}
+.btn-print-quote:hover { background: #f4f2ff; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .mb-container { flex-direction: column; }
+    .mb-sidebar { width: 100%; position: static; }
+    .mb-form-row { grid-template-columns: 1fr 1fr; }
+    .mb-input.full { grid-column: span 2; }
+}
+/* ... (GIỮ NGUYÊN CÁC PHẦN CSS CŨ CỦA LAYOUT, HEADER, HALLS...) ... */
+
+/* ... (GIỮ NGUYÊN CÁC PHẦN CSS CŨ CỦA LAYOUT, HEADER, HALLS...) ... */
+
+/* --- MENU SWITCHER --- */
+.menu-mode-switch {
+    display: flex; gap: 5px; background: #e0e0e0; padding: 4px; border-radius: 20px;
+}
+.mode-btn {
+    border: none; background: transparent; padding: 6px 15px; border-radius: 16px;
+    font-size: 13px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.2s;
+}
+.mode-btn.active {
+    background: white; color: #8A7CDF; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* SINGLE ITEM TABS (SUB TABS) */
+.single-item-tabs {
+    display: flex; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0;
+}
+.sub-tab-btn {
+    background: none; border: 1px solid #ddd; padding: 5px 12px; border-radius: 15px;
+    font-size: 12px; color: #666; cursor: pointer;
+}
+.sub-tab-btn.active {
+    background: #8A7CDF; color: white; border-color: #8A7CDF;
+}
+
+/* ... (GIỮ NGUYÊN CSS CŨ CỦA LAYOUT, HALLS...) ... */
+
+/* SET MENU CARD (CÓ HÌNH ẢNH) */
+.mb-set-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;
+}
+.mb-set-card {
+    border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden;
+    cursor: pointer; position: relative; transition: all 0.2s; background: #fff;
+    display: flex; flex-direction: column;
+}
+.mb-set-card:hover { border-color: #8A7CDF; transform: translateY(-3px); }
+.mb-set-card.selected { border-color: #8A7CDF; box-shadow: 0 4px 12px rgba(138, 124, 223, 0.2); }
+
+.set-img-wrapper {
+    height: 140px; width: 100%; position: relative;
+}
+.set-img-wrapper img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+.check-corner {
+    position: absolute; top: 10px; right: 10px; 
+    background: white; color: #8A7CDF; font-size: 24px; border-radius: 50%;
+}
+
+.set-content { padding: 15px; }
+.set-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+}
+.set-header h4 { margin: 0; font-size: 16px; color: #333; font-weight: 700; }
+.set-price { font-weight: 700; color: #8A7CDF; font-size: 14px; }
+.set-desc { font-size: 12px; color: #666; font-style: italic; margin-bottom: 10px; }
+
+.set-items {
+    list-style: none; padding: 0; margin: 0; font-size: 13px; color: #555;
+    background: #f9f9fb; padding: 10px; border-radius: 6px;
+}
+.set-items li { margin-bottom: 4px; }
+
+/* DỊCH VỤ DẠNG CARD CÓ ẢNH */
+.mb-services-grid-img {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px;
+}
+.mb-service-card-img {
+    border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; cursor: pointer;
+    background: white; transition: all 0.2s; display: flex; flex-direction: column;
+}
+.mb-service-card-img:hover { border-color: #8A7CDF; transform: translateY(-3px); }
+.mb-service-card-img.selected { border-color: #8A7CDF; box-shadow: 0 4px 12px rgba(138, 124, 223, 0.2); }
+
+.srv-img-wrapper {
+    height: 120px; width: 100%; position: relative;
+}
+.srv-img-wrapper img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+.srv-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(138, 124, 223, 0.6); display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 30px;
+}
+
+.srv-content { padding: 10px; flex: 1; display: flex; flex-direction: column; }
+.srv-content h4 { margin: 0 0 5px; font-size: 14px; font-weight: 700; color: #333; }
+.srv-desc { 
+    font-size: 11px; color: #666; margin-bottom: 8px; line-height: 1.4;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.srv-price { margin-top: auto; font-weight: 700; color: #8A7CDF; font-size: 13px; }
+
+/* PAYMENT CONTROL (CỌC) */
+.payment-control-box {
+    background: #f9f9fb; padding: 15px; border-radius: 8px; margin: 15px 0;
+    border: 1px dashed #ccc;
+}
+.control-row {
+    display: flex; justify-content: space-between; align-items: center;
+}
+.deposit-label { font-weight: 700; color: #333; font-size: 14px; }
+.deposit-input {
+    width: 140px; padding: 8px 10px; border: 1px solid #8A7CDF; border-radius: 4px;
+    text-align: right; font-weight: 700; color: #8A7CDF; outline: none; font-size: 15px;
+}
+
+.bill-grand-total.remaining { margin-top: 10px; }
+.bill-grand-total.remaining .money { color: #d32f2f; font-size: 22px; }
+
+.payment-status-text {
+    text-align: right; font-size: 12px; margin-top: 5px; font-style: italic;
+}
+.text-success { color: #2e7d32; font-weight: 600; display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
+.text-warning { color: #f57c00; display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
+
+/* Các style khác (Giữ nguyên) */
+.hall-desc-text {
+    font-size: 11px; color: #777; margin: 4px 0 8px; font-style: italic;
+    display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}

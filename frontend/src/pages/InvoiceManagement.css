@@ -1,0 +1,228 @@
+/* --- 1. BASE LAYOUT --- */
+.invoice-page-wrapper {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    background-color: #ffffff;
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    width: 100%;
+}
+
+.invoice-page-wrapper .content-body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 2. HERO BANNER --- */
+.invoice-page-wrapper .hero-banner {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    height: 150px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    background-image: url('https://i.pinimg.com/1200x/c0/f0/16/c0f0167a545b3e55eded2d51622b17fa.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 15px 35px rgba(138, 124, 223, 0.2);
+    display: flex; align-items: center; padding: 0 50px;
+}
+
+.invoice-page-wrapper .hero-overlay {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1;
+}
+
+.invoice-page-wrapper .hero-content {
+    position: relative; z-index: 2; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.invoice-page-wrapper .hero-text { color: white; }
+.invoice-page-wrapper .hero-title { 
+    font-size: 36px; font-weight: 800; margin: 0 0 10px 0; 
+    font-family: 'Playfair Display', serif; 
+}
+.invoice-page-wrapper .hero-subtitle { font-size: 16px; opacity: 0.95; font-style: italic; font-weight: 300; }
+
+/* CONTROLS (SỬA LẠI ĐỂ KHÔNG BỊ CHỒNG) */
+.invoice-page-wrapper .hero-controls {
+    display: flex; gap: 15px; align-items: center; justify-content: flex-end;
+}
+
+.invoice-page-wrapper .search-box.glass-effect {
+    position: relative; width: 320px; flex-shrink: 0;
+}
+.invoice-page-wrapper .search-box.glass-effect input {
+    width: 100%; padding: 12px 45px 12px 20px;
+    box-sizing: border-box; /* Quan trọng */
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px; outline: none; color: white;
+    backdrop-filter: blur(8px); transition: all 0.3s;
+}
+.invoice-page-wrapper .search-box.glass-effect .search-icon {
+    position: absolute; right: 15px; top: 50%; transform: translateY(-50%); 
+    color: white; pointer-events: none; z-index: 2;
+}
+.invoice-page-wrapper .search-box.glass-effect input:focus {
+    background: white; color: #333;
+}
+.invoice-page-wrapper .search-box.glass-effect input::placeholder { color: rgba(255,255,255,0.85); }
+
+.invoice-page-wrapper .add-btn.glass-btn {
+    background: white; color: #8A7CDF; border: none; padding: 12px 25px;
+    border-radius: 50px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; gap: 8px; flex-shrink: 0; white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* --- 3. TABS (The Knot Style) --- */
+.invoice-page-wrapper .knot-tabs-container {
+    display: flex; gap: 40px; margin-bottom: 30px;
+    border-bottom: 2px solid #ffffff;
+    padding-left: 10px;
+}
+.invoice-page-wrapper .knot-tab-item {
+    font-size: 16px; font-weight: 600; color: #000000;
+    padding: 15px 5px; cursor: pointer; position: relative;
+    transition: color 0.3s;
+}
+.invoice-page-wrapper .knot-tab-item::after {
+    content: ''; position: absolute; left: 0; bottom: -2px;
+    width: 0%; height: 3px; background-color: #000000;
+    transition: width 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.invoice-page-wrapper .knot-tab-item:hover::after,
+.invoice-page-wrapper .knot-tab-item.active::after { width: 100%; }
+.invoice-page-wrapper .knot-tab-item:hover{ color: #000000; }
+.invoice-page-wrapper .knot-tab-item.active { color: #8A7CDF; }
+
+
+/* --- 4. INVOICE CARD DESIGN (ĐÃ BỎ ẢNH) --- */
+.invoice-page-wrapper .invoice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 30px;
+}
+
+.invoice-page-wrapper .invoice-card {
+    background: white; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    display: flex; flex-direction: column;
+}
+.invoice-page-wrapper .invoice-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(138, 124, 223, 0.15);
+    border-color: rgba(138, 124, 223, 0.3);
+}
+
+/* Header Card Mới (Không ảnh) */
+.invoice-page-wrapper .inv-card-header-simple {
+    padding: 15px 22px;
+    background: #fcfbff;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.invoice-page-wrapper .inv-id-text {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 600; color: #8A7CDF;
+    background: #ede7f6; padding: 4px 8px; border-radius: 4px; font-size: 13px;
+}
+
+.invoice-page-wrapper .inv-status-badge-simple {
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+}
+.status-paid { background: #E8F5E9; color: #2E7D32; border: 1px solid #C8E6C9; }
+.status-pending { background: #FFF3E0; color: #EF6C00; border: 1px solid #FFE0B2; }
+.status-overdue { background: #FFEBEE; color: #C62828; border: 1px solid #FFCDD2; }
+
+/* Body Content */
+.invoice-page-wrapper .inv-card-body { padding: 22px; flex-grow: 1; }
+.invoice-page-wrapper .inv-event-name {
+    font-size: 18px; font-weight: 700; color: #333; margin: 0 0 8px 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.invoice-page-wrapper .inv-couple-row {
+    font-size: 15px; color: #555;
+    display: flex; align-items: center; gap: 8px; font-weight: 600;
+}
+.invoice-page-wrapper .icon-couple { color: #8A7CDF; font-size: 16px; }
+
+.invoice-page-wrapper .divider-dashed {
+    border: 0; border-top: 1px dashed #eee; margin: 18px 0;
+}
+
+/* Time & Location Grid */
+.invoice-page-wrapper .inv-meta-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    margin-bottom: 18px;
+}
+.invoice-page-wrapper .meta-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #555;
+    background: #f8f9fa; padding: 8px 12px; border-radius: 10px;
+}
+.invoice-page-wrapper .meta-item.full-width { grid-column: span 2; }
+.invoice-page-wrapper .icon-meta { color: #aaa; font-size: 14px; }
+
+/* Price Breakdown */
+.invoice-page-wrapper .inv-price-breakdown {
+    background: #fcfbff; border: 1px solid #f0edff;
+    border-radius: 12px; padding: 15px;
+}
+.invoice-page-wrapper .price-row {
+    display: flex; justify-content: space-between;
+    font-size: 13px; margin-bottom: 8px; color: #666;
+}
+.invoice-page-wrapper .price-label { display: flex; align-items: center; gap: 8px; }
+.invoice-page-wrapper .price-val { font-weight: 600; color: #333; }
+
+.invoice-page-wrapper .price-total-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 12px; padding-top: 12px; border-top: 1px dashed #ddd;
+    font-weight: 800; font-size: 15px; color: #333;
+}
+.invoice-page-wrapper .total-val { color: #8A7CDF; font-size: 19px; }
+
+/* Footer */
+.invoice-page-wrapper .inv-card-footer {
+    padding: 15px 22px; background: #fafafa; border-top: 1px solid #eee;
+    display: flex; gap: 12px;
+}
+.invoice-page-wrapper .inv-action-btn {
+    flex: 1; padding: 10px; border-radius: 8px; cursor: pointer;
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: all 0.2s;
+}
+.invoice-page-wrapper .inv-action-btn.view {
+    background: white; border: 1px solid #ddd; color: #555;
+}
+.invoice-page-wrapper .inv-action-btn.view:hover {
+    border-color: #8A7CDF; color: #8A7CDF;
+}
+.invoice-page-wrapper .inv-action-btn.download {
+    background: #8A7CDF; border: none; color: white;
+}
+.invoice-page-wrapper .inv-action-btn.download:hover {
+    background: #705ecf;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .invoice-page-wrapper .hero-banner {
+        height: auto; padding: 30px 20px; flex-direction: column; text-align: center;
+    }
+    .invoice-page-wrapper .hero-controls { flex-direction: column; width: 100%; }
+    .invoice-page-wrapper .search-box.glass-effect { width: 100%; }
+    .invoice-page-wrapper .search-box.glass-effect input { width: 100%; }
+    .invoice-page-wrapper .knot-tabs-container { overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
+}
