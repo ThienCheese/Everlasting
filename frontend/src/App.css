@@ -14,11 +14,28 @@ body {
   min-height: 100vh;
 }
 
-#root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  max-width: none; 
-  text-align: left; 
+
+/* Giúp Footer luôn nằm đáy */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+  
+}
+
+
+.main-content {
+  flex: 1; /* Đẩy footer xuống đáy */
+  
+  width: 100%;      /* Chiếm hết chiều ngang như nav & footer */
+  max-width: none;  /* Không giới hạn chiều rộng */
+  
+  /* 2. Căn giữa khối nội dung */
+  margin: 0;   /* Tràn full width */
+  
+  /* 3. Padding an toàn cho mobile */
+  padding: 100px 40px 20px;  /* chừa khoảng trống cho navbar fixed & canh lề giống nav */
+  
+  display: flex;     
+  flex-direction: column; 
 }

@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* ... (GIỮ NGUYÊN TOÀN BỘ CODE CŨ TỪ .navbar ĐẾN .nav-right) ... */
+
+/* --- 1. NAVBAR CONTAINER --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0 40px;
+  background-color: transparent; 
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+}
+
+/* --- 2. LOGO (BÊN TRÁI) --- */
+.nav-left {
+  flex: 1;
+  display: flex;      
+  align-items: center; 
+  gap: 12px;            
+  cursor: pointer;
+}
+
+.nav-left .brand-name {
+    font-family: 'Pacifico', cursive; 
+    font-size: 28px; 
+    color: #000000; 
+    font-weight: 400; 
+    margin-left: 10px;
+    letter-spacing: 1px; 
+}
+
+.nav-left .brand-bold {
+    font-family: 'Pacifico', cursive;
+    color: #000; 
+    font-weight: 400;
+}
+
+/* --- 3. MENU GIỮA (HÌNH VIÊN THUỐC) --- */
+.nav-center {
+  flex: 2; 
+  display: flex;
+  justify-content: center;
+  border: 1px solid #000000;
+  border-radius: 50px;
+  background-color: transparent;
+  padding: 15px 30px; 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  color: #000000;
+  cursor: pointer;
+  font-size: 15px;
+  align-items: center; 
+}
+
+.nav-link-item {
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+.nav-link-item:hover, .nav-link-item.active {
+  color: #8A7CDF;
+}
+
+/* --- 4. DROPDOWN (LOGIC CŨ) --- */
+.dropdown-parent {
+    position: relative; 
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+}
+
+.dropdown-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s;
+}
+
+.dropdown-label .arrow {
+    font-size: 10px;
+    transition: transform 0.3s;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 40px; 
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); 
+    background-color: white;
+    min-width: 220px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.1);
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1100;
+    margin: 0; 
+}
+
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+    filter: drop-shadow(0 -1px 0 rgba(0,0,0,0.1));
+}
+
+.dropdown-bridge {
+    position: absolute;
+    top: -20px; left: 0; width: 100%; height: 20px; background: transparent;
+}
+
+.dropdown-parent:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); 
+}
+
+.dropdown-parent:hover .arrow { transform: rotate(180deg); }
+.dropdown-parent:hover .dropdown-label { color: #8A7CDF; }
+
+.dropdown-menu li { width: 100%; margin: 0; }
+
+.dropdown-item {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f4f2ff;
+    color: #8A7CDF;
+    transform: translateX(5px); 
+}
+
+/* --- 5. BÊN PHẢI (USER ACCOUNT - MỚI) --- */
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  position: relative; /* Để định vị dropdown con */
+}
+
+/* --- XÓA NÚT LOGOUT CŨ NẾU KHÔNG CẦN --- */
+/* .logout-btn { ... } */
+
+/* Style cho nút User Account (Bo tròn, viền đen) */
+.user-account-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Padding trái nhỏ hơn để avatar sát lề, phải rộng hơn cho đẹp */
+    padding: 5px 10px 5px 5px; 
+    /* border: 1px solid #000; */ /* Viền đen theo thiết kế */
+    /* border-radius: 50px; */ /* Bo tròn hoàn toàn */
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 25px; /* Chiều cao cố định */
+}
+
+.user-account-btn:hover, .user-account-btn.active {
+    background-color: #f6e6e6;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 50px;
+}
+
+/* Vòng tròn Avatar màu hồng */
+/* .user-avatar-circle {
+    width: 25px;
+    height: 25px;
+    background-color: #ff40b4; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-family: 'Pacifico', cursive;
+    font-size: 18px;
+}
+
+.avatar-text {
+    padding-bottom: 3px;
+} */
+
+/* Tên User "Your account" */
+.user-name-text {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    color: #ff40b4;
+    font-size: 15px;
+}
+
+/* --- MENU CON CỦA USER --- */
+.user-dropdown-menu {
+    position: absolute;
+    top: 60px; /* Cách top một chút */
+    right: 0;
+    width: 240px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border: 1px solid #eee;
+    padding: 10px 0;
+    z-index: 1200;
+    animation: fadeInUser 0.2s ease-in-out;
+}
+
+/* Mũi tên nhỏ chỉ lên trên */
+.user-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -6px; right: 20px;
+    width: 12px; height: 12px;
+    background: white;
+    transform: rotate(45deg);
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
+}
+
+/* Header thông tin user trong dropdown */
+.user-info-header {
+    padding: 10px 20px;
+}
+.u-name { margin: 0; font-weight: 800; color: #333; font-size: 16px; }
+.u-role { margin: 5px 0 0 0; font-size: 13px; color: #888; font-weight: 500; }
+
+.user-dropdown-menu hr {
+    border: none; border-top: 1px solid #f0f0f0; margin: 8px 0;
+}
+
+/* Các item trong menu user */
+.user-menu-item {
+    width: 100%;
+    background: none; border: none;
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 14px; color: #555;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    transition: background 0.2s;
+}
+.user-menu-item:hover {
+    background-color: #f9f9f9;
+    color: #8A7CDF;
+}
+
+.user-menu-item.logout:hover {
+    background-color: #fff0f0;
+    color: #d32f2f;
+}
+
+.u-icon { font-size: 16px; opacity: 0.7; }
+
+/* Animation hiện menu */
+@keyframes fadeInUser {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 6. SCROLL EFFECT --- */
+.navbar.scrolled {
+  background-color: white; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+  height: 70px; 
+}
+
+.navbar.scrolled .nav-center {
+  border: none;             
+  background-color: transparent; 
+  box-shadow: none;         
+  padding: 0;                
+  border-radius: 0;          
+}
+
+.navbar.scrolled .nav-logo-img {
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+}
+/* --- BỔ SUNG: HIỆU ỨNG XOAY MŨI TÊN USER ACCOUNT --- */
+
+/* 1. Thiết lập ban đầu cho mũi tên */
+.user-name-text .arrow {
+    display: inline-block; /* Quan trọng: Thẻ span phải là inline-block mới xoay được */
+    margin-left: 5px;      /* Khoảng cách với chữ */
+    font-size: 10px;       /* Kích thước mũi tên */
+    transition: transform 0.3s ease; /* Tạo hiệu ứng chuyển động mượt */
+}
+
+/* 2. Xoay 180 độ khi menu đang mở (có class active) */
+/* Class .active này đã có trong logic Header.js ở bước trước */
+.user-account-btn.active .user-name-text .arrow {
+    transform: rotate(180deg);
+    color: #ff40b4; /* Đổi màu tím khi xoay (tuỳ chọn) */
+}
+
+/* (Tùy chọn) Nếu bạn muốn xoay ngay khi di chuột vào (Hover) giống hệt menu giữa */
+.user-account-btn:active .user-name-text .arrow {
+    transform: rotate(180deg);
+}

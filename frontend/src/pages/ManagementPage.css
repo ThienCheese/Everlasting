@@ -1,0 +1,363 @@
+.management-container {
+  font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+  color: #444;
+  background-color: #f5f7fa; /* Màu nền xám nhạt hiện đại */
+  min-height: 100vh;
+  padding-top: 100px; 
+  padding-bottom: 50px;
+  width: 100%;
+}
+
+.content-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-block {
+  background: white;
+  border-radius: 20px; /* Bo góc lớn */
+  padding: 30px;
+  margin-bottom: 40px;
+  /* Hiệu ứng bóng đổ nhẹ tạo chiều sâu */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); 
+  border: 1px solid rgba(0,0,0,0.02);
+  transition: transform 0.3s ease;
+}
+
+.section-block:hover {
+  /* Hiệu ứng nổi lên nhẹ khi di chuột vào cả khối */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); 
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 20px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #333;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+/* Gạch chân trang trí dưới tiêu đề */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #8A7CDF; /* Màu tím thương hiệu */
+    border-radius: 2px;
+    margin-top: 5px;
+}
+.shift-icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background-color: #f4f6f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Badge trạng thái (Active/Inactive) */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.status-badge.available {
+    background-color: #E8F5E9; /* Nền xanh lá nhạt */
+    color: #2E7D32;            /* Chữ xanh lá đậm */
+    border: 1px solid #C8E6C9;
+}
+
+.status-badge.soldout {
+    background-color: #FFEBEE; /* Nền đỏ nhạt */
+    color: #C62828;            /* Chữ đỏ đậm */
+    border: 1px solid #FFCDD2;
+}
+
+/* Tinh chỉnh lại độ rộng bảng nếu cần */
+.shift-table {
+    /* Đảm bảo bảng full width để tận dụng không gian */
+    width: 100%; 
+}
+
+/* --- SỬA LẠI KHỐI CONTROLS --- */
+.controls-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Ngăn không cho các phần tử con xuống dòng */
+    flex-wrap: nowrap; 
+}
+
+/* Ô tìm kiếm: Khóa cứng chiều rộng */
+.search-box {
+    position: relative;
+    /* Flex shorthand: không giãn, không co, độ rộng cơ sở 280px */
+    flex: 0 0 280px; 
+    width: 280px;
+    z-index: 1; /* Đảm bảo nằm đúng lớp */
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 45px 12px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 50px;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    /* Đảm bảo box-sizing là border-box để padding không làm phình to */
+    box-sizing: border-box; 
+}
+
+.search-box input:focus {
+    background-color: white;
+    border-color: #8A7CDF;
+    box-shadow: 0 0 0 4px rgba(138, 124, 223, 0.15);
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8A7CDF;
+    font-size: 16px;
+    pointer-events: none; /* Giúp click vào icon vẫn focus vào input */
+}
+
+/* Nút Thêm Mới: Khóa không cho bị đè */
+.add-btn {
+    flex: 0 0 auto; 
+    
+    background: linear-gradient(135deg, #8A7CDF 0%, #705ecf 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(138, 124, 223, 0.3);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative; 
+    z-index: 10; 
+}
+
+.add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(138, 124, 223, 0.4);
+}
+
+.add-btn:active {
+    transform: translateY(0);
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: separate; /* Tách rời các dòng để bo góc */
+  border-spacing: 0; /* Khoảng cách giữa các ô */
+}
+
+/* Tiêu đề bảng (Header) */
+.custom-table th {
+  text-align: left;
+  padding: 15px 20px;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 700;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e0d8fa;
+  background-color: #F9F8FF;
+}
+.custom-table th:first-child { 
+    border-top-left-radius: 10px; 
+    border-left: 1px solid #f0f0f0; 
+    border-bottom-left-radius: 10px; 
+}
+.custom-table th:last-child { 
+    border-top-right-radius: 10px; 
+    border-right: 1px solid #f0f0f0; 
+    border-bottom-right-radius: 10px; 
+}
+
+/* Dòng dữ liệu (Row) */
+.custom-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid #f9f9f9;
+  vertical-align: middle;
+  color: #000000;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+/* Hiệu ứng khi di chuột vào dòng */
+.custom-table tbody tr:hover td {
+  background-color: #f6f3ff; /* Màu nền tím rất nhạt */
+}
+
+/* Cột hình ảnh */
+.hall-thumbnail {
+  width: 70px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Tag Loại (VIP, Thường...) */
+.type-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+
+}
+
+/* Căn chỉnh text */
+.text-right { text-align: right;}
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.custom-table th.text-right {
+    text-align: right;
+    padding-right: 3%;
+}
+
+.note-text {
+  font-size: 13px;
+  color: #000000;
+  line-height: 1.4;
+  max-width: 300px; 
+}
+
+
+/* .action-cells {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+
+}
+
+.edit-btn {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+.edit-btn:hover {
+    background-color: #1976d2;
+    color: white;
+    transform: rotate(15deg);
+}
+
+
+.delete-btn {
+    background-color: #ffebee;
+    color: #ef5350;
+}
+.delete-btn:hover {
+    background-color: #ef5350;
+    color: white;
+    transform: scale(1.1);
+} */
+ /* Container for action buttons */
+.management-container .action-cells {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Ensure buttons align right */
+    gap: 12px; /* Space between buttons */
+}
+
+/* Base style for the circular button */
+.management-container .icon-btn {
+    width: 40px;  /* Slightly smaller, cleaner look */
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
+    font-size: 16px;
+    padding: 0;
+    box-shadow: none; /* Reset any default shadows */
+}
+
+/* Edit Button (Blue) - Scoped */
+.management-container .edit-btn {
+    background-color: #e3f2fd !important; /* Force override if needed */
+    color: #1976d2 !important;
+}
+
+.management-container .edit-btn:hover {
+    background-color: #1976d2 !important;
+    color: white !important;
+    transform: rotate(15deg);
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.2);
+}
+
+/* Delete Button (Red) - Scoped */
+.management-container .delete-btn {
+    background-color: #ffebee !important;
+    color: #ef5350 !important;
+}
+
+.management-container .delete-btn:hover {
+    background-color: #ef5350 !important;
+    color: white !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(239, 83, 80, 0.2);
+}
+
+
+
+@media (max-width: 768px) {
+    .content-body { padding: 0 10px; }
+    .section-header-row { flex-direction: column; align-items: flex-start; }
+    .controls-group { width: 100%; flex-direction: column; }
+    .search-box { width: 100%; }
+    .add-btn { width: 100%; justify-content: center; }
+    
+    /* Bảng cuộn ngang trên mobile */
+    .section-block { padding: 15px; overflow-x: auto; }
+}

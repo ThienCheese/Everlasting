@@ -1,0 +1,121 @@
+import React, { useState, useEffect, useRef } from 'react'; // 1. Import thêm useRef
+import { useNavigate } from 'react-router-dom';
+import logoImg from '../assets/weblogo.png'; 
+import './Header.css'; 
+// Import các icon cần thiết cho User Menu
+import { FaUserCircle, FaSignOutAlt, FaCog } from 'react-icons/fa';
+
+const Header = () => {
+  const navigate = useNavigate();
+  
+  // State cuộn trang
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  // --- MỚI: State quản lý User Menu ---
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef(null);
+
+  // Giả lập thông tin user (Sau này lấy từ API/Local Storage)
+  const user = {
+    name: "Admin User",
+    role: "Quản trị viên"
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    // Hàm đóng menu khi click ra ngoài
+    const handleClickOutside = (event) => {
+        if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+            setShowUserMenu(false);
+        }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    document.addEventListener("mousedown", handleClickOutside);
+    
+    return () => {
+        window.removeEventListener("scroll", handleScroll);
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleLogout = () => {
+      // Xử lý đăng xuất ở đây
+      console.log("Đã đăng xuất");
+      navigate('/');
+  };
+
+  return (
+    <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
+      
+      {/* 1. LOGO BÊN TRÁI (Giữ nguyên font viết tay) */}
+      <div className="nav-left" onClick={() => navigate('/home')}>
+        {/* <img src={logoImg} alt="Logo" className="nav-logo-img" /> */}
+        <span className="brand-name">Ever<span className="brand-bold">lasting</span></span>
+      </div>
+
+      {/* 2. MENU Ở GIỮA (Giữ nguyên style viên thuốc) */}
+      <div className="nav-center">
+        <ul className="nav-links">
+          <li className="nav-link-item" onClick={() => navigate('/home')}>Trang Chủ</li>
+          
+          {/* --- DROPDOWN QUẢN LÝ --- */}
+          <li className="nav-link-item dropdown-parent">
+            <div className="dropdown-label">
+                Quản lý <span className="arrow">▼</span>
+            </div>
+            <ul className="dropdown-menu">
+                <div className="dropdown-bridge"></div>
+                <li><span className="dropdown-item" onClick={() => navigate('/management')}>Quản lý sảnh</span></li>
+                <li><span className="dropdown-item" onClick={() => navigate('/menu-management')}>Quản lý thực đơn</span></li>
+                <li><span className="dropdown-item" onClick={() => navigate('/service-management')}>Quản lý dịch vụ</span></li>
+                <li><span className="dropdown-item" onClick={() => navigate('/invoice-management')}>Quản lý hóa đơn</span></li>
+            </ul>
+          </li>
+
+          <li className="nav-link-item" onClick={() => navigate('/booking')}>Đặt tiệc</li>
+          <li className="nav-link-item" onClick={() => navigate('/stats')}>Thống kê</li>
+          <li className="nav-link-item" onClick={() => navigate('/roles')}>Phân quyền</li>
+        </ul>
+      </div>
+
+      {/* 3. BÊN PHẢI: USER ACCOUNT (THAY THẾ NÚT LOGOUT CŨ) */}
+      <div className="nav-right" ref={userMenuRef}>
+        
+        {/* Nút hiển thị tài khoản (Giống hình mẫu) */}
+        <div 
+            className={`user-account-btn ${showUserMenu ? 'active' : ''}`} 
+            onClick={() => setShowUserMenu(!showUserMenu)}
+        >
+            <div className="user-avatar-circle">
+                {/* Chữ cái đầu tên User */}
+                {/* <span className="avatar-text">E</span>  */}
+            </div>
+            <span className="user-name-text">Your account <span className="arrow">▼</span></span>
+            
+        </div>
+
+        {/* Menu con thả xuống của User */}
+        {showUserMenu && (
+            <div className="user-dropdown-menu">
+                {/* Header nhỏ trong menu */}
+                <div className="user-info-header">
+                    <p className="u-name">{user.name}</p>
+                    <p className="u-role">{user.role}</p>
+                </div>
+                <hr />
+                <button className="user-menu-item logout" onClick={handleLogout}>
+                    <FaSignOutAlt className="u-icon"/> Đăng xuất
+                </button>
+            </div>
+        )}
+      </div>
+
+    </nav>
+  );
+};
+
+export default Header;

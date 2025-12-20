@@ -11,6 +11,7 @@ import soundTing from '../assets/ting.mp3';
 import sparkleImg1 from '../assets/bling1.png';
 import sparkleImg2 from '../assets/bling2.png';
 import sparkleImg3 from '../assets/bling3.png';
+import Header from "../components/Header";
 
 import './Home.css';
 import logoImg from '../assets/weblogo.png';
@@ -102,27 +103,7 @@ const Home = () => {
     };
     return(
         <div className="home-page">
-            <nav className={`navbar ${isScrolled ? "scrolled": ""}`}>
-                {/* phan trai logo */}
-                <div className="nav-left">
-                    <img src={logoImg} alt="everlasting logo" className="nav-logo-img"/>
-                    <span className="brand-name">EVER<span className="brand-bold">LASTING</span></span>
-                </div>
-                {/* phan giua menu */}
-                <div className="nav-center">
-                    <ul className="nav-links">
-                        <li className="active">Trang Chủ</li>
-                        <li>Quản lý ▾</li>
-                        <li>Đặt tiệc</li>
-                        <li>Thống kê</li>
-                        <li>Phân quyền</li>
-                    </ul>
-                </div>
-                {/* phan phai dang xuat */}
-                <div className="nav-right">
-                    <button className="logout-btn" onClick={handleLogout}>Đăng xuất</button>
-                </div>
-            </nav>
+            
             <section className="we-video-section">
                 <div className="video-container">
                     {/* <iframe width="100%" height="100%" src="https://youtu.be/CdWb96Vw3Gc?si=4IrgKitDEpFsft_v" title="Wedding Intro" frameBorder="0" allow="accelerometer;autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -209,9 +190,7 @@ const Home = () => {
                     </button>
                 </div>
             </section>
-            <footer className="home-footer">
-                    <p>© 2025 Everlasting Wedding.</p>
-            </footer>
+          
         </div>
     );
 };
