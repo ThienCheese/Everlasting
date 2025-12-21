@@ -11,32 +11,33 @@ import {
   validateRegister,
   validateLogin,
 } from '../services/auth.services.js';
+import { ROLES } from '../constants/permissions.js';
 
 // Register
 export const register = async (req, res) => {
   logger.info('[REGISTER] Register request received');
   try {
-    const { tenDangNhap, matKhau, tenNguoiDung, maNhom } = req.body;
+    const { tenDangNhap, matKhau, tenNguoiDung } = req.body;
 
     // Validate
-    await validateRegister(tenDangNhap, matKhau, tenNguoiDung, maNhom);
+    await validateRegister(tenDangNhap, matKhau, tenNguoiDung);
 
     // Hash password
     const hashedPassword = await hashPassword(matKhau);
 
-    // Tạo user
+    // Tạo user với mặc định là Guest (MaNhom = 6)
     const user = await User.create({
       TenDangNhap: tenDangNhap,
       MatKhau: hashedPassword,
       TenNguoiDung: tenNguoiDung,
-      MaNhom: maNhom || 1, // Default nhóm 1 nếu không truyền
+      MaNhom: ROLES.GUEST, // Mặc định là Guest - chỉ truy cập public endpoints
     });
 
     // Xóa password khỏi response
     delete user.MatKhau;
 
-    logger.info(`[REGISTER] User registered successfully: ${user.TenDangNhap}`);
-    return successResponse(res, user, 'Đăng ký thành công', 201);
+    logger.info(`[REGISTER] User registered successfully: ${user.TenDangNhap} with role Guest`);
+    return successResponse(res, user, 'Đăng ký thành công. Tài khoản của bạn có quyền Guest, vui lòng liên hệ Admin để nâng cấp quyền.', 201);
   } catch (error) {
     logger.error(`[REGISTER] Error: ${error.message}`);
     return errorResponse(res, error.message, 500);

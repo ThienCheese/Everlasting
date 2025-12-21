@@ -17,10 +17,11 @@ import { auditLogger } from '../middleware/logging.middleware.js';
 
 const router = Router();
 
+// Tất cả endpoints yêu cầu Admin (MaNhom = 1)
 router.get('/lists', authMiddleware, requireAdmin, validatePagination, getAllPhanQuyen);
 router.get('/nhom/:maNhom', authMiddleware, requireAdmin, validateIdParam('maNhom'), getPhanQuyenByNhom);
 router.get('/chucnang/:maChucNang', authMiddleware, requireAdmin, validateIdParam('maChucNang'), getPhanQuyenByChucNang);
-router.get('/check/:maNhom/:maChucNang', authMiddleware, validateIdParam('maNhom'), validateIdParam('maChucNang'), checkPermission);
+router.get('/check/:maNhom/:maChucNang', authMiddleware, requireAdmin, validateIdParam('maNhom'), validateIdParam('maChucNang'), checkPermission);
 router.post('/create', authMiddleware, requireAdmin, createLimiter, validateCreatePhanQuyen, auditLogger('PHANQUYEN_CREATE'), createPhanQuyen);
 router.delete('/delete/:maNhom/:maChucNang', authMiddleware, requireAdmin, validateIdParam('maNhom'), validateIdParam('maChucNang'), deleteLimiter, auditLogger('PHANQUYEN_DELETE'), deletePhanQuyen);
 router.put('/nhom/:maNhom', authMiddleware, requireAdmin, validateIdParam('maNhom'), validateUpdatePhanQuyenNhom, auditLogger('PHANQUYEN_UPDATE_NHOM'), updatePhanQuyenNhom);

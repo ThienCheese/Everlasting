@@ -1,4 +1,13 @@
 import { errorResponse } from '../helpers/response.helper.js';
+import logger from '../helpers/logger.js';
+
+/**
+ * RBAC Middleware - Role-Based Access Control
+ * Hệ thống phân quyền dựa trên:
+ * - NHOMNGUOIDUNG: Nhóm người dùng (Admin, Lễ tân, Quản lý, Bếp trưởng, Kế toán)
+ * - CHUCNANG: Các chức năng/màn hình trong hệ thống
+ * - PHANQUYEN: Ma trận mapping giữa nhóm và chức năng
+ */
 
 /**
  * Middleware kiểm tra quyền truy cập resource
@@ -7,7 +16,7 @@ import { errorResponse } from '../helpers/response.helper.js';
 export const checkResourceOwnership = (resourceType) => {
   return async (req, res, next) => {
     try {
-      const userId = req.user?.id; // Lấy từ auth middleware
+      const userId = req.user?.id;
       const resourceId = req.params.id;
 
       if (!userId) {
@@ -25,14 +34,15 @@ export const checkResourceOwnership = (resourceType) => {
 };
 
 /**
- * Middleware kiểm tra quyền quản trị
+ * Middleware kiểm tra quyền quản trị (DEPRECATED)
+ * @deprecated Sử dụng requirePermission thay thế để phân quyền chi tiết hơn
  */
 export const requireAdmin = (req, res, next) => {
   if (!req.user) {
     return errorResponse(res, 'Khong co thong tin nguoi dung', 401);
   }
 
-  // Giả sử admin có MaNhom = 1
+  // Admin có MaNhom = 1
   if (req.user.maNhom !== 1) {
     return errorResponse(res, 'Chi admin moi co quyen thuc hien thao tac nay', 403);
   }
@@ -42,6 +52,8 @@ export const requireAdmin = (req, res, next) => {
 
 /**
  * Middleware kiểm tra quyền theo nhóm
+ * @param {...number} allowedRoles - Danh sách MaNhom được phép truy cập
+ * @example requireRole(1, 2, 3) // Cho phép Admin, Lễ tân, Quản lý
  */
 export const requireRole = (...allowedRoles) => {
   return (req, res, next) => {
@@ -50,6 +62,7 @@ export const requireRole = (...allowedRoles) => {
     }
 
     if (!allowedRoles.includes(req.user.maNhom)) {
+      logger.warn(`[RBAC] User ${req.user.id} (Nhom ${req.user.maNhom}) tried to access role-restricted resource`);
       return errorResponse(res, 'Ban khong co quyen truy cap', 403);
     }
 
@@ -58,24 +71,32 @@ export const requireRole = (...allowedRoles) => {
 };
 
 /**
- * Middleware kiểm tra quyền theo chức năng
+ * Middleware kiểm tra quyền theo mã chức năng (RECOMMENDED)
+ * @param {number} maChucNang - Mã chức năng từ bảng CHUCNANG
+ * @example requirePermission(1) // Yêu cầu quyền "Quản lý người dùng"
+ * @example requirePermission(3) // Yêu cầu quyền "Quản lý món ăn"
  */
-export const requirePermission = (tenChucNang) => {
+export const requirePermission = (maChucNang) => {
   return async (req, res, next) => {
     try {
       if (!req.user) {
         return errorResponse(res, 'Khong co thong tin nguoi dung', 401);
       }
 
+      const maNhom = req.user.maNhom;
+
       // Kiểm tra quyền trong database
-      const hasPermission = await checkUserPermission(req.user.maNhom, tenChucNang);
+      const hasPermission = await checkUserPermission(maNhom, maChucNang);
 
       if (!hasPermission) {
-        return errorResponse(res, `Ban khong co quyen ${tenChucNang}`, 403);
+        logger.warn(`[RBAC] User ${req.user.id} (Nhom ${maNhom}) denied access to ChucNang ${maChucNang}`);
+        return errorResponse(res, `Ban khong co quyen truy cap chuc nang nay`, 403);
       }
 
+      logger.info(`[RBAC] User ${req.user.id} (Nhom ${maNhom}) granted access to ChucNang ${maChucNang}`);
       next();
     } catch (error) {
+      logger.error(`[RBAC] Error checking permission: ${error.message}`);
       return errorResponse(res, error.message, 500);
     }
   };
@@ -83,21 +104,23 @@ export const requirePermission = (tenChucNang) => {
 
 /**
  * Helper function kiểm tra quyền user
+ * @param {number} maNhom - Mã nhóm người dùng
+ * @param {number} maChucNang - Mã chức năng
+ * @returns {Promise<boolean>}
  */
-async function checkUserPermission(maNhom, tenChucNang) {
-  // Import model ở đây để tránh circular dependency
-  const PhanQuyen = (await import('../models/phanquyen.model.js')).default;
-  const ChucNang = (await import('../models/chucnang.model.js')).default;
+async function checkUserPermission(maNhom, maChucNang) {
+  try {
+    // Import model ở đây để tránh circular dependency
+    const PhanQuyen = (await import('../models/phanquyen.model.js')).default;
 
-  // Lấy chức năng theo tên
-  const chucNang = await ChucNang.findByTen(tenChucNang);
-  
-  if (!chucNang) {
+    // Kiểm tra quyền trong bảng PHANQUYEN
+    const hasPermission = await PhanQuyen.checkPermission(maNhom, maChucNang);
+    
+    return hasPermission;
+  } catch (error) {
+    logger.error(`[RBAC] Error in checkUserPermission: ${error.message}`);
     return false;
   }
-
-  // Kiểm tra quyền
-  return await PhanQuyen.checkPermission(maNhom, chucNang.MaChucNang);
 }
 
 export default {

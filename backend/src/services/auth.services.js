@@ -46,7 +46,7 @@ export const saveRefreshToken = async (maNguoiDung, refreshToken) => {
 };
 
 // Validate register input
-export const validateRegister = async (tenDangNhap, matKhau, tenNguoiDung, maNhom) => {
+export const validateRegister = async (tenDangNhap, matKhau, tenNguoiDung) => {
   // Check username đã tồn tại
   const existingUser = await User.findByUsername(tenDangNhap);
   if (existingUser) {
@@ -63,11 +63,8 @@ export const validateRegister = async (tenDangNhap, matKhau, tenNguoiDung, maNho
     throw new Error('Tên người dùng không được để trống');
   }
 
-  // Check nhóm người dùng tồn tại
-  const nhom = await db('NHOMNGUOIDUNG').where({ MaNhom: maNhom }).first();
-  if (!nhom) {
-    throw new Error('Nhóm người dùng không tồn tại');
-  }
+  // Không check maNhom nữa vì đăng ký mặc định là Guest
+  // Guest role sẽ được gán tự động trong controller
 };
 
 // Validate login input

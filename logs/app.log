@@ -74,3 +74,313 @@
 2025-12-21T04:58:08.451Z [INFO] : Audit Log
 2025-12-21T04:58:08.645Z [INFO] : [SUCCESS]Tạo món ăn thành công
 2025-12-21T04:58:08.646Z [INFO] : HTTP Request
+2025-12-21T10:10:51.579Z [ERROR] : HTTP Request Error
+2025-12-21T10:11:14.031Z [WARN] : [AUTH] No token provided
+2025-12-21T10:11:14.032Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T10:11:14.033Z [ERROR] : HTTP Request Error
+2025-12-21T10:36:34.846Z [ERROR] : HTTP Request Error
+2025-12-21T10:37:23.255Z [ERROR] : HTTP Request Error
+2025-12-21T10:38:58.331Z [ERROR] : [ERROR] Mat khau phai co it nhat 6 ky tu, Ma nhom phai la so
+2025-12-21T10:38:58.332Z [ERROR] : HTTP Request Error
+2025-12-21T10:39:14.751Z [INFO] : Audit Log
+2025-12-21T10:39:14.751Z [INFO] : [REGISTER] Register request received
+2025-12-21T10:39:15.145Z [INFO] : [REGISTER] User registered successfully: chi
+2025-12-21T10:39:15.145Z [INFO] : [SUCCESS]Đăng ký thành công
+2025-12-21T10:39:15.146Z [INFO] : HTTP Request
+2025-12-21T10:39:24.555Z [INFO] : Audit Log
+2025-12-21T10:39:24.555Z [INFO] : [LOGIN] Login request received
+2025-12-21T10:39:24.936Z [INFO] : [LOGIN] User logged in successfully: chi
+2025-12-21T10:39:24.936Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T10:39:24.936Z [INFO] : HTTP Request
+2025-12-21T10:39:58.630Z [INFO] : Audit Log
+2025-12-21T10:39:58.630Z [INFO] : [LOGIN] Login request received
+2025-12-21T10:39:58.736Z [ERROR] : [LOGIN] Invalid password
+2025-12-21T10:39:58.736Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-21T10:39:58.737Z [ERROR] : HTTP Request Error
+2025-12-21T10:40:04.812Z [INFO] : Audit Log
+2025-12-21T10:40:04.813Z [INFO] : [LOGIN] Login request received
+2025-12-21T10:40:04.869Z [ERROR] : [LOGIN] User not found
+2025-12-21T10:40:04.869Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-21T10:40:04.869Z [ERROR] : HTTP Request Error
+2025-12-21T10:48:00.679Z [INFO] : [AUTH] User authenticated: chi
+2025-12-21T10:48:00.814Z [INFO] : [SUCCESS]Lay danh sach dat tiec thanh cong
+2025-12-21T10:48:00.815Z [INFO] : HTTP Request
+2025-12-21T10:49:04.504Z [ERROR] : HTTP Request Error
+2025-12-21T10:49:08.531Z [INFO] : [AUTH] User authenticated: chi
+2025-12-21T10:49:08.594Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-21T10:49:08.595Z [INFO] : HTTP Request
+2025-12-21T10:56:44.955Z [INFO] : [AUTH] User authenticated: chi
+2025-12-21T10:56:45.084Z [INFO] : [SUCCESS]Lay danh sach hoa don thanh cong
+2025-12-21T10:56:45.085Z [INFO] : HTTP Request
+2025-12-21T10:57:21.635Z [WARN] : [AUTH] No token provided
+2025-12-21T10:57:21.635Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T10:57:21.636Z [ERROR] : HTTP Request Error
+2025-12-21T10:57:26.810Z [INFO] : [AUTH] User authenticated: chi
+2025-12-21T10:57:26.871Z [INFO] : [SUCCESS]Lay danh sach hoa don thanh cong
+2025-12-21T10:57:26.872Z [INFO] : HTTP Request
+2025-12-21T10:57:40.700Z [INFO] : [AUTH] User authenticated: chi
+2025-12-21T10:57:40.767Z [INFO] : [SUCCESS]Lay thong tin hoa don thanh cong
+2025-12-21T10:57:40.768Z [INFO] : HTTP Request
+2025-12-21T11:37:38.792Z [INFO] : [AUTH] User authenticated: chi
+2025-12-21T11:37:38.929Z [INFO] : [SUCCESS]Lay phan quyen cua nhom thanh cong
+2025-12-21T11:37:38.931Z [INFO] : HTTP Request
+2025-12-21T12:01:08.229Z [ERROR] : [AUTH] Token expired
+2025-12-21T12:01:08.230Z [ERROR] : [ERROR] Token đã hết hạn
+2025-12-21T12:01:08.233Z [ERROR] : HTTP Request Error
+2025-12-21T12:01:42.574Z [ERROR] : HTTP Request Error
+2025-12-21T12:02:01.098Z [INFO] : Audit Log
+2025-12-21T12:02:01.099Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:02:01.199Z [ERROR] : [LOGIN] User not found
+2025-12-21T12:02:01.200Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-21T12:02:01.201Z [ERROR] : HTTP Request Error
+2025-12-21T12:02:05.463Z [INFO] : Audit Log
+2025-12-21T12:02:05.463Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:02:05.520Z [ERROR] : [LOGIN] User not found
+2025-12-21T12:02:05.521Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-21T12:02:05.521Z [ERROR] : HTTP Request Error
+2025-12-21T12:02:09.761Z [INFO] : Audit Log
+2025-12-21T12:02:09.761Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:02:09.817Z [ERROR] : [LOGIN] Invalid password
+2025-12-21T12:02:09.817Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-21T12:02:09.817Z [ERROR] : HTTP Request Error
+2025-12-21T12:02:17.073Z [INFO] : Audit Log
+2025-12-21T12:02:17.073Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:02:17.260Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T12:02:17.260Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T12:02:17.261Z [INFO] : HTTP Request
+2025-12-21T12:02:30.218Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T12:02:30.288Z [INFO] : [SUCCESS]Lay phan quyen cua nhom thanh cong
+2025-12-21T12:02:30.290Z [INFO] : HTTP Request
+2025-12-21T12:02:35.502Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T12:02:35.563Z [INFO] : [SUCCESS]Lay phan quyen cua nhom thanh cong
+2025-12-21T12:02:35.563Z [INFO] : HTTP Request
+2025-12-21T12:05:52.011Z [INFO] : Audit Log
+2025-12-21T12:05:52.011Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:05:52.078Z [ERROR] : [LOGIN] Invalid password
+2025-12-21T12:05:52.078Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-21T12:05:52.079Z [ERROR] : HTTP Request Error
+2025-12-21T12:09:01.631Z [INFO] : Audit Log
+2025-12-21T12:09:01.631Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:09:01.804Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T12:09:01.804Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T12:09:01.804Z [INFO] : HTTP Request
+2025-12-21T12:17:14.763Z [INFO] : Audit Log
+2025-12-21T12:17:14.764Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:17:14.942Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T12:17:14.942Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T12:17:14.942Z [INFO] : HTTP Request
+2025-12-21T12:18:37.430Z [INFO] : Audit Log
+2025-12-21T12:18:37.431Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:18:37.594Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T12:18:37.594Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T12:18:37.594Z [INFO] : HTTP Request
+2025-12-21T12:19:01.389Z [ERROR] : [AUTH] Token expired
+2025-12-21T12:19:01.389Z [ERROR] : [ERROR] Token đã hết hạn
+2025-12-21T12:19:01.389Z [ERROR] : HTTP Request Error
+2025-12-21T12:19:27.015Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T12:19:27.104Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-21T12:19:27.105Z [INFO] : HTTP Request
+2025-12-21T12:20:37.283Z [INFO] : Audit Log
+2025-12-21T12:20:37.283Z [INFO] : [REGISTER] Register request received
+2025-12-21T12:20:37.340Z [ERROR] : [REGISTER] Error: Undefined binding(s) detected when compiling FIRST. Undefined column(s): [MaNhom] query: select * from "NHOMNGUOIDUNG" where "MaNhom" = ? limit ?
+2025-12-21T12:20:37.340Z [ERROR] : [ERROR] Undefined binding(s) detected when compiling FIRST. Undefined column(s): [MaNhom] query: select * from "NHOMNGUOIDUNG" where "MaNhom" = ? limit ?
+2025-12-21T12:20:37.340Z [ERROR] : HTTP Request Error
+2025-12-21T12:20:49.040Z [INFO] : Audit Log
+2025-12-21T12:20:49.041Z [INFO] : [REGISTER] Register request received
+2025-12-21T12:20:49.098Z [ERROR] : [REGISTER] Error: Undefined binding(s) detected when compiling FIRST. Undefined column(s): [MaNhom] query: select * from "NHOMNGUOIDUNG" where "MaNhom" = ? limit ?
+2025-12-21T12:20:49.098Z [ERROR] : [ERROR] Undefined binding(s) detected when compiling FIRST. Undefined column(s): [MaNhom] query: select * from "NHOMNGUOIDUNG" where "MaNhom" = ? limit ?
+2025-12-21T12:20:49.099Z [ERROR] : HTTP Request Error
+2025-12-21T12:22:01.268Z [INFO] : Audit Log
+2025-12-21T12:22:01.268Z [INFO] : [REGISTER] Register request received
+2025-12-21T12:22:01.326Z [ERROR] : [REGISTER] Error: Undefined binding(s) detected when compiling FIRST. Undefined column(s): [MaNhom] query: select * from "NHOMNGUOIDUNG" where "MaNhom" = ? limit ?
+2025-12-21T12:22:01.327Z [ERROR] : [ERROR] Undefined binding(s) detected when compiling FIRST. Undefined column(s): [MaNhom] query: select * from "NHOMNGUOIDUNG" where "MaNhom" = ? limit ?
+2025-12-21T12:22:01.328Z [ERROR] : HTTP Request Error
+2025-12-21T12:26:35.948Z [INFO] : Audit Log
+2025-12-21T12:26:35.948Z [INFO] : [REGISTER] Register request received
+2025-12-21T12:26:36.020Z [ERROR] : [REGISTER] Error: Undefined binding(s) detected when compiling FIRST. Undefined column(s): [MaNhom] query: select * from "NHOMNGUOIDUNG" where "MaNhom" = ? limit ?
+2025-12-21T12:26:36.020Z [ERROR] : [ERROR] Undefined binding(s) detected when compiling FIRST. Undefined column(s): [MaNhom] query: select * from "NHOMNGUOIDUNG" where "MaNhom" = ? limit ?
+2025-12-21T12:26:36.020Z [ERROR] : HTTP Request Error
+2025-12-21T12:33:08.320Z [INFO] : Audit Log
+2025-12-21T12:33:08.321Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:33:08.592Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T12:33:08.593Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T12:33:08.595Z [INFO] : HTTP Request
+2025-12-21T12:35:57.338Z [INFO] : Audit Log
+2025-12-21T12:35:57.339Z [INFO] : [REGISTER] Register request received
+2025-12-21T12:35:57.506Z [INFO] : [REGISTER] User registered successfully: guestuser with role Guest
+2025-12-21T12:35:57.506Z [INFO] : [SUCCESS]Đăng ký thành công. Tài khoản của bạn có quyền Guest, vui lòng liên hệ Admin để nâng cấp quyền.
+2025-12-21T12:35:57.508Z [INFO] : HTTP Request
+2025-12-21T12:36:37.087Z [INFO] : Audit Log
+2025-12-21T12:36:37.087Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:36:37.144Z [ERROR] : [LOGIN] User not found
+2025-12-21T12:36:37.144Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-21T12:36:37.145Z [ERROR] : HTTP Request Error
+2025-12-21T12:36:45.944Z [INFO] : Audit Log
+2025-12-21T12:36:45.944Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:36:46.110Z [INFO] : [LOGIN] User logged in successfully: guestuser
+2025-12-21T12:36:46.110Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T12:36:46.111Z [INFO] : HTTP Request
+2025-12-21T12:36:48.080Z [INFO] : Audit Log
+2025-12-21T12:36:48.080Z [INFO] : [LOGIN] Login request received
+2025-12-21T12:36:48.241Z [INFO] : [LOGIN] User logged in successfully: guestuser
+2025-12-21T12:36:48.241Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T12:36:48.241Z [INFO] : HTTP Request
+2025-12-21T12:50:49.053Z [ERROR] : HTTP Request Error
+2025-12-21T12:52:49.995Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T12:52:50.131Z [INFO] : [RBAC] User 6 (Nhom 1) granted access to ChucNang 5
+2025-12-21T12:52:50.211Z [INFO] : [SUCCESS]Lay danh sach dat tiec thanh cong
+2025-12-21T12:52:50.212Z [INFO] : HTTP Request
+2025-12-21T14:09:40.296Z [ERROR] : [AUTH] Token expired
+2025-12-21T14:09:40.296Z [ERROR] : [ERROR] Token đã hết hạn
+2025-12-21T14:09:40.296Z [ERROR] : HTTP Request Error
+2025-12-21T14:10:53.509Z [INFO] : Audit Log
+2025-12-21T14:10:53.509Z [INFO] : [LOGIN] Login request received
+2025-12-21T14:10:53.785Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T14:10:53.785Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T14:10:53.786Z [INFO] : HTTP Request
+2025-12-21T14:11:25.813Z [INFO] : [REFRESH] Refresh token request received
+2025-12-21T14:11:25.813Z [ERROR] : [REFRESH] Error: Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:11:25.813Z [ERROR] : [ERROR] Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:11:25.813Z [ERROR] : HTTP Request Error
+2025-12-21T14:13:33.713Z [INFO] : [REFRESH] Refresh token request received
+2025-12-21T14:13:33.713Z [ERROR] : [REFRESH] Error: Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:13:33.713Z [ERROR] : [ERROR] Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:13:33.714Z [ERROR] : HTTP Request Error
+2025-12-21T14:13:42.139Z [INFO] : [REFRESH] Refresh token request received
+2025-12-21T14:13:42.139Z [ERROR] : [REFRESH] Error: Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:13:42.139Z [ERROR] : [ERROR] Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:13:42.140Z [ERROR] : HTTP Request Error
+2025-12-21T14:13:53.004Z [INFO] : [REFRESH] Refresh token request received
+2025-12-21T14:13:53.004Z [ERROR] : [REFRESH] Error: Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:13:53.004Z [ERROR] : [ERROR] Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:13:53.004Z [ERROR] : HTTP Request Error
+2025-12-21T14:13:58.646Z [INFO] : [REFRESH] Refresh token request received
+2025-12-21T14:13:58.646Z [ERROR] : [REFRESH] Error: Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:13:58.646Z [ERROR] : [ERROR] Cannot destructure property 'refreshToken' of 'req.body' as it is undefined.
+2025-12-21T14:13:58.647Z [ERROR] : HTTP Request Error
+2025-12-21T14:15:35.968Z [INFO] : [REFRESH] Refresh token request received
+2025-12-21T14:15:35.969Z [INFO] : [REFRESH] Request body:
+2025-12-21T14:15:35.969Z [INFO] : [REFRESH] Request headers:
+2025-12-21T14:15:36.275Z [INFO] : [REFRESH] Access token refreshed for user: admin
+2025-12-21T14:15:36.275Z [INFO] : [SUCCESS]Làm mới token thành công
+2025-12-21T14:15:36.283Z [INFO] : HTTP Request
+2025-12-21T14:16:55.581Z [ERROR] : [AUTH] Token expired
+2025-12-21T14:16:55.584Z [ERROR] : [ERROR] Token đã hết hạn
+2025-12-21T14:16:55.589Z [ERROR] : HTTP Request Error
+2025-12-21T14:17:08.728Z [INFO] : [REFRESH] Refresh token request received
+2025-12-21T14:17:08.862Z [INFO] : [REFRESH] Access token refreshed for user: admin
+2025-12-21T14:17:08.862Z [INFO] : [SUCCESS]Làm mới token thành công
+2025-12-21T14:17:08.864Z [INFO] : HTTP Request
+2025-12-21T14:17:23.540Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:17:23.604Z [INFO] : [SUCCESS]Lấy thông tin user thành công
+2025-12-21T14:17:23.605Z [INFO] : HTTP Request
+2025-12-21T14:17:37.404Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:17:37.474Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-21T14:17:37.476Z [INFO] : HTTP Request
+2025-12-21T14:18:29.966Z [WARN] : [AUTH] No token provided
+2025-12-21T14:18:29.966Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T14:18:29.966Z [ERROR] : HTTP Request Error
+2025-12-21T14:18:35.012Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:18:35.085Z [INFO] : [RBAC] User 6 (Nhom 1) granted access to ChucNang 5
+2025-12-21T14:18:35.162Z [INFO] : [SUCCESS]Lay danh sach dich vu thanh cong
+2025-12-21T14:18:35.163Z [INFO] : HTTP Request
+2025-12-21T14:18:56.109Z [WARN] : [AUTH] No token provided
+2025-12-21T14:18:56.110Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T14:18:56.110Z [ERROR] : HTTP Request Error
+2025-12-21T14:19:00.203Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:19:00.270Z [INFO] : [RBAC] User 6 (Nhom 1) granted access to ChucNang 5
+2025-12-21T14:19:00.336Z [INFO] : [SUCCESS]Lay danh sach dich vu thanh cong
+2025-12-21T14:19:00.337Z [INFO] : HTTP Request
+2025-12-21T14:19:58.511Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-21T14:19:58.513Z [INFO] : HTTP Request
+2025-12-21T14:21:45.039Z [WARN] : [AUTH] No token provided
+2025-12-21T14:21:45.040Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T14:21:45.041Z [ERROR] : HTTP Request Error
+2025-12-21T14:21:49.585Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:21:49.748Z [INFO] : [RBAC] User 6 (Nhom 1) granted access to ChucNang 5
+2025-12-21T14:21:49.753Z [ERROR] : [ERROR] Dien thoai phai la 10-11 chu so, Ngay dai tiec khong hop le (YYYY-MM-DD), "maCa" must be a number, "maSanh" must be a number, "maThucDon" must be a number, "tienDatCoc" must be a number, "soLuongBan" must be a number, "soBanDuTru" must be a number, "ngayDatTiec" is not allowed
+2025-12-21T14:21:49.755Z [ERROR] : HTTP Request Error
+2025-12-21T14:22:36.876Z [ERROR] : HTTP Request Error
+2025-12-21T14:22:51.888Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:22:51.944Z [INFO] : [RBAC] User 6 (Nhom 1) granted access to ChucNang 5
+2025-12-21T14:22:51.944Z [INFO] : Audit Log
+2025-12-21T14:22:52.110Z [ERROR] : [ERROR] Da co hoa don, khong the huy dat tiec
+2025-12-21T14:22:52.111Z [ERROR] : HTTP Request Error
+2025-12-21T14:23:38.011Z [ERROR] : HTTP Request Error
+2025-12-21T14:23:46.662Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:23:46.720Z [INFO] : [RBAC] User 6 (Nhom 1) granted access to ChucNang 5
+2025-12-21T14:23:46.787Z [INFO] : [SUCCESS]Lay danh sach dat tiec theo ngay thanh cong
+2025-12-21T14:23:46.788Z [INFO] : HTTP Request
+2025-12-21T14:24:14.786Z [ERROR] : [AUTH] Token expired
+2025-12-21T14:24:14.787Z [ERROR] : [ERROR] Token đã hết hạn
+2025-12-21T14:24:14.789Z [ERROR] : HTTP Request Error
+2025-12-21T14:24:21.546Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:24:21.604Z [INFO] : [SUCCESS]Lay danh sach hoa don thanh cong
+2025-12-21T14:24:21.606Z [INFO] : HTTP Request
+2025-12-21T14:49:40.465Z [WARN] : [AUTH] No token provided
+2025-12-21T14:49:40.465Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T14:49:40.465Z [ERROR] : HTTP Request Error
+2025-12-21T14:49:45.243Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:49:45.244Z [ERROR] : [ERROR] Ma dat tiec phai la so, Ap dung quy dinh phat phai la true/false
+2025-12-21T14:49:45.244Z [ERROR] : HTTP Request Error
+2025-12-21T14:49:58.413Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:49:58.416Z [INFO] : Audit Log
+2025-12-21T14:49:58.612Z [ERROR] : [ERROR] Dat tiec da co hoa don
+2025-12-21T14:49:58.613Z [ERROR] : HTTP Request Error
+2025-12-21T14:50:04.650Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:50:04.650Z [INFO] : Audit Log
+2025-12-21T14:50:04.764Z [ERROR] : [ERROR] Dat tiec da co hoa don
+2025-12-21T14:50:04.765Z [ERROR] : HTTP Request Error
+2025-12-21T14:50:45.540Z [WARN] : [AUTH] No token provided
+2025-12-21T14:50:45.540Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T14:50:45.541Z [ERROR] : HTTP Request Error
+2025-12-21T14:50:50.390Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:50:50.485Z [INFO] : [SUCCESS]Lay danh sach bao cao thanh cong
+2025-12-21T14:50:50.489Z [INFO] : HTTP Request
+2025-12-21T14:51:17.939Z [WARN] : [AUTH] No token provided
+2025-12-21T14:51:17.939Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T14:51:17.940Z [ERROR] : HTTP Request Error
+2025-12-21T14:51:21.763Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:51:21.885Z [INFO] : [SUCCESS]Lay thong tin bao cao thanh cong
+2025-12-21T14:51:21.888Z [INFO] : HTTP Request
+2025-12-21T14:51:55.364Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-21T14:51:55.365Z [INFO] : HTTP Request
+2025-12-21T14:52:17.314Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-21T14:52:17.314Z [INFO] : HTTP Request
+2025-12-21T14:52:29.642Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-21T14:52:29.643Z [INFO] : HTTP Request
+2025-12-21T14:53:19.461Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:53:19.519Z [ERROR] : [ERROR] Bao cao khong ton tai
+2025-12-21T14:53:19.519Z [ERROR] : HTTP Request Error
+2025-12-21T14:53:25.328Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:53:25.382Z [ERROR] : [ERROR] Bao cao khong ton tai
+2025-12-21T14:53:25.382Z [ERROR] : HTTP Request Error
+2025-12-21T14:53:32.463Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:53:32.516Z [ERROR] : [ERROR] Bao cao khong ton tai
+2025-12-21T14:53:32.517Z [ERROR] : HTTP Request Error
+2025-12-21T14:53:54.981Z [ERROR] : HTTP Request Error
+2025-12-21T14:54:08.098Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:54:08.099Z [INFO] : Audit Log
+2025-12-21T14:54:08.397Z [INFO] : [SUCCESS]Tao bao cao doanh so thanh cong
+2025-12-21T14:54:08.398Z [INFO] : HTTP Request
+2025-12-21T14:54:17.305Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:54:17.413Z [INFO] : [SUCCESS]Lay bao cao thanh cong
+2025-12-21T14:54:17.414Z [INFO] : HTTP Request
+2025-12-21T14:54:53.511Z [ERROR] : HTTP Request Error
+2025-12-21T14:54:57.056Z [INFO] : [SUCCESS]Lay danh sach thuc don thanh cong
+2025-12-21T14:54:57.057Z [INFO] : HTTP Request
+2025-12-21T14:55:02.104Z [INFO] : [SUCCESS]Lay danh sach thuc don thanh cong
+2025-12-21T14:55:02.105Z [INFO] : HTTP Request
+2025-12-21T14:55:22.101Z [INFO] : [SUCCESS]Lay thong tin thuc don thanh cong
+2025-12-21T14:55:22.102Z [INFO] : HTTP Request
+2025-12-21T14:57:17.086Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:57:17.086Z [INFO] : Audit Log
+2025-12-21T14:57:17.148Z [INFO] : [SUCCESS]Tao thuc don thanh cong
+2025-12-21T14:57:17.149Z [INFO] : HTTP Request
+2025-12-21T14:59:29.917Z [ERROR] : HTTP Request Error
+2025-12-21T14:59:33.136Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T14:59:33.196Z [INFO] : [SUCCESS]Lay danh sach chuc nang thanh cong
+2025-12-21T14:59:33.197Z [INFO] : HTTP Request
+2025-12-21T15:00:34.809Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T15:00:34.868Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-21T15:00:34.869Z [INFO] : HTTP Request

@@ -21,12 +21,8 @@ export const registerSchema = Joi.object({
     'string.min': 'Ten nguoi dung phai co it nhat 2 ky tu',
     'string.max': 'Ten nguoi dung khong duoc qua 100 ky tu',
     'any.required': 'Ten nguoi dung la bat buoc'
-  }),
-  maNhom: Joi.number().integer().positive().required().messages({
-    'number.base': 'Ma nhom phai la so',
-    'number.positive': 'Ma nhom phai lon hon 0',
-    'any.required': 'Ma nhom la bat buoc'
   })
+  // Không cho phép gửi maNhom - sẽ được set mặc định là Guest
 });
 
 // Schema validation cho đăng nhập
