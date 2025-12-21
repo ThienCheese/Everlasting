@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import cors from 'cors';
 import Router from './src/routes/index.js';
 import errorHandler from './src/middleware/error.middleware.js';
 import { requestLogger, errorLogger } from './src/middleware/logging.middleware.js';
@@ -8,6 +9,14 @@ import express from 'express';
 
 const app = express();
 dotenv.config();
+
+// ✅ CORS - Cho phép frontend gọi API
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // ✅ Request logging
 app.use(requestLogger);

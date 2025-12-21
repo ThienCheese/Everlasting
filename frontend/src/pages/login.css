@@ -104,6 +104,23 @@
 .confirm-btn:active {
   transform: scale(0.98);
 }
+
+.confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #fcc;
+}
+
 .star-container {
   position: absolute;
   z-index: 100; 

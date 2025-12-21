@@ -384,3 +384,64 @@
 2025-12-21T15:00:34.809Z [INFO] : [AUTH] User authenticated: admin
 2025-12-21T15:00:34.868Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
 2025-12-21T15:00:34.869Z [INFO] : HTTP Request
+2025-12-21T15:22:01.649Z [INFO] : HTTP Request
+2025-12-21T15:22:15.370Z [INFO] : HTTP Request
+2025-12-21T15:22:17.142Z [INFO] : HTTP Request
+2025-12-21T15:22:17.744Z [INFO] : HTTP Request
+2025-12-21T15:22:18.007Z [INFO] : HTTP Request
+2025-12-21T15:22:18.145Z [INFO] : HTTP Request
+2025-12-21T15:22:18.296Z [INFO] : HTTP Request
+2025-12-21T15:22:18.454Z [INFO] : HTTP Request
+2025-12-21T15:22:18.599Z [INFO] : HTTP Request
+2025-12-21T15:22:18.760Z [INFO] : HTTP Request
+2025-12-21T15:22:35.286Z [INFO] : HTTP Request
+2025-12-21T15:22:35.931Z [INFO] : HTTP Request
+2025-12-21T15:22:36.082Z [INFO] : HTTP Request
+2025-12-21T15:22:36.220Z [INFO] : HTTP Request
+2025-12-21T15:23:45.534Z [INFO] : HTTP Request
+2025-12-21T15:23:52.165Z [INFO] : HTTP Request
+2025-12-21T15:24:09.868Z [INFO] : Audit Log
+2025-12-21T15:24:09.868Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:24:10.118Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T15:24:10.118Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T15:24:10.120Z [INFO] : HTTP Request
+2025-12-21T15:26:47.152Z [INFO] : Audit Log
+2025-12-21T15:26:47.153Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:26:47.318Z [INFO] : [LOGIN] User logged in successfully: chi
+2025-12-21T15:26:47.318Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T15:26:47.319Z [INFO] : HTTP Request
+2025-12-21T15:27:07.481Z [INFO] : Audit Log
+2025-12-21T15:27:07.481Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:27:07.638Z [INFO] : [LOGIN] User logged in successfully: chi
+2025-12-21T15:27:07.638Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T15:27:07.639Z [INFO] : HTTP Request
+2025-12-21T15:29:46.744Z [INFO] : Audit Log
+2025-12-21T15:29:46.744Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:29:46.905Z [INFO] : [LOGIN] User logged in successfully: chi
+2025-12-21T15:29:46.906Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T15:29:46.906Z [INFO] : HTTP Request
+2025-12-21T15:30:16.121Z [INFO] : Audit Log
+2025-12-21T15:30:16.121Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:30:16.190Z [ERROR] : [LOGIN] User not found
+2025-12-21T15:30:16.190Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-21T15:30:16.190Z [ERROR] : HTTP Request Error
+2025-12-21T15:30:24.480Z [INFO] : Audit Log
+2025-12-21T15:30:24.480Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:30:24.642Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T15:30:24.642Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T15:30:24.643Z [INFO] : HTTP Request
+2025-12-21T15:30:58.410Z [INFO] : Audit Log
+2025-12-21T15:30:58.410Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:30:58.570Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T15:30:58.570Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T15:30:58.570Z [INFO] : HTTP Request
+2025-12-21T15:31:27.903Z [INFO] : Audit Log
+2025-12-21T15:31:27.903Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:31:28.066Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T15:31:28.067Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T15:31:28.067Z [INFO] : HTTP Request
+2025-12-21T15:33:10.814Z [INFO] : Audit Log
+2025-12-21T15:33:10.814Z [INFO] : [LOGIN] Login request received
+2025-12-21T15:33:10.975Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T15:33:10.975Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T15:33:10.976Z [INFO] : HTTP Request

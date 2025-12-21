@@ -4,6 +4,8 @@ import logoImg from '../assets/weblogo.png';
 import './Header.css'; 
 // Import các icon cần thiết cho User Menu
 import { FaUserCircle, FaSignOutAlt, FaCog } from 'react-icons/fa';
+import authUtils from '../utils/auth';
+import apiService from '../services/api';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,10 +17,23 @@ const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
 
-  // Giả lập thông tin user (Sau này lấy từ API/Local Storage)
-  const user = {
-    name: "Admin User",
-    role: "Quản trị viên"
+  // Lấy thông tin user từ localStorage
+  const user = authUtils.getUser() || {
+    name: "Guest",
+    role: "Khách"
+  };
+
+  // Map role ID sang tên role
+  const getRoleName = (maNhom) => {
+    const roleMap = {
+      1: "Admin",
+      2: "Lễ tân",
+      3: "Quản lý",
+      4: "Bếp trưởng",
+      5: "Kế toán",
+      6: "Guest"
+    };
+    return roleMap[maNhom] || "Khách";
   };
 
   useEffect(() => {
@@ -42,10 +57,21 @@ const Header = () => {
     };
   }, []);
 
-  const handleLogout = () => {
-      // Xử lý đăng xuất ở đây
-      console.log("Đã đăng xuất");
-      navigate('/');
+  const handleLogout = async () => {
+      try {
+        const refreshToken = authUtils.getRefreshToken();
+        
+        // Call API logout
+        if (refreshToken) {
+          await apiService.logout(refreshToken);
+        }
+      } catch (error) {
+        console.error('Logout error:', error);
+      } finally {
+        // Xóa auth data và redirect
+        authUtils.clearAuth();
+        navigate('/');
+      }
   };
 
   return (
@@ -92,10 +118,9 @@ const Header = () => {
         >
             <div className="user-avatar-circle">
                 {/* Chữ cái đầu tên User */}
-                {/* <span className="avatar-text">E</span>  */}
+                {/* <span className="avatar-text">E</span> */}
             </div>
             <span className="user-name-text">Your account <span className="arrow">▼</span></span>
-            
         </div>
 
         {/* Menu con thả xuống của User */}
@@ -103,8 +128,8 @@ const Header = () => {
             <div className="user-dropdown-menu">
                 {/* Header nhỏ trong menu */}
                 <div className="user-info-header">
-                    <p className="u-name">{user.name}</p>
-                    <p className="u-role">{user.role}</p>
+                    <p className="u-name">{user.name || user.username}</p>
+                    <p className="u-role">{getRoleName(user.maNhom)}</p>
                 </div>
                 <hr />
                 <button className="user-menu-item logout" onClick={handleLogout}>
