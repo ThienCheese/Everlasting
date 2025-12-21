@@ -1,5 +1,5 @@
 import db from '../../database/connection.js';
-import Dish from '../models/dishes.model.js';
+import Dish from '../models/monan.model.js';
 
 export const validateDishCreation = async (tenMonAn, maLoaiMonAn) => {
   // Kiểm tra loại món ăn tồn tại

@@ -1,9 +1,9 @@
-import LoaiSanh from '../models/hallstype.models.js';
+import LoaiSanh from '../models/loaisanh.model.js';
 import {
   validateLoaiSanhCreation,
   validateLoaiSanhUpdate,
   validateLoaiSanhDeletion,
-} from '../services/hallstype.services.js';
+} from '../services/loaisanh.services.js';
 
 const createLoaiSanh = async (req, res) => {
   try {

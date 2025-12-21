@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 // Update with your config settings.
 
 /**
@@ -5,43 +8,61 @@
  */
 export default {
   development: {
-    client: 'pg',
+    client: process.env.DB_CLIENT || 'pg',
     connection: {
-      connectionString:
-        'postgresql://postgres.lmisyrpfdngxdhprmcyc:Quoc1234567890@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres',
-      ssl: { rejectUnauthorized: false } // needed for supabase
+      connectionString: process.env.DB_CONNECTION_STRING,
+      ssl: { 
+        rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED === 'false' ? false : true 
+      }
+    },
+    migrations: {
+      directory: './migrations',
+      tableName: 'knex_migrations'
+    },
+    seeds: {
+      directory: './seeds'
     }
   },
 
   staging: {
-    client: 'postgresql',
+    client: process.env.DB_CLIENT || 'pg',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
+      connectionString: process.env.DB_CONNECTION_STRING,
+      ssl: { 
+        rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED === 'false' ? false : true 
+      }
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
+      directory: './migrations',
       tableName: 'knex_migrations'
+    },
+    seeds: {
+      directory: './seeds'
     }
   },
 
   production: {
-    client: 'postgresql',
+    client: process.env.DB_CLIENT || 'pg',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
+      connectionString: process.env.DB_CONNECTION_STRING,
+      ssl: { 
+        rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED === 'false' ? false : true 
+      }
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
+      directory: './migrations',
       tableName: 'knex_migrations'
+    },
+    seeds: {
+      directory: './seeds'
     }
   }
 };

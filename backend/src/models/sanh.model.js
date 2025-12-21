@@ -36,9 +36,9 @@ const Hall = {
       .returning('*');
     return sanh;
   },
-  // Xoá hall theo id
+  // Xoá mềm hall theo id
   async remove(id) {
-    return await db('SANH').where({ MaSanh: id }).delete();
+    return await db('SANH').where({ MaSanh: id }).update({ DaXoa: true });
   },
 };
 

@@ -1,6 +1,6 @@
 
 import db from '../../database/connection.js';
-import Hall from '../models/halls.model.js';
+import Hall from '../models/sanh.model.js';
 
 export const validateHallCreation = async (tenSanh, maLoaiSanh) => {
   // Kiểm tra loại sảnh tồn tại

@@ -34,3 +34,43 @@
 2025-12-17T08:52:17.981Z [INFO] : [SUCCESS]Đăng nhập thành công
 2025-12-17T09:00:36.606Z [INFO] : [AUTH] User authenticated: admin
 2025-12-17T09:00:36.647Z [INFO] : [SUCCESS]Lấy thông tin user thành công
+2025-12-17T09:43:53.259Z [INFO] : [SUCCESS]Lấy danh sách thực đơn thành công
+2025-12-17T09:44:15.876Z [INFO] : [SUCCESS]Lấy thông tin thực đơn thành công
+2025-12-17T09:44:43.454Z [INFO] : [SUCCESS]Lấy thông tin thực đơn thành công
+2025-12-21T04:34:11.186Z [ERROR] : Application Error
+2025-12-21T04:34:11.189Z [ERROR] : [ERROR] Cannot set property query of #<IncomingMessage> which has only a getter Cannot set property query of #<IncomingMessage> which has only a getter
+2025-12-21T04:34:11.189Z [ERROR] : [ERROR] 500
+2025-12-21T04:34:11.196Z [ERROR] : HTTP Request Error
+2025-12-21T04:34:32.421Z [ERROR] : Application Error
+2025-12-21T04:34:32.421Z [ERROR] : [ERROR] Cannot set property query of #<IncomingMessage> which has only a getter Cannot set property query of #<IncomingMessage> which has only a getter
+2025-12-21T04:34:32.421Z [ERROR] : [ERROR] 500
+2025-12-21T04:34:32.423Z [ERROR] : HTTP Request Error
+2025-12-21T04:37:12.648Z [ERROR] : Application Error
+2025-12-21T04:37:12.651Z [ERROR] : [ERROR] Cannot set property query of #<IncomingMessage> which has only a getter Cannot set property query of #<IncomingMessage> which has only a getter
+2025-12-21T04:37:12.651Z [ERROR] : [ERROR] 500
+2025-12-21T04:37:12.657Z [ERROR] : HTTP Request Error
+2025-12-21T04:40:10.403Z [ERROR] : Application Error
+2025-12-21T04:40:10.406Z [ERROR] : [ERROR] Cannot set property query of #<IncomingMessage> which has only a getter Cannot set property query of #<IncomingMessage> which has only a getter
+2025-12-21T04:40:10.406Z [ERROR] : [ERROR] 500
+2025-12-21T04:40:10.413Z [ERROR] : HTTP Request Error
+2025-12-21T04:43:23.968Z [ERROR] : HTTP Request Error
+2025-12-21T04:43:31.178Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-21T04:43:31.181Z [INFO] : HTTP Request
+2025-12-21T04:43:31.252Z [ERROR] : HTTP Request Error
+2025-12-21T04:43:47.489Z [ERROR] : HTTP Request Error
+2025-12-21T04:44:56.171Z [ERROR] : HTTP Request Error
+2025-12-21T04:47:17.901Z [ERROR] : HTTP Request Error
+2025-12-21T04:56:05.729Z [INFO] : Audit Log
+2025-12-21T04:56:05.732Z [INFO] : [LOGIN] Login request received
+2025-12-21T04:56:06.063Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-21T04:56:06.063Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-21T04:56:06.065Z [INFO] : HTTP Request
+2025-12-21T04:56:56.331Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-21T04:56:56.332Z [INFO] : HTTP Request
+2025-12-21T04:57:40.780Z [WARN] : [AUTH] No token provided
+2025-12-21T04:57:40.781Z [ERROR] : [ERROR] Unauthorized - No token provided
+2025-12-21T04:57:40.782Z [ERROR] : HTTP Request Error
+2025-12-21T04:58:08.442Z [INFO] : [AUTH] User authenticated: admin
+2025-12-21T04:58:08.451Z [INFO] : Audit Log
+2025-12-21T04:58:08.645Z [INFO] : [SUCCESS]Tạo món ăn thành công
+2025-12-21T04:58:08.646Z [INFO] : HTTP Request

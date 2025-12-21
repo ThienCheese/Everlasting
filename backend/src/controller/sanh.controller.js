@@ -1,6 +1,6 @@
-import Hall from '../models/halls.model.js';
+import Hall from '../models/sanh.model.js';
 import { successResponse, errorResponse } from '../helpers/response.helper.js';
-import { validateHallCreation, validateHallUpdate, validateHallDeletion} from '../services/halls.services.js';
+import { validateHallCreation, validateHallUpdate, validateHallDeletion} from '../services/sanh.services.js';
 
 export const getHalls = async (req, res) => {
   try {

@@ -1,0 +1,194 @@
+import { errorResponse } from '../helpers/response.helper.js';
+
+/**
+ * Middleware sanitize input để ngăn chặn XSS và SQL injection
+ */
+export const sanitizeInput = (req, res, next) => {
+  try {
+    // Sanitize body
+    if (req.body) {
+      req.body = sanitizeObject(req.body);
+    }
+
+    // Sanitize query parameters - không được ghi đè trực tiếp
+    if (req.query && Object.keys(req.query).length > 0) {
+      const sanitizedQuery = sanitizeObject(req.query);
+      // Xóa các property cũ và thêm mới
+      Object.keys(req.query).forEach(key => delete req.query[key]);
+      Object.assign(req.query, sanitizedQuery);
+    }
+
+    // Sanitize params
+    if (req.params) {
+      req.params = sanitizeObject(req.params);
+    }
+
+    next();
+  } catch (error) {
+    console.error('Sanitize error:', error);
+    next(error);
+  }
+};
+
+/**
+ * Hàm sanitize một object
+ */
+function sanitizeObject(obj) {
+  if (typeof obj !== 'object' || obj === null) {
+    return sanitizeValue(obj);
+  }
+
+  const sanitized = Array.isArray(obj) ? [] : {};
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      sanitized[key] = typeof obj[key] === 'object' 
+        ? sanitizeObject(obj[key])
+        : sanitizeValue(obj[key]);
+    }
+  }
+
+  return sanitized;
+}
+
+/**
+ * Hàm sanitize một giá trị
+ */
+function sanitizeValue(value) {
+  if (typeof value !== 'string') {
+    return value;
+  }
+
+  // Loại bỏ các ký tự nguy hiểm
+  return value
+    .replace(/[<>]/g, '') // Loại bỏ < và >
+    .trim();
+}
+
+/**
+ * Middleware kiểm tra các ký tự đặc biệt nguy hiểm
+ */
+export const checkDangerousCharacters = (req, res, next) => {
+  const dangerousPatterns = [
+    /<script/i,
+    /javascript:/i,
+    /on\w+\s*=/i, // onload=, onclick=, etc
+    /<iframe/i,
+    /eval\(/i,
+    /expression\(/i
+  ];
+
+  const checkObject = (obj) => {
+    if (!obj || typeof obj !== 'object') return false;
+    
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const value = obj[key];
+        
+        if (typeof value === 'string') {
+          for (const pattern of dangerousPatterns) {
+            if (pattern.test(value)) {
+              return true;
+            }
+          }
+        } else if (typeof value === 'object' && value !== null) {
+          if (checkObject(value)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  };
+
+  try {
+    if (checkObject(req.body) || checkObject(req.query) || checkObject(req.params)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Phat hien ky tu nguy hiem trong du lieu'
+      });
+    }
+
+    next();
+  } catch (error) {
+    console.error('Check dangerous characters error:', error);
+    next(error);
+  }
+};
+
+/**
+ * Middleware kiểm tra kích thước request body
+ */
+export const checkRequestSize = (maxSize = 10 * 1024 * 1024) => { // Default 10MB
+  return (req, res, next) => {
+    const contentLength = req.headers['content-length'];
+    
+    if (contentLength && parseInt(contentLength) > maxSize) {
+      return res.status(413).json({
+        success: false,
+        message: `Du lieu qua lon. Toi da ${maxSize / 1024 / 1024}MB`
+      });
+    }
+
+    next();
+  };
+};
+
+/**
+ * Middleware validate ID parameter
+ */
+export const validateIdParam = (paramName = 'id') => {
+  return (req, res, next) => {
+    const id = req.params[paramName];
+    
+    if (!id || isNaN(id) || parseInt(id) <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: `${paramName} khong hop le`
+      });
+    }
+
+    // Convert to integer
+    req.params[paramName] = parseInt(id);
+    next();
+  };
+};
+
+/**
+ * Middleware validate pagination parameters
+ */
+export const validatePagination = (req, res, next) => {
+  let { page = 1, limit = 10 } = req.query;
+
+  // Convert to number
+  page = parseInt(page);
+  limit = parseInt(limit);
+
+  // Validate
+  if (isNaN(page) || page < 1) {
+    page = 1;
+  }
+
+  if (isNaN(limit) || limit < 1) {
+    limit = 10;
+  }
+
+  // Giới hạn tối đa
+  if (limit > 100) {
+    limit = 100;
+  }
+
+  // Set lại vào req.query
+  req.query.page = page;
+  req.query.limit = limit;
+
+  next();
+};
+
+export default {
+  sanitizeInput,
+  checkDangerousCharacters,
+  checkRequestSize,
+  validateIdParam,
+  validatePagination
+};

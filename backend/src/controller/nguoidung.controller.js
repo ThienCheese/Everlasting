@@ -1,4 +1,4 @@
-import User from '../models/users.model.js';
+import User from '../models/nguoidung.model.js';
 import RefreshToken from '../models/refreshtoken.model.js';
 import logger from '../helpers/logger.js';
 import { successResponse, errorResponse } from '../helpers/response.helper.js';

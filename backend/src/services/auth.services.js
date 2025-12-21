@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import User from '../models/users.model.js';
+import User from '../models/nguoidung.model.js';
 import RefreshToken from '../models/refreshtoken.model.js';
 
 // Hash password với salt

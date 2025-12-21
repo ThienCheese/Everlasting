@@ -1,4 +1,4 @@
-import Dish from '../models/dishes.model.js';
+import Dish from '../models/monan.model.js';
 import { successResponse, errorResponse } from '../helpers/response.helper.js';
 import {
   validateDishCreation,
