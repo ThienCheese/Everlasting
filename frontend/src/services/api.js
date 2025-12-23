@@ -793,6 +793,98 @@ const apiService = {
 
     return data;
   },
+
+  // ==================== DỊCH VỤ APIs ====================
+  
+  getAllDichVu: async () => {
+    const response = await fetch(`${API_BASE_URL}/dichvu/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách dịch vụ thất bại');
+    }
+
+    return data;
+  },
+
+  getDichVuById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/dichvu/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy thông tin dịch vụ thất bại');
+    }
+
+    return data;
+  },
+
+  createDichVu: async (dichvuData) => {
+    return await fetchWithAuth(`${API_BASE_URL}/dichvu/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dichvuData)
+    });
+  },
+
+  updateDichVu: async (id, dichvuData) => {
+    return await fetchWithAuth(`${API_BASE_URL}/dichvu/update/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dichvuData)
+    });
+  },
+
+  deleteDichVu: async (id) => {
+    return await fetchWithAuth(`${API_BASE_URL}/dichvu/delete/${id}`, {
+      method: 'DELETE'
+    });
+  },
+
+  // ==================== LOẠI DỊCH VỤ APIs ====================
+  
+  getAllLoaiDichVu: async () => {
+    const response = await fetch(`${API_BASE_URL}/loaidichvu/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách loại dịch vụ thất bại');
+    }
+
+    return data;
+  },
+
+  getLoaiDichVuById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/loaidichvu/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy thông tin loại dịch vụ thất bại');
+    }
+
+    return data;
+  },
+
+  createLoaiDichVu: async (loaiData) => {
+    return await fetchWithAuth(`${API_BASE_URL}/loaidichvu/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(loaiData)
+    });
+  },
+
+  updateLoaiDichVu: async (id, loaiData) => {
+    return await fetchWithAuth(`${API_BASE_URL}/loaidichvu/update/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(loaiData)
+    });
+  },
+
+  deleteLoaiDichVu: async (id) => {
+    return await fetchWithAuth(`${API_BASE_URL}/loaidichvu/delete/${id}`, {
+      method: 'DELETE'
+    });
+  },
 };
 
 export default apiService;
