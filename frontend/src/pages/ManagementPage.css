@@ -351,6 +351,113 @@
 
 
 
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  border-bottom: 2px solid #8A7CDF;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #8A7CDF;
+  box-shadow: 0 0 0 3px rgba(138, 124, 223, 0.1);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.btn-cancel,
+.btn-save {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.btn-cancel:hover {
+  background: #e0e0e0;
+}
+
+.btn-save {
+  background: #8A7CDF;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #7566cd;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(138, 124, 223, 0.3);
+}
+
 @media (max-width: 768px) {
     .content-body { padding: 0 10px; }
     .section-header-row { flex-direction: column; align-items: flex-start; }
@@ -360,4 +467,18 @@
     
     /* Bảng cuộn ngang trên mobile */
     .section-block { padding: 15px; overflow-x: auto; }
+
+    .modal-content {
+      width: 95%;
+      padding: 20px;
+    }
+
+    .modal-actions {
+      flex-direction: column;
+    }
+
+    .btn-cancel,
+    .btn-save {
+      width: 100%;
+    }
 }

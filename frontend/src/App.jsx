@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import WithPermission from './components/WithPermission';
+import AuthErrorHandler from './components/AuthErrorHandler';
 import authUtils from './utils/auth';
 import permissionService from './services/permissionService';
 
@@ -68,6 +69,8 @@ const AppContent = () => {
 
   return (
     <div className="app-wrapper">
+        {/* Auth Error Handler - Listen for token expiration */}
+        <AuthErrorHandler />
         
         {/* Chỉ hiện Header nếu KHÔNG PHẢI trang login hoặc register */}
         {!isAuthPage && <Header />}

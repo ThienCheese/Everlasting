@@ -7,6 +7,7 @@ const Hall = {
     return await db('SANH')
       .select('SANH.*', 'LOAISANH.TenLoaiSanh', 'LOAISANH.DonGiaBanToiThieu')
       .leftJoin('LOAISANH', 'SANH.MaLoaiSanh', 'LOAISANH.MaLoaiSanh')
+      .where('SANH.DaXoa', false)
       .orderBy([
         { column: 'LOAISANH.TenLoaiSanh', order: 'asc' },
         { column: 'SANH.TenSanh', order: 'asc' },
@@ -19,6 +20,13 @@ const Hall = {
       .select('SANH.*', 'LOAISANH.TenLoaiSanh', 'LOAISANH.DonGiaBanToiThieu')
       .leftJoin('LOAISANH', 'SANH.MaLoaiSanh', 'LOAISANH.MaLoaiSanh')
       .where({ MaSanh: id })
+      .first();
+  },
+
+  // Tìm hall theo tên
+  async findByTenSanh(tenSanh) {
+    return await db('SANH')
+      .where({ TenSanh: tenSanh })
       .first();
   },
 

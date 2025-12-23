@@ -1,6 +1,121 @@
 // API Configuration
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
 
+// Flag to prevent multiple refresh attempts
+let isRefreshing = false;
+let refreshSubscribers = [];
+
+// Subscribe to token refresh
+const subscribeTokenRefresh = (callback) => {
+  refreshSubscribers.push(callback);
+};
+
+// Notify all subscribers when token is refreshed
+const onTokenRefreshed = (newAccessToken) => {
+  refreshSubscribers.forEach((callback) => callback(newAccessToken));
+  refreshSubscribers = [];
+};
+
+// Helper function to handle API requests with auto token refresh
+const fetchWithAuth = async (url, options = {}) => {
+  const accessToken = localStorage.getItem('accessToken');
+  
+  // Add authorization header if not present
+  if (!options.headers) {
+    options.headers = {};
+  }
+  if (accessToken && !options.headers['Authorization']) {
+    options.headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+
+  let response = await fetch(url, options);
+
+  // If 401 Unauthorized, try to refresh token
+  if (response.status === 401) {
+    const refreshToken = localStorage.getItem('refreshToken');
+    
+    if (!refreshToken) {
+      // No refresh token, redirect to login
+      localStorage.clear();
+      
+      // Dispatch event
+      window.dispatchEvent(new CustomEvent('auth:token-expired', {
+        detail: { message: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' }
+      }));
+      
+      // Also redirect directly as fallback
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
+      
+      throw new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+    }
+
+    // If already refreshing, wait for it to complete
+    if (isRefreshing) {
+      return new Promise((resolve) => {
+        subscribeTokenRefresh((newAccessToken) => {
+          options.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          resolve(fetch(url, options));
+        });
+      });
+    }
+
+    isRefreshing = true;
+
+    try {
+      // Try to refresh the token
+      const refreshResponse = await fetch(`${API_BASE_URL}/nguoidung/refresh`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refreshToken }),
+      });
+
+      const refreshData = await refreshResponse.json();
+
+      if (!refreshResponse.ok) {
+        // Refresh token also expired, redirect to login
+        localStorage.clear();
+        
+        // Dispatch event for AuthErrorHandler to catch
+        window.dispatchEvent(new CustomEvent('auth:token-expired', {
+          detail: { message: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' }
+        }));
+        
+        // Also redirect directly as fallback
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
+        
+        throw new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+      }
+
+      // Save new tokens
+      const newAccessToken = refreshData.data.accessToken;
+      const newRefreshToken = refreshData.data.refreshToken;
+      
+      localStorage.setItem('accessToken', newAccessToken);
+      localStorage.setItem('refreshToken', newRefreshToken);
+
+      // Notify all waiting requests
+      onTokenRefreshed(newAccessToken);
+      isRefreshing = false;
+
+      // Retry original request with new token
+      options.headers['Authorization'] = `Bearer ${newAccessToken}`;
+      response = await fetch(url, options);
+    } catch (error) {
+      isRefreshing = false;
+      refreshSubscribers = [];
+      throw error;
+    }
+  }
+
+  return response;
+};
+
 // API Service
 const apiService = {
   // Login
@@ -22,7 +137,7 @@ const apiService = {
     return data;
   },
 
-  // Refresh token
+  // Refresh token (manual call if needed)
   refreshToken: async (refreshToken) => {
     const response = await fetch(`${API_BASE_URL}/nguoidung/refresh`, {
       method: 'POST',
@@ -43,13 +158,10 @@ const apiService = {
 
   // Logout
   logout: async (refreshToken) => {
-    const accessToken = localStorage.getItem('accessToken');
-    
-    const response = await fetch(`${API_BASE_URL}/nguoidung/logout`, {
+    const response = await fetchWithAuth(`${API_BASE_URL}/nguoidung/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
       },
       body: JSON.stringify({ refreshToken }),
     });
@@ -65,13 +177,8 @@ const apiService = {
 
   // Get current user
   getCurrentUser: async () => {
-    const accessToken = localStorage.getItem('accessToken');
-    
-    const response = await fetch(`${API_BASE_URL}/nguoidung/me`, {
+    const response = await fetchWithAuth(`${API_BASE_URL}/nguoidung/me`, {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
     });
 
     const data = await response.json();
@@ -106,13 +213,8 @@ const apiService = {
   
   // Get all users (Admin only)
   getAllUsers: async () => {
-    const accessToken = localStorage.getItem('accessToken');
-    
-    const response = await fetch(`${API_BASE_URL}/nguoidung/all`, {
+    const response = await fetchWithAuth(`${API_BASE_URL}/nguoidung/all`, {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
     });
 
     const data = await response.json();
@@ -126,13 +228,10 @@ const apiService = {
 
   // Update user (Admin or self)
   updateUser: async (userId, userData) => {
-    const accessToken = localStorage.getItem('accessToken');
-    
-    const response = await fetch(`${API_BASE_URL}/nguoidung/update/${userId}`, {
+    const response = await fetchWithAuth(`${API_BASE_URL}/nguoidung/update/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
       },
       body: JSON.stringify(userData),
     });
@@ -148,13 +247,8 @@ const apiService = {
 
   // Delete user (Admin only)
   deleteUser: async (userId) => {
-    const accessToken = localStorage.getItem('accessToken');
-    
-    const response = await fetch(`${API_BASE_URL}/nguoidung/delete/${userId}`, {
+    const response = await fetchWithAuth(`${API_BASE_URL}/nguoidung/delete/${userId}`, {
       method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
     });
 
     const data = await response.json();
@@ -194,13 +288,8 @@ const apiService = {
 
   // Get permission matrix
   getPermissionMatrix: async () => {
-    const accessToken = localStorage.getItem('accessToken');
-    
-    const response = await fetch(`${API_BASE_URL}/phanquyen/lists`, {
+    const response = await fetchWithAuth(`${API_BASE_URL}/phanquyen/lists`, {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
     });
 
     const data = await response.json();
@@ -214,13 +303,10 @@ const apiService = {
 
   // Update permissions for a role (bulk update)
   updateRolePermissions: async (maNhom, danhSachChucNang) => {
-    const accessToken = localStorage.getItem('accessToken');
-    
-    const response = await fetch(`${API_BASE_URL}/phanquyen/nhom/${maNhom}`, {
+    const response = await fetchWithAuth(`${API_BASE_URL}/phanquyen/nhom/${maNhom}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
       },
       body: JSON.stringify({ danhSachChucNang }),
     });
@@ -229,6 +315,243 @@ const apiService = {
 
     if (!response.ok) {
       throw new Error(data.message || 'Cập nhật phân quyền thất bại');
+    }
+
+    return data;
+  },
+
+  // ========== CA (SHIFTS) MANAGEMENT ==========
+  
+  // Get all shifts
+  getCa: async () => {
+    const response = await fetch(`${API_BASE_URL}/ca/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách ca thất bại');
+    }
+
+    return data;
+  },
+
+  // Get shift by ID
+  getCaById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/ca/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy chi tiết ca thất bại');
+    }
+
+    return data;
+  },
+
+  // Create new shift (Admin only)
+  createCa: async (caData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/ca/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(caData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo ca thất bại');
+    }
+
+    return data;
+  },
+
+  // Update shift (Admin only)
+  updateCa: async (id, caData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/ca/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(caData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật ca thất bại');
+    }
+
+    return data;
+  },
+
+  // Delete shift (Admin only)
+  deleteCa: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/ca/delete/${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Xóa ca thất bại');
+    }
+
+    return data;
+  },
+
+  // ========== SANH (HALLS) MANAGEMENT ==========
+  
+  // Get all halls
+  getSanh: async () => {
+    const response = await fetch(`${API_BASE_URL}/sanh/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // Get hall by ID
+  getSanhById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/sanh/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy chi tiết sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // Create new hall (Admin only)
+  createSanh: async (sanhData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/sanh/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sanhData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // Update hall (Admin only)
+  updateSanh: async (id, sanhData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/sanh/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sanhData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // Delete hall (Admin only)
+  deleteSanh: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/sanh/delete/${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Xóa sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // ========== LOAI SANH (HALL TYPES) MANAGEMENT ==========
+  
+  // Get all hall types
+  getLoaiSanh: async () => {
+    const response = await fetch(`${API_BASE_URL}/loaisanh/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách loại sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // Get hall type by ID
+  getLoaiSanhById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/loaisanh/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy chi tiết loại sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // Create new hall type (Admin only)
+  createLoaiSanh: async (loaiSanhData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/loaisanh/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loaiSanhData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo loại sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // Update hall type (Admin only)
+  updateLoaiSanh: async (id, loaiSanhData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/loaisanh/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loaiSanhData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật loại sảnh thất bại');
+    }
+
+    return data;
+  },
+
+  // Delete hall type (Admin only)
+  deleteLoaiSanh: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/loaisanh/delete/${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Xóa loại sảnh thất bại');
     }
 
     return data;

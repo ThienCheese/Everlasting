@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import './login.css';
 import logoImg from '../assets/weblogo.png'; 
 import starImg from '../assets/star-img.png'; 
@@ -23,6 +23,7 @@ const playStarSound = () => {
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // State cho form
   const [username, setUsername] = useState('');
@@ -33,6 +34,15 @@ const Login = () => {
   // State cho UI
   const [isDarkMode, setIsDarkMode] = useState(false); 
   const [isSoundOn, setIsSoundOn] = useState(true);
+
+  // Check if redirected due to token expiration
+  useEffect(() => {
+    if (location.state?.message) {
+      setError(location.state.message);
+      // Clear the message from location state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   // Sound functions
   const playClickSound = () => {

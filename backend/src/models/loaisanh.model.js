@@ -1,38 +1,38 @@
-import { knex } from '../../database/connection.js';
+import db from '../../database/connection.js';
 
 const LoaiSanh = {
   create: async (data) => {
-    const [loaiSanh] = await knex('LOAISANH').insert(data).returning('*');
+    const [loaiSanh] = await db('LOAISANH').insert(data).returning('*');
     return loaiSanh;
   },
   findById: async (id) => {
-    return await knex('LOAISANH').where({ MaLoaiSanh: id }).first();
+    return await db('LOAISANH').where({ MaLoaiSanh: id }).first();
   },
   findAll: async () => {
-    return await knex('LOAISANH').select('*').orderBy('TenLoaiSanh', 'asc');
+    return await db('LOAISANH').select('*').where('DaXoa', false).orderBy('TenLoaiSanh', 'asc');
   },
   findByTenLoaiSanh: async (tenLoaiSanh) => {
-    return await knex('LOAISANH').where({ TenLoaiSanh: tenLoaiSanh }).first();
+    return await db('LOAISANH').where({ TenLoaiSanh: tenLoaiSanh }).first();
   },
   checkDaDuocDatTiec: async (maLoaiSanh) => {
-    const sanh = await knex('SANH').where({ MaLoaiSanh: maLoaiSanh }).first();
+    const sanh = await db('SANH').where({ MaLoaiSanh: maLoaiSanh }).first();
     if (sanh) {
       return true;
     }
     return false;
   },
   update: async (id, data) => {
-    const [loaiSanh] = await knex('LOAISANH')
+    const [loaiSanh] = await db('LOAISANH')
       .where({ MaLoaiSanh: id })
       .update(data)
       .returning('*');
     return loaiSanh;
   },
   delete: async (id) => {
-    return await knex('LOAISANH').where({ MaLoaiSanh: id }).delete();
+    return await db('LOAISANH').where({ MaLoaiSanh: id }).delete();
   },
   temDelete: async (id) => {
-    return await knex('LOAISANH')
+    return await db('LOAISANH')
       .where({ MaLoaiSanh: id })
       .update({ DaXoa: true });
   },

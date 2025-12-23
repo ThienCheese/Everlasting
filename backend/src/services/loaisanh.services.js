@@ -1,5 +1,5 @@
-import { knex } from '../config/database.js';
-import LoaiSanh from '../models/LoaiSanh.js';
+import db from '../../database/connection.js';
+import LoaiSanh from '../models/loaisanh.model.js';
 
 export const validateLoaiSanhCreation = async (tenLoaiSanh) => {
   const existing = await LoaiSanh.findByTenLoaiSanh(tenLoaiSanh);
@@ -10,7 +10,7 @@ export const validateLoaiSanhCreation = async (tenLoaiSanh) => {
 
 export const validateLoaiSanhUpdate = async (id, tenLoaiSanh) => {
   if (tenLoaiSanh) {
-    const existing = await knex('LOAISANH')
+    const existing = await db('LOAISANH')
       .where({ TenLoaiSanh: tenLoaiSanh })
       .whereNot({ MaLoaiSanh: id })
       .first();
