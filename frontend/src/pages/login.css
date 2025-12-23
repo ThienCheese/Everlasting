@@ -88,6 +88,39 @@
   color: #333;
 }
 
+/* Message styles */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border: 1px solid #ef5350;
+}
+
+.success-message {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border: 1px solid #66bb6a;
+}
+
+.login-page.dark .error-message {
+  background-color: #5d1f1f;
+  color: #ff6b6b;
+  border-color: #8b0000;
+}
+
+.login-page.dark .success-message {
+  background-color: #1f5d2e;
+  color: #81c784;
+  border-color: #2e7d32;
+}
+
 .confirm-btn {
   background-color: #8A7CDF;
   color: white;

@@ -14,8 +14,12 @@ import baoCaoDoanhSoRoutes from './baocaodoanhso.routes.js';
 import thamSoRoutes from './thamso.routes.js';
 import chucNangRoutes from './chucnang.routes.js';
 import phanQuyenRoutes from './phanquyen.routes.js';
+import systemRoutes from './system.routes.js';
 
 const router = express.Router();
+
+// System routes (public endpoints for constants)
+router.use('/system', systemRoutes);
 
 router.use('/sanh', hallRoutes);
 router.use('/monan', dishRoutes);

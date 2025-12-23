@@ -6,6 +6,7 @@ import './Header.css';
 import { FaUserCircle, FaSignOutAlt, FaCog } from 'react-icons/fa';
 import authUtils from '../utils/auth';
 import apiService from '../services/api';
+import permissionService from '../services/permissionService';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -20,20 +21,16 @@ const Header = () => {
   // Lấy thông tin user từ localStorage
   const user = authUtils.getUser() || {
     name: "Guest",
-    role: "Khách"
+    role: "Khách",
+    maNhom: 6
   };
 
-  // Map role ID sang tên role
-  const getRoleName = (maNhom) => {
-    const roleMap = {
-      1: "Admin",
-      2: "Lễ tân",
-      3: "Quản lý",
-      4: "Bếp trưởng",
-      5: "Kế toán",
-      6: "Guest"
-    };
-    return roleMap[maNhom] || "Khách";
+  // Lấy maNhom của user
+  const userRole = user.maNhom;
+
+  // Helper function để check permission
+  const canAccess = (permissionId) => {
+    return permissionService.hasPermission(userRole, permissionId);
   };
 
   useEffect(() => {
@@ -88,23 +85,50 @@ const Header = () => {
         <ul className="nav-links">
           <li className="nav-link-item" onClick={() => navigate('/home')}>Trang Chủ</li>
           
-          {/* --- DROPDOWN QUẢN LÝ --- */}
-          <li className="nav-link-item dropdown-parent">
-            <div className="dropdown-label">
-                Quản lý <span className="arrow">▼</span>
-            </div>
-            <ul className="dropdown-menu">
-                <div className="dropdown-bridge"></div>
-                <li><span className="dropdown-item" onClick={() => navigate('/management')}>Quản lý sảnh</span></li>
-                <li><span className="dropdown-item" onClick={() => navigate('/menu-management')}>Quản lý thực đơn</span></li>
-                <li><span className="dropdown-item" onClick={() => navigate('/service-management')}>Quản lý dịch vụ</span></li>
-                <li><span className="dropdown-item" onClick={() => navigate('/invoice-management')}>Quản lý hóa đơn</span></li>
-            </ul>
-          </li>
+          {/* --- DROPDOWN QUẢN LÝ --- Chỉ hiện nếu có ít nhất 1 quyền quản lý */}
+          {(canAccess(2) || canAccess(3) || canAccess(4)) && (
+            <li className="nav-link-item dropdown-parent">
+              <div className="dropdown-label">
+                  Quản lý <span className="arrow">▼</span>
+              </div>
+              <ul className="dropdown-menu">
+                  <div className="dropdown-bridge"></div>
+                  
+                  {/* Quản lý sảnh - MaChucNang = 2 */}
+                  {canAccess(2) && (
+                    <li><span className="dropdown-item" onClick={() => navigate('/management')}>Quản lý sảnh</span></li>
+                  )}
+                  
+                  {/* Quản lý thực đơn (món ăn) - MaChucNang = 3 */}
+                  {canAccess(3) && (
+                    <li><span className="dropdown-item" onClick={() => navigate('/menu-management')}>Quản lý thực đơn</span></li>
+                  )}
+                  
+                  {/* Quản lý dịch vụ - MaChucNang = 4 */}
+                  {canAccess(4) && (
+                    <li><span className="dropdown-item" onClick={() => navigate('/service-management')}>Quản lý dịch vụ</span></li>
+                  )}
+                  
+                  {/* Quản lý hóa đơn - Tạm thời hiển thị cho tất cả (chưa có trong CHUCNANG) */}
+                  <li><span className="dropdown-item" onClick={() => navigate('/invoice-management')}>Quản lý hóa đơn</span></li>
+              </ul>
+            </li>
+          )}
 
-          <li className="nav-link-item" onClick={() => navigate('/booking')}>Đặt tiệc</li>
-          <li className="nav-link-item" onClick={() => navigate('/stats')}>Thống kê</li>
-          <li className="nav-link-item" onClick={() => navigate('/roles')}>Phân quyền</li>
+          {/* Đặt tiệc - MaChucNang = 5 */}
+          {canAccess(5) && (
+            <li className="nav-link-item" onClick={() => navigate('/booking')}>Đặt tiệc</li>
+          )}
+          
+          {/* Thống kê - Tất cả trừ Guest (tạm thời hiển thị cho tất cả đã login) */}
+          {userRole !== 6 && (
+            <li className="nav-link-item" onClick={() => navigate('/stats')}>Thống kê</li>
+          )}
+          
+          {/* Phân quyền - Chỉ Admin (MaChucNang = 1) */}
+          {canAccess(1) && (
+            <li className="nav-link-item" onClick={() => navigate('/roles')}>Phân quyền</li>
+          )}
         </ul>
       </div>
 
@@ -129,7 +153,7 @@ const Header = () => {
                 {/* Header nhỏ trong menu */}
                 <div className="user-info-header">
                     <p className="u-name">{user.name || user.username}</p>
-                    <p className="u-role">{getRoleName(user.maNhom)}</p>
+                    <p className="u-role">{permissionService.getRoleName(user.maNhom)}</p>
                 </div>
                 <hr />
                 <button className="user-menu-item logout" onClick={handleLogout}>

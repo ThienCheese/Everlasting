@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './login.css';
+import './login.css'; // Sử dụng chung CSS với login
 import logoImg from '../assets/weblogo.png'; 
 import starImg from '../assets/star-img.png'; 
 import sparkleSound from '../assets/bell-notification.mp3';
@@ -13,7 +13,6 @@ import speakerIcondarkmode from '../assets/sfx_on_dark.webp';
 import speakerIconOff from '../assets/sfx_off_light.webp';
 import speakerIcondarkmodeOff from '../assets/sfx_off_dark.webp';
 import apiService from '../services/api';
-import authUtils from '../utils/auth';
 
 const playStarSound = () => {
   const audio = new Audio(sparkleSound);
@@ -21,14 +20,17 @@ const playStarSound = () => {
   audio.play();
 };
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
 
   // State cho form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   // State cho UI
   const [isDarkMode, setIsDarkMode] = useState(false); 
@@ -60,45 +62,72 @@ const Login = () => {
     }
   };
 
-  // Handle login submit
-  const handleLoginSubmit = async (e) => {
+  const getModeImage = () => {
+    return isDarkMode ? moonIcon : sunIcon;
+  };
+
+  // Handle register submit
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     playClickSound();
     
+    // Reset messages
+    setError('');
+    setSuccess('');
+
     // Validate input
-    if (!username.trim() || !password.trim()) {
+    if (!username.trim() || !password.trim() || !confirmPassword.trim() || !fullName.trim()) {
       setError('Vui lòng nhập đầy đủ thông tin');
       return;
     }
 
+    // Validate password match
+    if (password !== confirmPassword) {
+      setError('Mật khẩu xác nhận không khớp');
+      return;
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      setError('Mật khẩu phải có ít nhất 6 ký tự');
+      return;
+    }
+
+    // Validate username length
+    if (username.length < 3) {
+      setError('Tên đăng nhập phải có ít nhất 3 ký tự');
+      return;
+    }
+
     setLoading(true);
-    setError('');
 
     try {
-      // Call API login
-      console.log('[LOGIN] Calling API with:', { username });
-      const response = await apiService.login(username, password);
+      // Call API register
+      console.log('[REGISTER] Calling API with:', { username, fullName });
+      const response = await apiService.register(username, password, fullName);
       
-      console.log('[LOGIN] Response received:', response);
+      console.log('[REGISTER] Response received:', response);
       
-      if (response.status === 'success') {
-        // Lưu tokens và user info
-        authUtils.setTokens(response.data.accessToken, response.data.refreshToken);
-        authUtils.setUser(response.data.user);
+      if (response.success) {
+        setSuccess('Đăng ký thành công! Tài khoản của bạn có quyền Guest. Vui lòng liên hệ Admin để nâng cấp quyền.');
         
-        console.log('[LOGIN] Tokens saved. AccessToken:', response.data.accessToken ? 'YES' : 'NO');
-        console.log('[LOGIN] User saved:', response.data.user);
-        console.log('[LOGIN] isAuthenticated:', authUtils.isAuthenticated());
+        // Clear form
+        setUsername('');
+        setPassword('');
+        setConfirmPassword('');
+        setFullName('');
         
-        // Redirect đến home
-        console.log('[LOGIN] Navigating to /home...');
-        navigate('/home');
+        // Redirect về login sau 3 giây
+        setTimeout(() => {
+          console.log('[REGISTER] Redirecting to login...');
+          navigate('/');
+        }, 3000);
       } else {
-        setError(response.message || 'Đăng nhập thất bại');
+        setError(response.message || 'Đăng ký thất bại');
       }
     } catch (err) {
-      console.error('[LOGIN] Error:', err);
-      setError(err.message || 'Đăng nhập thất bại. Vui lòng thử lại.');
+      console.error('[REGISTER] Error:', err);
+      setError(err.message || 'Đăng ký thất bại. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -113,7 +142,7 @@ const Login = () => {
         </div>
         <div className="header-actions">
           <button className="icon-btn" onClick={() => {toggleDarkMode(); playClickSound();}} title="Chế độ Sáng/Tối">
-            <img src={isDarkMode ? moonIcon : sunIcon} alt="Mode" className="custom-icon" />     
+            <img src={getModeImage()} alt="Mode" className="custom-icon" />     
           </button>
           <button className="icon-btn" onClick={() => {toggleSound(); playClickSound();}} title="Bật/Tắt âm thanh">
             <img src={getSpeakerImage()} alt="Sound" className="custom-icon" />    
@@ -127,15 +156,16 @@ const Login = () => {
         </div>
 
         <div className="login-box">
-          <h2 className="login-title">SIGN IN</h2>
+          <h2 className="login-title">SIGN UP</h2>
           
           {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
           
-          <form className="login-form" onSubmit={handleLoginSubmit}>
+          <form className="login-form" onSubmit={handleRegisterSubmit}>
             <div className="input-group">
               <input 
                 type="text" 
-                placeholder="Username" 
+                placeholder="Tên đăng nhập (ít nhất 3 ký tự)" 
                 className="input-field"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -144,11 +174,31 @@ const Login = () => {
             </div>
             <div className="input-group">
               <input 
+                type="text" 
+                placeholder="Họ và tên" 
+                className="input-field"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <div className="input-group">
+              <input 
                 type="password" 
-                placeholder="Password" 
+                placeholder="Mật khẩu (ít nhất 6 ký tự)" 
                 className="input-field"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <div className="input-group">
+              <input 
+                type="password" 
+                placeholder="Xác nhận mật khẩu" 
+                className="input-field"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 disabled={loading}
               />
             </div>
@@ -157,16 +207,16 @@ const Login = () => {
               className="confirm-btn"
               disabled={loading}
             >
-              {loading ? 'Đang đăng nhập...' : 'Confirm'}
+              {loading ? 'Đang đăng ký...' : 'Đăng ký'}
             </button>
           </form>
 
           <div style={{ marginTop: '20px', textAlign: 'center' }}>
             <span style={{ color: isDarkMode ? '#fff' : '#666' }}>
-              Chưa có tài khoản?{' '}
+              Đã có tài khoản?{' '}
             </span>
             <button 
-              onClick={() => navigate('/register')}
+              onClick={() => navigate('/')}
               style={{
                 background: 'none',
                 border: 'none',
@@ -177,7 +227,7 @@ const Login = () => {
                 padding: '0',
               }}
             >
-              Đăng ký ngay
+              Đăng nhập ngay
             </button>
           </div>
         </div>
@@ -203,4 +253,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -445,3 +445,237 @@
 2025-12-21T15:33:10.975Z [INFO] : [LOGIN] User logged in successfully: admin
 2025-12-21T15:33:10.975Z [INFO] : [SUCCESS]Đăng nhập thành công
 2025-12-21T15:33:10.976Z [INFO] : HTTP Request
+2025-12-23T08:33:35.079Z [ERROR] : [AUTH] Token expired
+2025-12-23T08:33:35.079Z [ERROR] : [ERROR] Token đã hết hạn
+2025-12-23T08:33:35.081Z [ERROR] : HTTP Request Error
+2025-12-23T08:33:37.522Z [INFO] : Audit Log
+2025-12-23T08:33:37.523Z [INFO] : [LOGIN] Login request received
+2025-12-23T08:33:37.649Z [ERROR] : [LOGIN] Invalid password
+2025-12-23T08:33:37.650Z [ERROR] : [ERROR] Tên đăng nhập hoặc mật khẩu không đúng
+2025-12-23T08:33:37.650Z [ERROR] : HTTP Request Error
+2025-12-23T08:33:42.181Z [INFO] : Audit Log
+2025-12-23T08:33:42.181Z [INFO] : [LOGIN] Login request received
+2025-12-23T08:33:42.360Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-23T08:33:42.360Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T08:33:42.360Z [INFO] : HTTP Request
+2025-12-23T08:37:07.830Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T08:37:07.830Z [INFO] : Audit Log
+2025-12-23T08:37:07.831Z [INFO] : [LOGOUT] Logout request received
+2025-12-23T08:37:07.879Z [INFO] : [LOGOUT] User logged out successfully
+2025-12-23T08:37:07.879Z [INFO] : [SUCCESS]Đăng xuất thành công
+2025-12-23T08:37:07.879Z [INFO] : HTTP Request
+2025-12-23T08:37:33.752Z [INFO] : Audit Log
+2025-12-23T08:37:33.752Z [INFO] : [LOGIN] Login request received
+2025-12-23T08:37:34.089Z [INFO] : [LOGIN] User logged in successfully: guestuser
+2025-12-23T08:37:34.090Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T08:37:34.090Z [INFO] : HTTP Request
+2025-12-23T08:45:10.659Z [INFO] : [AUTH] User authenticated: guestuser
+2025-12-23T08:45:10.659Z [INFO] : Audit Log
+2025-12-23T08:45:10.659Z [INFO] : [LOGOUT] Logout request received
+2025-12-23T08:45:10.949Z [INFO] : [LOGOUT] User logged out successfully
+2025-12-23T08:45:10.950Z [INFO] : [SUCCESS]Đăng xuất thành công
+2025-12-23T08:45:10.950Z [INFO] : HTTP Request
+2025-12-23T08:45:22.545Z [INFO] : Audit Log
+2025-12-23T08:45:22.545Z [INFO] : [LOGIN] Login request received
+2025-12-23T08:45:22.901Z [INFO] : [LOGIN] User logged in successfully: guestuser
+2025-12-23T08:45:22.901Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T08:45:22.902Z [INFO] : HTTP Request
+2025-12-23T09:01:51.063Z [INFO] : [AUTH] User authenticated: guestuser
+2025-12-23T09:01:51.063Z [INFO] : Audit Log
+2025-12-23T09:01:51.064Z [INFO] : [LOGOUT] Logout request received
+2025-12-23T09:01:51.204Z [INFO] : [LOGOUT] User logged out successfully
+2025-12-23T09:01:51.204Z [INFO] : [SUCCESS]Đăng xuất thành công
+2025-12-23T09:01:51.205Z [INFO] : HTTP Request
+2025-12-23T09:02:29.231Z [INFO] : Audit Log
+2025-12-23T09:02:29.231Z [INFO] : [LOGIN] Login request received
+2025-12-23T09:02:29.526Z [INFO] : [LOGIN] User logged in successfully: guestuser
+2025-12-23T09:02:29.526Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T09:02:29.528Z [INFO] : HTTP Request
+2025-12-23T09:02:39.191Z [INFO] : [AUTH] User authenticated: guestuser
+2025-12-23T09:02:39.191Z [INFO] : Audit Log
+2025-12-23T09:02:39.191Z [INFO] : [LOGOUT] Logout request received
+2025-12-23T09:02:39.233Z [INFO] : [LOGOUT] User logged out successfully
+2025-12-23T09:02:39.233Z [INFO] : [SUCCESS]Đăng xuất thành công
+2025-12-23T09:02:39.234Z [INFO] : HTTP Request
+2025-12-23T09:02:43.866Z [INFO] : Audit Log
+2025-12-23T09:02:43.867Z [INFO] : [LOGIN] Login request received
+2025-12-23T09:02:44.445Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-23T09:02:44.446Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T09:02:44.447Z [INFO] : HTTP Request
+2025-12-23T09:20:40.083Z [INFO] : HTTP Request
+2025-12-23T09:20:40.102Z [INFO] : HTTP Request
+2025-12-23T09:20:50.740Z [INFO] : HTTP Request
+2025-12-23T09:20:50.742Z [INFO] : HTTP Request
+2025-12-23T09:20:58.909Z [INFO] : HTTP Request
+2025-12-23T09:20:58.914Z [INFO] : HTTP Request
+2025-12-23T09:21:19.722Z [INFO] : HTTP Request
+2025-12-23T09:21:19.724Z [INFO] : HTTP Request
+2025-12-23T09:21:29.015Z [INFO] : HTTP Request
+2025-12-23T09:21:29.018Z [INFO] : HTTP Request
+2025-12-23T09:22:42.271Z [INFO] : HTTP Request
+2025-12-23T09:22:42.273Z [INFO] : HTTP Request
+2025-12-23T09:22:57.866Z [INFO] : HTTP Request
+2025-12-23T09:22:57.869Z [INFO] : HTTP Request
+2025-12-23T09:34:41.536Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:34:41.536Z [INFO] : Audit Log
+2025-12-23T09:34:41.537Z [INFO] : [LOGOUT] Logout request received
+2025-12-23T09:34:43.086Z [INFO] : [LOGOUT] User logged out successfully
+2025-12-23T09:34:43.087Z [INFO] : [SUCCESS]Đăng xuất thành công
+2025-12-23T09:34:43.088Z [INFO] : HTTP Request
+2025-12-23T09:35:05.240Z [INFO] : Audit Log
+2025-12-23T09:35:05.241Z [INFO] : [LOGIN] Login request received
+2025-12-23T09:35:05.678Z [INFO] : [LOGIN] User logged in successfully: guestuser
+2025-12-23T09:35:05.679Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T09:35:05.680Z [INFO] : HTTP Request
+2025-12-23T09:37:48.205Z [INFO] : [AUTH] User authenticated: guestuser
+2025-12-23T09:37:48.206Z [INFO] : Audit Log
+2025-12-23T09:37:48.206Z [INFO] : [LOGOUT] Logout request received
+2025-12-23T09:37:48.259Z [INFO] : [LOGOUT] User logged out successfully
+2025-12-23T09:37:48.259Z [INFO] : [SUCCESS]Đăng xuất thành công
+2025-12-23T09:37:48.260Z [INFO] : HTTP Request
+2025-12-23T09:42:02.148Z [INFO] : Audit Log
+2025-12-23T09:42:02.148Z [INFO] : [REGISTER] Register request received
+2025-12-23T09:42:04.402Z [INFO] : [REGISTER] User registered successfully: daubep with role Guest
+2025-12-23T09:42:04.402Z [INFO] : [SUCCESS]Đăng ký thành công. Tài khoản của bạn có quyền Guest, vui lòng liên hệ Admin để nâng cấp quyền.
+2025-12-23T09:42:04.402Z [INFO] : HTTP Request
+2025-12-23T09:42:17.702Z [INFO] : Audit Log
+2025-12-23T09:42:17.703Z [INFO] : [LOGIN] Login request received
+2025-12-23T09:42:17.989Z [INFO] : [LOGIN] User logged in successfully: daubep
+2025-12-23T09:42:17.989Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T09:42:17.990Z [INFO] : HTTP Request
+2025-12-23T09:42:27.304Z [INFO] : [AUTH] User authenticated: daubep
+2025-12-23T09:42:27.305Z [INFO] : Audit Log
+2025-12-23T09:42:27.305Z [INFO] : [LOGOUT] Logout request received
+2025-12-23T09:42:27.360Z [INFO] : [LOGOUT] User logged out successfully
+2025-12-23T09:42:27.360Z [INFO] : [SUCCESS]Đăng xuất thành công
+2025-12-23T09:42:27.361Z [INFO] : HTTP Request
+2025-12-23T09:42:31.120Z [INFO] : Audit Log
+2025-12-23T09:42:31.120Z [INFO] : [LOGIN] Login request received
+2025-12-23T09:42:31.362Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-23T09:42:31.362Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T09:42:31.363Z [INFO] : HTTP Request
+2025-12-23T09:47:17.107Z [INFO] : HTTP Request
+2025-12-23T09:47:17.115Z [INFO] : HTTP Request
+2025-12-23T09:47:17.132Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:47:17.136Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:47:17.245Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:47:17.246Z [INFO] : HTTP Request
+2025-12-23T09:47:17.390Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:47:17.391Z [INFO] : HTTP Request
+2025-12-23T09:50:02.070Z [INFO] : HTTP Request
+2025-12-23T09:50:02.071Z [INFO] : HTTP Request
+2025-12-23T09:50:02.175Z [INFO] : HTTP Request
+2025-12-23T09:50:02.181Z [INFO] : HTTP Request
+2025-12-23T09:50:02.213Z [INFO] : HTTP Request
+2025-12-23T09:50:02.216Z [INFO] : HTTP Request
+2025-12-23T09:50:02.224Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:50:02.237Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:50:02.291Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:50:02.292Z [INFO] : HTTP Request
+2025-12-23T09:50:02.293Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:50:02.307Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:50:02.308Z [INFO] : HTTP Request
+2025-12-23T09:50:02.310Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:50:02.395Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:50:02.395Z [INFO] : HTTP Request
+2025-12-23T09:50:02.400Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:50:02.400Z [INFO] : HTTP Request
+2025-12-23T09:58:12.061Z [INFO] : HTTP Request
+2025-12-23T09:58:12.063Z [INFO] : HTTP Request
+2025-12-23T09:58:12.105Z [INFO] : HTTP Request
+2025-12-23T09:58:12.106Z [INFO] : HTTP Request
+2025-12-23T09:58:12.120Z [INFO] : HTTP Request
+2025-12-23T09:58:12.122Z [INFO] : HTTP Request
+2025-12-23T09:58:12.125Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:12.127Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:12.330Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:58:12.330Z [INFO] : HTTP Request
+2025-12-23T09:58:12.332Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:12.386Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:58:12.386Z [INFO] : HTTP Request
+2025-12-23T09:58:12.725Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:58:12.726Z [INFO] : HTTP Request
+2025-12-23T09:58:12.728Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:12.789Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:58:12.791Z [INFO] : HTTP Request
+2025-12-23T09:58:15.543Z [INFO] : HTTP Request
+2025-12-23T09:58:15.544Z [INFO] : HTTP Request
+2025-12-23T09:58:15.888Z [INFO] : HTTP Request
+2025-12-23T09:58:15.889Z [INFO] : HTTP Request
+2025-12-23T09:58:15.890Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:15.896Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:15.899Z [INFO] : HTTP Request
+2025-12-23T09:58:15.901Z [INFO] : HTTP Request
+2025-12-23T09:58:15.950Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:58:15.950Z [INFO] : HTTP Request
+2025-12-23T09:58:15.952Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:15.953Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:58:15.953Z [INFO] : HTTP Request
+2025-12-23T09:58:15.955Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:16.031Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:58:16.032Z [INFO] : HTTP Request
+2025-12-23T09:58:16.032Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:58:16.032Z [INFO] : HTTP Request
+2025-12-23T09:58:43.787Z [INFO] : HTTP Request
+2025-12-23T09:58:43.788Z [INFO] : HTTP Request
+2025-12-23T09:58:46.063Z [INFO] : HTTP Request
+2025-12-23T09:58:46.068Z [INFO] : HTTP Request
+2025-12-23T09:58:46.070Z [INFO] : HTTP Request
+2025-12-23T09:58:46.078Z [INFO] : HTTP Request
+2025-12-23T09:58:46.080Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:46.082Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:46.332Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:58:46.333Z [INFO] : HTTP Request
+2025-12-23T09:58:46.334Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:58:46.335Z [INFO] : HTTP Request
+2025-12-23T09:58:46.336Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:46.338Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T09:58:46.487Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T09:58:46.489Z [INFO] : HTTP Request
+2025-12-23T09:58:46.490Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T09:58:46.491Z [INFO] : HTTP Request
+2025-12-23T10:01:10.530Z [INFO] : HTTP Request
+2025-12-23T10:01:10.542Z [INFO] : HTTP Request
+2025-12-23T10:01:10.549Z [INFO] : HTTP Request
+2025-12-23T10:01:10.563Z [INFO] : HTTP Request
+2025-12-23T10:01:10.569Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:01:10.572Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:01:10.624Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T10:01:10.625Z [INFO] : HTTP Request
+2025-12-23T10:01:10.626Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T10:01:10.626Z [INFO] : HTTP Request
+2025-12-23T10:01:10.628Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:01:10.630Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:01:10.686Z [INFO] : [SUCCESS]Lay danh sach phan quyen thanh cong
+2025-12-23T10:01:10.687Z [INFO] : HTTP Request
+2025-12-23T10:01:10.687Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T10:01:10.688Z [INFO] : HTTP Request
+2025-12-23T10:04:04.702Z [INFO] : Audit Log
+2025-12-23T10:04:04.703Z [INFO] : [LOGIN] Login request received
+2025-12-23T10:04:05.066Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-23T10:04:05.067Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T10:04:05.068Z [INFO] : HTTP Request
+2025-12-23T10:04:28.482Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:04:28.633Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T10:04:28.635Z [INFO] : HTTP Request
+2025-12-23T10:17:27.859Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:17:28.055Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T10:17:28.056Z [INFO] : HTTP Request
+2025-12-23T10:18:11.374Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:18:11.376Z [INFO] : Audit Log
+2025-12-23T10:18:12.372Z [INFO] : [SUCCESS]Cập nhật user thành công
+2025-12-23T10:18:12.373Z [INFO] : HTTP Request
+2025-12-23T10:18:15.576Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:18:15.668Z [INFO] : [SUCCESS]Lấy danh sách user thành công
+2025-12-23T10:18:15.669Z [INFO] : HTTP Request
+2025-12-23T10:18:20.391Z [INFO] : [AUTH] User authenticated: admin
+2025-12-23T10:18:20.391Z [INFO] : Audit Log
+2025-12-23T10:18:20.391Z [INFO] : [LOGOUT] Logout request received
+2025-12-23T10:18:20.447Z [INFO] : [LOGOUT] User logged out successfully
+2025-12-23T10:18:20.448Z [INFO] : [SUCCESS]Đăng xuất thành công
+2025-12-23T10:18:20.449Z [INFO] : HTTP Request
+2025-12-23T10:18:26.001Z [INFO] : Audit Log
+2025-12-23T10:18:26.001Z [INFO] : [LOGIN] Login request received
+2025-12-23T10:18:26.237Z [INFO] : [LOGIN] User logged in successfully: daubep
+2025-12-23T10:18:26.237Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-23T10:18:26.238Z [INFO] : HTTP Request
