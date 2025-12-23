@@ -9,6 +9,11 @@ export const createThucDonSchema = Joi.object({
     'string.max': 'Ten thuc don khong duoc qua 100 ky tu',
     'any.required': 'Ten thuc don la bat buoc'
   }),
+  donGiaHienTai: Joi.number().precision(2).positive().required().messages({
+    'number.base': 'Don gia hien tai phai la so',
+    'number.positive': 'Don gia hien tai phai lon hon 0',
+    'any.required': 'Don gia hien tai la bat buoc'
+  }),
   ghiChu: Joi.string().allow('', null).max(500)
 });
 
@@ -31,6 +36,10 @@ export const updateThucDonSchema = Joi.object({
   tenThucDon: Joi.string().trim().min(2).max(100).messages({
     'string.min': 'Ten thuc don phai co it nhat 2 ky tu',
     'string.max': 'Ten thuc don khong duoc qua 100 ky tu'
+  }),
+  donGiaHienTai: Joi.number().precision(2).positive().messages({
+    'number.base': 'Don gia hien tai phai la so',
+    'number.positive': 'Don gia hien tai phai lon hon 0'
   }),
   ghiChu: Joi.string().allow('', null).max(500)
 }).min(1);

@@ -556,6 +556,243 @@ const apiService = {
 
     return data;
   },
+
+  // ==================== MÓN ĂN (MONAN) ====================
+  
+  // Get all dishes
+  getAllMonAn: async () => {
+    const response = await fetch(`${API_BASE_URL}/monan/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // Get dish by ID
+  getMonAnById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/monan/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy chi tiết món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // Create new dish
+  createMonAn: async (monAnData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/monan/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(monAnData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // Update dish
+  updateMonAn: async (id, monAnData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/monan/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(monAnData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // Delete dish
+  deleteMonAn: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/monan/delete/${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Xóa món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // ==================== THỰC ĐƠN MẪU (THUCDONMAU) ====================
+  
+  // Get all set menus
+  getAllThucDonMau: async () => {
+    const response = await fetch(`${API_BASE_URL}/thucdonmau/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách thực đơn mẫu thất bại');
+    }
+
+    return data;
+  },
+
+  // Get set menu by ID
+  getThucDonMauById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/thucdonmau/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy chi tiết thực đơn mẫu thất bại');
+    }
+
+    return data;
+  },
+
+  // Create new set menu
+  createThucDonMau: async (thucDonMauData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thucdonmau/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(thucDonMauData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo thực đơn mẫu thất bại');
+    }
+
+    return data;
+  },
+
+  // Update set menu
+  updateThucDonMau: async (id, thucDonMauData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thucdonmau/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(thucDonMauData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật thực đơn mẫu thất bại');
+    }
+
+    return data;
+  },
+
+  // Delete set menu
+  deleteThucDonMau: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thucdonmau/delete/${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Xóa thực đơn mẫu thất bại');
+    }
+
+    return data;
+  },
+
+  // ==================== LOẠI MÓN ĂN (LOAIMONAN) ====================
+  
+  // Get all dish categories
+  getAllLoaiMonAn: async () => {
+    const response = await fetch(`${API_BASE_URL}/loaimonan/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách loại món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // Get dish category by ID
+  getLoaiMonAnById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/loaimonan/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy chi tiết loại món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // Create new dish category
+  createLoaiMonAn: async (loaiMonAnData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/loaimonan/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loaiMonAnData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo loại món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // Update dish category
+  updateLoaiMonAn: async (id, loaiMonAnData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/loaimonan/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loaiMonAnData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật loại món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  // Delete dish category
+  deleteLoaiMonAn: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/loaimonan/delete/${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Xóa loại món ăn thất bại');
+    }
+
+    return data;
+  },
 };
 
 export default apiService;

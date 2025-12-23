@@ -1,127 +1,340 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MenuManagement.css';
-import { FaSearch, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash, FaPlus, FaTimes, FaSave } from "react-icons/fa";
+import apiService from '../services/api';
 
 const MenuManagement = () => {
-  // 1. Đổi tên state: Quản lý danh mục đang được chọn
+  // ==================== STATE MANAGEMENT ====================
+  
+  // Món ăn
+  const [danhSachMonAn, setDanhSachMonAn] = useState([]);
+  const [monAnHienThi, setMonAnHienThi] = useState([]);
   const [danhMucHienTai, setDanhMucHienTai] = useState('all');
+  const [searchMonAn, setSearchMonAn] = useState('');
+  const [showMonAnModal, setShowMonAnModal] = useState(false);
+  const [editingMonAn, setEditingMonAn] = useState(null);
+  
+  // Thực đơn mẫu
+  const [danhSachThucDonMau, setDanhSachThucDonMau] = useState([]);
+  const [searchThucDonMau, setSearchThucDonMau] = useState('');
+  const [showThucDonMauModal, setShowThucDonMauModal] = useState(false);
+  const [editingThucDonMau, setEditingThucDonMau] = useState(null);
+  
+  // Loại món ăn
+  const [danhSachLoaiMon, setDanhSachLoaiMon] = useState([]);
+  const [searchLoaiMon, setSearchLoaiMon] = useState('');
+  const [showLoaiMonModal, setShowLoaiMonModal] = useState(false);
+  const [editingLoaiMon, setEditingLoaiMon] = useState(null);
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // 2. Đổi tên biến dữ liệu: Danh sách tất cả món ăn
-  const danhSachMonAn = [
-    { 
-      id: 1, 
-      name: "Gỏi Ngó Sen Tôm Thịt", 
-      category: "Khai vị", 
-      price: "350.000", 
-      status: "available", 
-      image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-    },
-    { 
-      id: 2, 
-      name: "Súp Cua Bách Hoa", 
-      category: "Khai vị", 
-      price: "400.000", 
-      status: "available",
-      image: "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-    },
-    { 
-      id: 3, 
-      name: "Bò Sốt Tiêu Đen + Bánh Bao", 
-      category: "Món chính", 
-      price: "550.000", 
-      status: "available",
-      image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-    },
-    { 
-      id: 4, 
-      name: "Lẩu Thái Hải Sản", 
-      category: "Món chính", 
-      price: "650.000", 
-      status: "soldout",
-      image: "https://images.unsplash.com/photo-1555126634-323283e090fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-    },
-    { 
-      id: 5, 
-      name: "Trái Cây Thập Cẩm", 
-      category: "Tráng miệng", 
-      price: "200.000", 
-      status: "available",
-      image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-    },
-  ];
+  // ==================== DATA FETCHING ====================
+  
+  const fetchMonAn = async () => {
+    try {
+      setLoading(true);
+      const response = await apiService.getAllMonAn();
+      setDanhSachMonAn(response.data || []);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching món ăn:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // 3. Đổi tên biến: Logic lọc món ăn để hiển thị ra bảng
-  const monAnHienThi = danhMucHienTai === 'all' 
-    ? danhSachMonAn 
-    : danhSachMonAn.filter(mon => mon.category === danhMucHienTai);
+  const fetchThucDonMau = async () => {
+    try {
+      const response = await apiService.getAllThucDonMau();
+      setDanhSachThucDonMau(response.data || []);
+    } catch (err) {
+      console.error('Error fetching thực đơn mẫu:', err);
+    }
+  };
 
-  // 4. Đổi tên biến: Danh sách các nút Tab
+  const fetchLoaiMonAn = async () => {
+    try {
+      const response = await apiService.getAllLoaiMonAn();
+      setDanhSachLoaiMon(response.data || []);
+    } catch (err) {
+      console.error('Error fetching loại món ăn:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMonAn();
+    fetchThucDonMau();
+    fetchLoaiMonAn();
+  }, []);
+
+  // ==================== FILTERING & SEARCH ====================
+  
+  useEffect(() => {
+    let filtered = danhSachMonAn;
+    
+    if (danhMucHienTai !== 'all') {
+      filtered = filtered.filter(mon => mon.TenLoaiMonAn === danhMucHienTai);
+    }
+    
+    if (searchMonAn.trim()) {
+      filtered = filtered.filter(mon => 
+        mon.TenMonAn?.toLowerCase().includes(searchMonAn.toLowerCase())
+      );
+    }
+    
+    setMonAnHienThi(filtered);
+  }, [danhSachMonAn, danhMucHienTai, searchMonAn]);
+
   const danhSachTab = [
     { id: 'all', label: 'Tất cả' },
-    { id: 'Khai vị', label: 'Khai vị' },
-    { id: 'Món chính', label: 'Món chính' },
-    { id: 'Tráng miệng', label: 'Tráng miệng' },
-    { id: 'Nước uống', label: 'Nước uống' },
+    ...Array.from(new Set(danhSachMonAn.map(mon => mon.TenLoaiMonAn)))
+      .filter(Boolean)
+      .map(ten => ({ id: ten, label: ten }))
   ];
-  const danhSachSetMenu = [
-    {
-        id: 'A', name: 'Set Menu A', price: '2.900.000', priceBooked: '2.900.000',
-        items: 'Gỏi ngó sen tôm thịt, Súp cua gà xé, Gà hấp hành gừng, Cá điêu hồng chiên xù, Lẩu Thái hải sản, Chè hạt sen.',
-        note: 'Set menu chọn lọc theo phong cách truyền thống Việt Nam, phù hợp 10 người/bàn'
-    },
-    {
-        id: 'B', name: 'Set Menu B', price: '3.200.000', priceBooked: '3.200.000',
-        items: 'Gỏi bưởi tôm sú, Súp hải sản trứng cút, Tôm càng rang muối, Cá chẽm hấp Hong Kong, Lẩu nấm hải sản, Trái cây.',
-        note: 'Món hải sản tươi ngon, phong cách thanh vị, phù hợp tiệc nhẹ nhàng'
-    },
-    {
-        id: 'C', name: 'Set Menu C', price: '3.500.000', priceBooked: '3.500.000',
-        items: 'Salad rau củ trộn trứng, Súp kem bí đỏ, Bò áp chảo sốt vang đỏ, Cá hồi nướng sốt cam, Lẩu nấm chay, Bánh flan.',
-        note: 'Thực đơn phong cách Âu - Á kết hợp, sang trọng và tinh tế'
+
+  const thucDonMauFiltered = danhSachThucDonMau.filter(tdm =>
+    tdm.TenThucDon?.toLowerCase().includes(searchThucDonMau.toLowerCase())
+  );
+
+  const loaiMonFiltered = danhSachLoaiMon.filter(loai =>
+    loai.TenLoaiMonAn?.toLowerCase().includes(searchLoaiMon.toLowerCase())
+  );
+
+  // ==================== CRUD HANDLERS - MÓN ĂN ====================
+  
+  const handleCreateMonAn = () => {
+    setEditingMonAn({
+      tenMonAn: '',
+      maLoaiMonAn: '',
+      donGia: '',
+      ghiChu: '',
+      anhURL: ''
+    });
+    setShowMonAnModal(true);
+  };
+
+  const handleEditMonAn = (mon) => {
+    setEditingMonAn({
+      maMonAn: mon.MaMonAn,
+      tenMonAn: mon.TenMonAn,
+      maLoaiMonAn: mon.MaLoaiMonAn,
+      donGia: mon.DonGia,
+      ghiChu: mon.GhiChu || '',
+      anhURL: mon.AnhURL || ''
+    });
+    setShowMonAnModal(true);
+  };
+
+  const handleSaveMonAn = async () => {
+    try {
+      setLoading(true);
+      const payload = {
+        tenMonAn: editingMonAn.tenMonAn,
+        maLoaiMonAn: parseInt(editingMonAn.maLoaiMonAn),
+        donGia: parseFloat(editingMonAn.donGia),
+        ghiChu: editingMonAn.ghiChu,
+        anhURL: editingMonAn.anhURL
+      };
+
+      if (editingMonAn.maMonAn) {
+        await apiService.updateMonAn(editingMonAn.maMonAn, payload);
+        alert('Cập nhật món ăn thành công!');
+      } else {
+        await apiService.createMonAn(payload);
+        alert('Tạo món ăn thành công!');
+      }
+
+      setShowMonAnModal(false);
+      setEditingMonAn(null);
+      fetchMonAn();
+    } catch (err) {
+      alert('Lỗi: ' + err.message);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
-  // --- 3. CODE MỚI: DỮ LIỆU LOẠI MÓN ĂN ---
-  const danhSachLoaiMon = [
-    { id: 1, name: 'Khai vị' },
-    { id: 2, name: 'Món chính' },
-    { id: 3, name: 'Tráng miệng' },
-    { id: 4, name: 'Nước uống' },
-    { id: 5, name: 'Món chay' },
-  ];
+  const handleDeleteMonAn = async (id) => {
+    if (!window.confirm('Bạn có chắc muốn xóa món ăn này?')) return;
 
+    try {
+      setLoading(true);
+      await apiService.deleteMonAn(id);
+      alert('Xóa món ăn thành công!');
+      fetchMonAn();
+    } catch (err) {
+      alert('Lỗi: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ==================== CRUD HANDLERS - THỰC ĐƠN MẪU ====================
+  
+  const handleCreateThucDonMau = () => {
+    setEditingThucDonMau({
+      tenThucDon: '',
+      donGiaHienTai: '',
+      ghiChu: ''
+    });
+    setShowThucDonMauModal(true);
+  };
+
+  const handleEditThucDonMau = (tdm) => {
+    setEditingThucDonMau({
+      maThucDon: tdm.MaThucDon,
+      tenThucDon: tdm.TenThucDon,
+      ghiChu: tdm.GhiChu || '',
+      donGiaHienTai: tdm.DonGiaHienTai
+    });
+    setShowThucDonMauModal(true);
+  };
+
+  const handleSaveThucDonMau = async () => {
+    try {
+      setLoading(true);
+      const payload = {
+        tenThucDon: editingThucDonMau.tenThucDon,
+        ghiChu: editingThucDonMau.ghiChu,
+        donGiaHienTai: parseFloat(editingThucDonMau.donGiaHienTai)
+      };
+
+      if (editingThucDonMau.maThucDon) {
+        await apiService.updateThucDonMau(editingThucDonMau.maThucDon, payload);
+        alert('Cập nhật thực đơn mẫu thành công!');
+      } else {
+        await apiService.createThucDonMau(payload);
+        alert('Tạo thực đơn mẫu thành công!');
+      }
+
+      setShowThucDonMauModal(false);
+      setEditingThucDonMau(null);
+      fetchThucDonMau();
+    } catch (err) {
+      alert('Lỗi: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteThucDonMau = async (id) => {
+    if (!window.confirm('Bạn có chắc muốn xóa thực đơn mẫu này?')) return;
+
+    try {
+      setLoading(true);
+      await apiService.deleteThucDonMau(id);
+      alert('Xóa thực đơn mẫu thành công!');
+      fetchThucDonMau();
+    } catch (err) {
+      alert('Lỗi: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ==================== CRUD HANDLERS - LOẠI MÓN ĂN ====================
+  
+  const handleCreateLoaiMon = () => {
+    setEditingLoaiMon({
+      tenLoaiMonAn: ''
+    });
+    setShowLoaiMonModal(true);
+  };
+
+  const handleEditLoaiMon = (loai) => {
+    setEditingLoaiMon({
+      maLoaiMonAn: loai.MaLoaiMonAn,
+      tenLoaiMonAn: loai.TenLoaiMonAn
+    });
+    setShowLoaiMonModal(true);
+  };
+
+  const handleSaveLoaiMon = async () => {
+    try {
+      setLoading(true);
+      const payload = {
+        tenLoai: editingLoaiMon.tenLoaiMonAn
+      };
+
+      if (editingLoaiMon.maLoaiMonAn) {
+        await apiService.updateLoaiMonAn(editingLoaiMon.maLoaiMonAn, payload);
+        alert('Cập nhật loại món ăn thành công!');
+      } else {
+        await apiService.createLoaiMonAn(payload);
+        alert('Tạo loại món ăn thành công!');
+      }
+
+      setShowLoaiMonModal(false);
+      setEditingLoaiMon(null);
+      fetchLoaiMonAn();
+      fetchMonAn();
+    } catch (err) {
+      alert('Lỗi: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteLoaiMon = async (id) => {
+    if (!window.confirm('Bạn có chắc muốn xóa loại món ăn này?')) return;
+
+    try {
+      setLoading(true);
+      await apiService.deleteLoaiMonAn(id);
+      alert('Xóa loại món ăn thành công!');
+      fetchLoaiMonAn();
+      fetchMonAn();
+    } catch (err) {
+      alert('Lỗi: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ==================== RENDER ====================
+  
   return (
     <div className="menu-page-wrapper">
       <div className="content-body">
+        
+        {/* ==================== SECTION 1: QUẢN LÝ MÓN ĂN ==================== */}
         <section className="section-block">
-          
-          {/* Header Section */}
           <div className="section-header-row">
-            <h2 className="section-title">Quản lý thực đơn</h2>
+            <h2 className="section-title">Quản lý món ăn</h2>
             
             <div className="controls-group">
               <div className="search-box">
-                <input type="text" placeholder="Tìm tên món..." />
+                <input 
+                  type="text" 
+                  placeholder="Tìm tên món..." 
+                  value={searchMonAn}
+                  onChange={(e) => setSearchMonAn(e.target.value)}
+                />
                 <FaSearch className="search-icon" />
               </div>
-              <button className="add-btn"><FaPlus /> Thêm món mới</button>
+              <button className="add-btn" onClick={handleCreateMonAn}>
+                <FaPlus /> Thêm món mới
+              </button>
             </div>
           </div>
 
-          {/* Tabs lọc món ăn */}
           <div className="menu-tabs">
-             {danhSachTab.map(tab => (
-                <button 
-                    key={tab.id}
-                    className={`tab-btn ${danhMucHienTai === tab.id ? 'active' : ''}`}
-                    onClick={() => setDanhMucHienTai(tab.id)}
-                >
-                    {tab.label}
-                </button>
-             ))}
+            {danhSachTab.map(tab => (
+              <button 
+                key={tab.id}
+                className={`tab-btn ${danhMucHienTai === tab.id ? 'active' : ''}`}
+                onClick={() => setDanhMucHienTai(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
 
-          {/* Bảng danh sách món */}
+          {loading && <p>Đang tải...</p>}
+          {error && <p className="error-message">{error}</p>}
+          
           <table className="custom-table">
             <thead>
               <tr>
@@ -129,144 +342,360 @@ const MenuManagement = () => {
                 <th style={{width: '25%'}}>Tên món ăn</th>
                 <th style={{width: '15%'}}>Danh mục</th>
                 <th style={{width: '15%'}}>Đơn giá</th>
-                <th style={{width: '15%'}} className="text-center">Trạng thái</th>
+                <th style={{width: '20%'}}>Ghi chú</th>
+                <th style={{width: '15%'}} className="text-center">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {monAnHienThi.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center">Không có dữ liệu</td>
+                </tr>
+              ) : (
+                monAnHienThi.map((mon) => (
+                  <tr key={mon.MaMonAn}>
+                    <td>
+                      {mon.AnhURL ? (
+                        <img src={mon.AnhURL} alt={mon.TenMonAn} className="menu-thumbnail" />
+                      ) : (
+                        <div className="menu-thumbnail-placeholder">No Image</div>
+                      )}
+                    </td>
+                    <td style={{fontWeight: '600', color: '#333'}}>{mon.TenMonAn}</td>
+                    <td>
+                      <span className="category-badge">{mon.TenLoaiMonAn}</span>
+                    </td>
+                    <td style={{fontWeight: 'bold', color: '#8A7CDF'}}>
+                      {Number(mon.DonGia).toLocaleString('vi-VN')} đ
+                    </td>
+                    <td style={{fontSize: '13px', color: '#555'}}>
+                      {mon.GhiChu || '-'}
+                    </td>
+                    <td className="text-center">
+                      <div className="action-cells">
+                        <button 
+                          className="icon-btn edit-btn" 
+                          title="Sửa"
+                          onClick={() => handleEditMonAn(mon)}
+                        >
+                          <FaEdit />
+                        </button>
+                        <button 
+                          className="icon-btn delete-btn" 
+                          title="Xóa"
+                          onClick={() => handleDeleteMonAn(mon.MaMonAn)}
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </section>
+
+        {/* ==================== SECTION 2: QUẢN LÝ THỰC ĐƠN MẪU ==================== */}
+        <section className="section-block">
+          <div className="section-header-row">
+            <h2 className="section-title">Quản lý thực đơn mẫu</h2>
+            
+            <div className="controls-group">
+              <div className="search-box">
+                <input 
+                  type="text" 
+                  placeholder="Tìm thực đơn mẫu..." 
+                  value={searchThucDonMau}
+                  onChange={(e) => setSearchThucDonMau(e.target.value)}
+                />
+                <FaSearch className="search-icon" />
+              </div>
+              <button className="add-btn" onClick={handleCreateThucDonMau}>
+                <FaPlus /> Thêm thực đơn mẫu
+              </button>
+            </div>
+          </div>
+
+          <table className="custom-table">
+            <thead>
+              <tr>
+                <th style={{width: '20%'}}>Tên thực đơn</th>
+                <th style={{width: '15%'}}>Đơn giá hiện tại</th>
+                <th style={{width: '50%'}}>Ghi chú</th>
+                <th style={{width: '15%'}} className="text-center">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {thucDonMauFiltered.length === 0 ? (
+                <tr>
+                  <td colSpan="4" className="text-center">Không có dữ liệu</td>
+                </tr>
+              ) : (
+                thucDonMauFiltered.map((tdm) => (
+                  <tr key={tdm.MaThucDon}>
+                    <td style={{fontWeight: '800', color: '#333'}}>{tdm.TenThucDon}</td>
+                    <td style={{fontWeight: '600', color: '#8A7CDF'}}>
+                      {Number(tdm.DonGiaHienTai).toLocaleString('vi-VN')} đ
+                    </td>
+                    <td style={{fontSize: '13px', lineHeight: '1.5', color: '#555'}}>
+                      {tdm.GhiChu || '-'}
+                    </td>
+                    <td className="text-center">
+                      <div className="action-cells">
+                        <button 
+                          className="icon-btn edit-btn"
+                          onClick={() => handleEditThucDonMau(tdm)}
+                        >
+                          <FaEdit />
+                        </button>
+                        <button 
+                          className="icon-btn delete-btn"
+                          onClick={() => handleDeleteThucDonMau(tdm.MaThucDon)}
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </section>
+
+        {/* ==================== SECTION 3: DANH SÁCH LOẠI MÓN ==================== */}
+        <section className="section-block">
+          <div className="section-header-row">
+            <h2 className="section-title">Danh sách loại món</h2>
+            
+            <div className="controls-group">
+              <div className="search-box">
+                <input 
+                  type="text" 
+                  placeholder="Tìm loại món..." 
+                  value={searchLoaiMon}
+                  onChange={(e) => setSearchLoaiMon(e.target.value)}
+                />
+                <FaSearch className="search-icon" />
+              </div>
+              <button className="add-btn" onClick={handleCreateLoaiMon}>
+                <FaPlus /> Thêm loại món
+              </button>
+            </div>
+          </div>
+
+          <table className="custom-table">
+            <thead>
+              <tr>
+                <th style={{width: '80%'}}>Loại món ăn</th>
                 <th style={{width: '20%'}} className="text-center">Thao tác</th>
               </tr>
             </thead>
             <tbody>
-              {monAnHienThi.map((mon) => (
-                <tr key={mon.id}>
-                  {/* Cột Hình ảnh */}
-                  <td>
-                    <img src={mon.image} alt={mon.name} className="menu-thumbnail" />
-                  </td>
-
-                  {/* Cột Tên món */}
-                  <td style={{fontWeight: '600', color: '#333'}}>{mon.name}</td>
-
-                  {/* Cột Danh mục */}
-                  <td>
-                      <span className="category-badge">{mon.category}</span>
-                  </td>
-
-                  {/* Cột Giá */}
-                  <td style={{fontWeight: 'bold', color: '#8A7CDF'}}>{mon.price} đ</td>
-
-                  {/* Cột Trạng thái */}
-                  <td className="text-center">
-                    <span className={`status-badge ${mon.status}`}>
-                        {mon.status === 'available' ? 'Available' : 'Unavailable'}
-                    </span>
-                  </td>
-
-                  {/* Cột Thao tác */}
-                  <td className="text-center">
-                    <div className="action-cells">
-                      <button className="icon-btn edit-btn" title="Sửa"><FaEdit /></button>
-                      <button className="icon-btn delete-btn" title="Xóa"><FaTrash /></button>
-                    </div>
-                  </td>
+              {loaiMonFiltered.length === 0 ? (
+                <tr>
+                  <td colSpan="2" className="text-center">Không có dữ liệu</td>
                 </tr>
-              ))}
+              ) : (
+                loaiMonFiltered.map((loai) => (
+                  <tr key={loai.MaLoaiMonAn}>
+                    <td style={{fontWeight: 'bold', fontSize: '15px'}}>{loai.TenLoaiMonAn}</td>
+                    <td className="text-center">
+                      <div className="action-cells">
+                        <button 
+                          className="icon-btn edit-btn"
+                          onClick={() => handleEditLoaiMon(loai)}
+                        >
+                          <FaEdit />
+                        </button>
+                        <button 
+                          className="icon-btn delete-btn"
+                          onClick={() => handleDeleteLoaiMon(loai.MaLoaiMonAn)}
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
-
-        </section>
-        <section className="section-block">
-            <div className="section-header-row">
-                <h2 className="section-title">Gợi ý thực đơn (Set Menu)</h2>
-                
-                {/* Thêm controls-group để gom nhóm ô tìm kiếm và nút bấm */}
-                <div className="controls-group">
-                    <div className="search-box">
-                        <input type="text" placeholder="Tìm set menu..." />
-                        <FaSearch className="search-icon" />
-                    </div>
-                    {/* Nút thêm mới */}
-                    <button className="add-btn"><FaPlus /> Thêm Set Menu</button>
-                </div>
-            </div>
-
-            <table className="custom-table">
-                <thead>
-                    <tr>
-                        <th style={{width: '15%'}}>Tên thực đơn</th>
-                        <th style={{width: '12%'}}>Giá hiện tại</th>
-                        <th style={{width: '12%'}}>Giá đặt cọc</th>
-                        <th style={{width: '30%'}}>Danh sách món ăn</th>
-                        <th style={{width: '20%'}}>Ghi chú</th>
-                        <th style={{width: '11%'}} className="text-center">Chỉnh sửa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {danhSachSetMenu.map((set) => (
-                        <tr key={set.id}>
-                            <td style={{fontWeight: '800', color: '#333'}}>{set.name}</td>
-                            <td style={{fontWeight: '600'}}>{set.price}</td>
-                            <td style={{fontWeight: '600'}}>{set.priceBooked}</td>
-                            
-                            {/* Danh sách món ăn dài, cho chữ nhỏ lại xíu và xám đi */}
-                            <td style={{fontSize: '13px', lineHeight: '1.5', color: '#555'}}>
-                                {set.items}
-                            </td>
-                            
-                            <td style={{fontSize: '13px', fontStyle: 'italic', color: '#777'}}>
-                                {set.note}
-                            </td>
-
-                            <td className="text-center">
-                                <div className="action-cells">
-                                    <button className="icon-btn edit-btn"><FaEdit /></button>
-                                    <button className="icon-btn delete-btn"><FaTrash /></button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </section>
-
-        {/* =========================================================
-            PHẦN 3: DANH SÁCH LOẠI MÓN - MỚI THÊM
-           ========================================================= */}
-        <section className="section-block">
-            <div className="section-header-row">
-                <h2 className="section-title">Danh sách loại món</h2>
-                
-                {/* Thêm controls-group để gom nhóm */}
-                <div className="controls-group">
-                    <div className="search-box">
-                        <input type="text" placeholder="Tìm loại món..." />
-                        <FaSearch className="search-icon" />
-                    </div>
-                    {/* Nút thêm mới */}
-                    <button className="add-btn"><FaPlus /> Thêm loại món</button>
-                </div>
-            </div>
-
-            <table className="custom-table">
-                <thead>
-                    <tr>
-                        <th style={{width: '80%'}}>Loại món ăn</th>
-                        <th style={{width: '20%'}} className="text-center">Chỉnh sửa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {danhSachLoaiMon.map((loai) => (
-                        <tr key={loai.id}>
-                            <td style={{fontWeight: 'bold', fontSize: '15px'}}>{loai.name}</td>
-                            <td className="text-center">
-                                <div className="action-cells">
-                                    <button className="icon-btn edit-btn"><FaEdit /></button>
-                                    <button className="icon-btn delete-btn"><FaTrash /></button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
         </section>
       </div>
+
+      {/* ==================== MODALS ==================== */}
+      
+      {/* Modal Món Ăn */}
+      {showMonAnModal && editingMonAn && (
+        <div className="modal-overlay" onClick={() => setShowMonAnModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>{editingMonAn.maMonAn ? 'Chỉnh sửa món ăn' : 'Thêm món ăn mới'}</h3>
+              <button className="close-btn" onClick={() => setShowMonAnModal(false)}>
+                <FaTimes />
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <div className="form-group">
+                <label>Tên món ăn *</label>
+                <input
+                  type="text"
+                  value={editingMonAn.tenMonAn}
+                  onChange={(e) => setEditingMonAn({...editingMonAn, tenMonAn: e.target.value})}
+                  placeholder="Nhập tên món ăn"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Loại món *</label>
+                <select
+                  value={editingMonAn.maLoaiMonAn}
+                  onChange={(e) => setEditingMonAn({...editingMonAn, maLoaiMonAn: e.target.value})}
+                >
+                  <option value="">-- Chọn loại món --</option>
+                  {danhSachLoaiMon.map(loai => (
+                    <option key={loai.MaLoaiMonAn} value={loai.MaLoaiMonAn}>
+                      {loai.TenLoaiMonAn}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label>Đơn giá *</label>
+                <input
+                  type="number"
+                  value={editingMonAn.donGia}
+                  onChange={(e) => setEditingMonAn({...editingMonAn, donGia: e.target.value})}
+                  placeholder="Nhập đơn giá"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Ghi chú</label>
+                <textarea
+                  value={editingMonAn.ghiChu}
+                  onChange={(e) => setEditingMonAn({...editingMonAn, ghiChu: e.target.value})}
+                  placeholder="Nhập ghi chú món ăn"
+                  rows="3"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>URL hình ảnh</label>
+                <input
+                  type="text"
+                  value={editingMonAn.anhURL}
+                  onChange={(e) => setEditingMonAn({...editingMonAn, anhURL: e.target.value})}
+                  placeholder="Nhập URL hình ảnh"
+                />
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button className="btn-secondary" onClick={() => setShowMonAnModal(false)}>
+                Hủy
+              </button>
+              <button className="btn-primary" onClick={handleSaveMonAn} disabled={loading}>
+                <FaSave /> {loading ? 'Đang lưu...' : 'Lưu'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Thực Đơn Mẫu */}
+      {showThucDonMauModal && editingThucDonMau && (
+        <div className="modal-overlay" onClick={() => setShowThucDonMauModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>{editingThucDonMau.maThucDon ? 'Chỉnh sửa thực đơn mẫu' : 'Thêm thực đơn mẫu'}</h3>
+              <button className="close-btn" onClick={() => setShowThucDonMauModal(false)}>
+                <FaTimes />
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <div className="form-group">
+                <label>Tên thực đơn *</label>
+                <input
+                  type="text"
+                  value={editingThucDonMau.tenThucDon}
+                  onChange={(e) => setEditingThucDonMau({...editingThucDonMau, tenThucDon: e.target.value})}
+                  placeholder="Nhập tên thực đơn"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Đơn giá hiện tại *</label>
+                <input
+                  type="number"
+                  value={editingThucDonMau.donGiaHienTai}
+                  onChange={(e) => setEditingThucDonMau({...editingThucDonMau, donGiaHienTai: e.target.value})}
+                  placeholder="Nhập đơn giá hiện tại"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Ghi chú</label>
+                <textarea
+                  value={editingThucDonMau.ghiChu}
+                  onChange={(e) => setEditingThucDonMau({...editingThucDonMau, ghiChu: e.target.value})}
+                  placeholder="Nhập ghi chú thực đơn"
+                  rows="4"
+                />
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button className="btn-secondary" onClick={() => setShowThucDonMauModal(false)}>
+                Hủy
+              </button>
+              <button className="btn-primary" onClick={handleSaveThucDonMau} disabled={loading}>
+                <FaSave /> {loading ? 'Đang lưu...' : 'Lưu'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Loại Món */}
+      {showLoaiMonModal && editingLoaiMon && (
+        <div className="modal-overlay" onClick={() => setShowLoaiMonModal(false)}>
+          <div className="modal-content modal-small" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>{editingLoaiMon.maLoaiMonAn ? 'Chỉnh sửa loại món' : 'Thêm loại món'}</h3>
+              <button className="close-btn" onClick={() => setShowLoaiMonModal(false)}>
+                <FaTimes />
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <div className="form-group">
+                <label>Tên loại món *</label>
+                <input
+                  type="text"
+                  value={editingLoaiMon.tenLoaiMonAn}
+                  onChange={(e) => setEditingLoaiMon({...editingLoaiMon, tenLoaiMonAn: e.target.value})}
+                  placeholder="Nhập tên loại món"
+                />
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button className="btn-secondary" onClick={() => setShowLoaiMonModal(false)}>
+                Hủy
+              </button>
+              <button className="btn-primary" onClick={handleSaveLoaiMon} disabled={loading}>
+                <FaSave /> {loading ? 'Đang lưu...' : 'Lưu'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

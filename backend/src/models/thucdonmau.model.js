@@ -18,7 +18,21 @@ const ThucDonMau = {
 
   // Tạo thực đơn mẫu mới
   async create(data) {
-    const [thucDon] = await db('THUCDON_MAU').insert(data).returning('*');
+    // Lấy MaThucDon lớn nhất hiện tại
+    const result = await db('THUCDON_MAU')
+      .max('MaThucDon as maxId')
+      .first();
+    
+    const nextId = (result.maxId || 0) + 1;
+    
+    // Thêm MaThucDon vào data và set DaXoa mặc định
+    const insertData = {
+      MaThucDon: nextId,
+      DaXoa: false,
+      ...data
+    };
+    
+    const [thucDon] = await db('THUCDON_MAU').insert(insertData).returning('*');
     return thucDon;
   },
 
