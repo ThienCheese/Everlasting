@@ -18,7 +18,7 @@ import { createLimiter, deleteLimiter } from '../middleware/ratelimit.middleware
 import { validateIdParam, validatePagination } from '../middleware/sanitize.middleware.js';
 import { auditLogger } from '../middleware/logging.middleware.js';
 import { requirePermission } from '../middleware/authorization.middleware.js';
-import { PERMISSIONS } from '../constants/permissions.js';
+import { PERMISSIONS } from '../services/permission.service.js';
 
 const router = Router();
 
