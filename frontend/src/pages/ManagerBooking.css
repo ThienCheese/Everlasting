@@ -268,6 +268,30 @@
 }
 .srv-price { margin-top: auto; font-weight: 700; color: #8A7CDF; font-size: 13px; }
 
+/* Service quantity inline */
+.service-quantity-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+.service-quantity-inline label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+}
+.service-quantity-inline input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 2px solid #8A7CDF;
+    border-radius: 4px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: 600;
+}
+
 /* PAYMENT CONTROL (CỌC) */
 .payment-control-box {
     background: #f9f9fb; padding: 15px; border-radius: 8px; margin: 15px 0;

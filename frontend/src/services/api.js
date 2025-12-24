@@ -927,6 +927,316 @@ const apiService = {
       method: 'DELETE'
     });
   },
+
+  // ==================== ĐẶT TIỆC APIs ====================
+  
+  getAllDatTiec: async () => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/dattiec/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách đặt tiệc thất bại');
+    }
+
+    return data;
+  },
+
+  getDatTiecById: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/dattiec/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy thông tin đặt tiệc thất bại');
+    }
+
+    return data;
+  },
+
+  createDatTiec: async (datTiecData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/dattiec/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datTiecData)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo đặt tiệc thất bại');
+    }
+
+    return data;
+  },
+
+  updateDatTiec: async (id, datTiecData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/dattiec/update/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datTiecData)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật đặt tiệc thất bại');
+    }
+
+    return data;
+  },
+
+  cancelDatTiec: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/dattiec/cancel/${id}`, {
+      method: 'PUT'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Hủy đặt tiệc thất bại');
+    }
+
+    return data;
+  },
+
+  // Quản lý dịch vụ trong đặt tiệc
+  getDichVuDatTiec: async (maDatTiec) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/dattiec/${maDatTiec}/dichvu`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách dịch vụ thất bại');
+    }
+
+    return data;
+  },
+
+  addDichVuToDatTiec: async (maDatTiec, dichVuData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/dattiec/${maDatTiec}/dichvu`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dichVuData)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Thêm dịch vụ thất bại');
+    }
+
+    return data;
+  },
+
+  // ==================== THỰC ĐƠN APIs ====================
+  
+  createThucDon: async (thucDonData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thucdon/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(thucDonData)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo thực đơn thất bại');
+    }
+
+    return data;
+  },
+
+  addMonAnToThucDon: async (maThucDon, monanData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thucdon/${maThucDon}/monan`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(monanData)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Thêm món ăn vào thực đơn thất bại');
+    }
+
+    return data;
+  },
+
+  // ==================== HÓA ĐƠN APIs ====================
+  
+  getAllHoaDon: async () => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/hoadon/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách hóa đơn thất bại');
+    }
+
+    return data;
+  },
+
+  getHoaDonById: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/hoadon/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy thông tin hóa đơn thất bại');
+    }
+
+    return data;
+  },
+
+  getHoaDonByDatTiec: async (maDatTiec) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/hoadon/dattiec/${maDatTiec}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy hóa đơn theo đặt tiệc thất bại');
+    }
+
+    return data;
+  },
+
+  createHoaDon: async (hoaDonData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/hoadon/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(hoaDonData)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo hóa đơn thất bại');
+    }
+
+    return data;
+  },
+
+  updateHoaDon: async (id, hoaDonData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/hoadon/update/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(hoaDonData)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật hóa đơn thất bại');
+    }
+
+    return data;
+  },
+
+  updateTrangThaiHoaDon: async (id, trangThai) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/hoadon/${id}/trangthai`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ trangThai })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật trạng thái hóa đơn thất bại');
+    }
+
+    return data;
+  },
+
+  getHoaDonByTrangThai: async (trangThai) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/hoadon/trangthai/${trangThai}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách hóa đơn theo trạng thái thất bại');
+    }
+
+    return data;
+  },
+
+  getHoaDonByMonth: async (thang, nam) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/hoadon/month/${thang}/${nam}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách hóa đơn theo tháng thất bại');
+    }
+
+    return data;
+  },
+
+  // ==================== BÁO CÁO DOANH SỐ APIs ====================
+  
+  getAllBaoCaoDoanhSo: async () => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/baocaodoanhso/lists`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách báo cáo thất bại');
+    }
+
+    return data;
+  },
+
+  getBaoCaoDoanhSoById: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/baocaodoanhso/details/${id}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy thông tin báo cáo thất bại');
+    }
+
+    return data;
+  },
+
+  getBaoCaoByThang: async (thang, nam) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/baocaodoanhso/thang/${thang}/nam/${nam}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy báo cáo theo tháng thất bại');
+    }
+
+    return data;
+  },
+
+  getBaoCaoByNam: async (nam) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/baocaodoanhso/nam/${nam}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy báo cáo theo năm thất bại');
+    }
+
+    return data;
+  },
+
+  createBaoCaoDoanhSo: async (baoCaoData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/baocaodoanhso/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(baoCaoData)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Tạo báo cáo thất bại');
+    }
+
+    return data;
+  },
+
+  getDatTiecByMonth: async (thang, nam) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/dattiec/month/${thang}/${nam}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách đặt tiệc theo tháng thất bại');
+    }
+
+    return data;
+  },
 };
 
 export default apiService;
