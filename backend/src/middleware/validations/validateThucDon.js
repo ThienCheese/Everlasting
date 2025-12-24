@@ -9,6 +9,11 @@ export const createThucDonSchema = Joi.object({
     'string.max': 'Ten thuc don khong duoc qua 100 ky tu',
     'any.required': 'Ten thuc don la bat buoc'
   }),
+  donGiaHienTai: Joi.number().precision(2).positive().required().messages({
+    'number.base': 'Don gia hien tai phai la so',
+    'number.positive': 'Don gia hien tai phai lon hon 0',
+    'any.required': 'Don gia hien tai la bat buoc'
+  }),
   ghiChu: Joi.string().allow('', null).max(500)
 });
 
@@ -32,10 +37,23 @@ export const updateThucDonSchema = Joi.object({
     'string.min': 'Ten thuc don phai co it nhat 2 ky tu',
     'string.max': 'Ten thuc don khong duoc qua 100 ky tu'
   }),
+  donGiaHienTai: Joi.number().precision(2).positive().messages({
+    'number.base': 'Don gia hien tai phai la so',
+    'number.positive': 'Don gia hien tai phai lon hon 0'
+  }),
   ghiChu: Joi.string().allow('', null).max(500)
 }).min(1);
 
-// Schema validation cho thêm món ăn vào thực đơn
+// Schema validation cho thêm món ăn vào thực đơn mẫu (không cần giá)
+export const addMonAnToTemplateSchema = Joi.object({
+  maMonAn: Joi.number().integer().positive().required().messages({
+    'number.base': 'Ma mon an phai la so',
+    'number.positive': 'Ma mon an phai lon hon 0',
+    'any.required': 'Ma mon an la bat buoc'
+  })
+});
+
+// Schema validation cho thêm món ăn vào thực đơn (cần giá tại thời điểm đặt)
 export const addMonAnSchema = Joi.object({
   maMonAn: Joi.number().integer().positive().required().messages({
     'number.base': 'Ma mon an phai la so',
@@ -79,6 +97,15 @@ export const validateCreateFromTemplate = (req, res, next) => {
 
 export const validateUpdateThucDon = (req, res, next) => {
   const { error } = updateThucDonSchema.validate(req.body, { abortEarly: false });
+  if (error) {
+    const errors = error.details.map(detail => detail.message);
+    return errorResponse(res, errors.join(', '), 400);
+  }
+  next();
+};
+
+export const validateAddMonAnToTemplate = (req, res, next) => {
+  const { error } = addMonAnToTemplateSchema.validate(req.body, { abortEarly: false });
   if (error) {
     const errors = error.details.map(detail => detail.message);
     return errorResponse(res, errors.join(', '), 400);

@@ -11,7 +11,7 @@ import {
   validateRegister,
   validateLogin,
 } from '../services/auth.services.js';
-import { ROLES } from '../constants/permissions.js';
+import { ROLES } from '../services/permission.service.js';
 
 // Register
 export const register = async (req, res) => {
@@ -30,7 +30,7 @@ export const register = async (req, res) => {
       TenDangNhap: tenDangNhap,
       MatKhau: hashedPassword,
       TenNguoiDung: tenNguoiDung,
-      MaNhom: ROLES.GUEST, // Mặc định là Guest - chỉ truy cập public endpoints
+      MaNhom: ROLES.GUEST?.id || 6, // Mặc định là Guest - chỉ truy cập public endpoints
     });
 
     // Xóa password khỏi response

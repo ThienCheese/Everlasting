@@ -2,6 +2,7 @@ import express from 'express';
 import hallRoutes from './sanh.routes.js';
 import dishRoutes from './monan.routes.js';
 import loaiMonAnRoutes from './loaimonan.routes.js';
+import loaiSanhRoutes from './loaisanh.routes.js';
 import dichVuRoutes from './dichvu.routes.js';
 import loaiDichVuRoutes from './loaidichvu.routes.js';
 import caRoutes from './ca.routes.js';
@@ -14,12 +15,17 @@ import baoCaoDoanhSoRoutes from './baocaodoanhso.routes.js';
 import thamSoRoutes from './thamso.routes.js';
 import chucNangRoutes from './chucnang.routes.js';
 import phanQuyenRoutes from './phanquyen.routes.js';
+import systemRoutes from './system.routes.js';
 
 const router = express.Router();
+
+// System routes (public endpoints for constants)
+router.use('/system', systemRoutes);
 
 router.use('/sanh', hallRoutes);
 router.use('/monan', dishRoutes);
 router.use('/loaimonan', loaiMonAnRoutes);
+router.use('/loaisanh', loaiSanhRoutes);
 router.use('/dichvu', dichVuRoutes);
 router.use('/loaidichvu', loaiDichVuRoutes);
 router.use('/ca', caRoutes);

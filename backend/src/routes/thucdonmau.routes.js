@@ -3,7 +3,7 @@ import ThucDonMau from '../models/thucdonmau.model.js';
 import ThucDon from '../models/thucdon.model.js';
 import { successResponse, errorResponse } from '../helpers/response.helper.js';
 import authMiddleware from '../middleware/auth.middleware.js';
-import { validateCreateThucDon, validateUpdateThucDon, validateAddMonAn, validateCreateFromTemplate } from '../middleware/validations/validateThucDon.js';
+import { validateCreateThucDonMau, validateUpdateThucDonMau, validateAddMonAnToTemplate, validateCreateFromTemplate } from '../middleware/validations/validateThucDonMau.js';
 import { createLimiter, deleteLimiter } from '../middleware/ratelimit.middleware.js';
 import { requireAdmin } from '../middleware/authorization.middleware.js';
 import { validateIdParam, validatePagination } from '../middleware/sanitize.middleware.js';
@@ -39,7 +39,7 @@ router.get('/details/:id', validateIdParam('id'), async (req, res) => {
 });
 
 // Tạo thực đơn mẫu
-router.post('/create', authMiddleware, requireAdmin, createLimiter, validateCreateThucDon, auditLogger('THUCDONMAU_CREATE'), async (req, res) => {
+router.post('/create', authMiddleware, requireAdmin, createLimiter, validateCreateThucDonMau, auditLogger('THUCDONMAU_CREATE'), async (req, res) => {
   try {
     const { tenThucDon, donGiaHienTai, ghiChu } = req.body;
 
@@ -56,7 +56,7 @@ router.post('/create', authMiddleware, requireAdmin, createLimiter, validateCrea
 });
 
 // Cập nhật thực đơn mẫu
-router.put('/update/:id', authMiddleware, requireAdmin, validateIdParam('id'), validateUpdateThucDon, auditLogger('THUCDONMAU_UPDATE'), async (req, res) => {
+router.put('/update/:id', authMiddleware, requireAdmin, validateIdParam('id'), validateUpdateThucDonMau, auditLogger('THUCDONMAU_UPDATE'), async (req, res) => {
   try {
     const thucDonMau = await ThucDonMau.findById(req.params.id);
     if (!thucDonMau) {
@@ -103,7 +103,7 @@ router.get('/:id/monan', validateIdParam('id'), async (req, res) => {
   }
 });
 
-router.post('/:id/monan', authMiddleware, requireAdmin, validateIdParam('id'), validateAddMonAn, auditLogger('THUCDONMAU_ADD_MONAN'), async (req, res) => {
+router.post('/:id/monan', authMiddleware, requireAdmin, validateIdParam('id'), validateAddMonAnToTemplate, auditLogger('THUCDONMAU_ADD_MONAN'), async (req, res) => {
   try {
     const { maMonAn } = req.body;
     const result = await ThucDonMau.addMonAn(req.params.id, maMonAn);

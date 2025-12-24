@@ -28,12 +28,12 @@ export const getLoaiMonAn = async (req, res) => {
 
 export const createLoaiMonAn = async (req, res) => {
   try {
-    const { tenLoaiMonAn } = req.body;
+    const { tenLoai } = req.body;
 
-    await validateLoaiMonAnCreation(tenLoaiMonAn);
+    await validateLoaiMonAnCreation(tenLoai);
 
     const loaiMonAn = await LoaiMonAn.create({
-      TenLoaiMonAn: tenLoaiMonAn,
+      TenLoaiMonAn: tenLoai,
       DaXoa: false,
     });
 
@@ -46,15 +46,15 @@ export const createLoaiMonAn = async (req, res) => {
 export const updateLoaiMonAn = async (req, res) => {
   try {
     const { id } = req.params;
-    const { tenLoaiMonAn } = req.body;
+    const { tenLoai } = req.body;
 
     const loaiMonAn = await LoaiMonAn.findById(id);
     if (!loaiMonAn) return errorResponse(res, 'Loại món ăn không tồn tại', 404);
 
-    await validateLoaiMonAnUpdate(id, tenLoaiMonAn);
+    await validateLoaiMonAnUpdate(id, tenLoai);
 
     const updated = await LoaiMonAn.update(id, {
-      TenLoaiMonAn: tenLoaiMonAn || loaiMonAn.TenLoaiMonAn,
+      TenLoaiMonAn: tenLoai || loaiMonAn.TenLoaiMonAn,
     });
 
     return successResponse(res, updated, 'Cập nhật loại món ăn thành công', 200);

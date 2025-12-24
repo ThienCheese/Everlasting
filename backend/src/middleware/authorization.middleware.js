@@ -72,11 +72,12 @@ export const requireRole = (...allowedRoles) => {
 
 /**
  * Middleware kiểm tra quyền theo mã chức năng (RECOMMENDED)
- * @param {number} maChucNang - Mã chức năng từ bảng CHUCNANG
- * @example requirePermission(1) // Yêu cầu quyền "Quản lý người dùng"
- * @example requirePermission(3) // Yêu cầu quyền "Quản lý món ăn"
+ * @param {number|string|Function} maChucNangOrGetter - Mã chức năng, key string, hoặc getter function
+ * @example requirePermission(1) // Trực tiếp dùng ID
+ * @example requirePermission('QUAN_LY_SANH') // Dùng key string (recommended)
+ * @example requirePermission(() => PERMISSIONS.QUAN_LY_SANH.id) // Lazy evaluation
  */
-export const requirePermission = (maChucNang) => {
+export const requirePermission = (maChucNangOrGetter) => {
   return async (req, res, next) => {
     try {
       if (!req.user) {
@@ -84,6 +85,30 @@ export const requirePermission = (maChucNang) => {
       }
 
       const maNhom = req.user.maNhom;
+
+      // Resolve permission ID tại runtime
+      let maChucNang;
+      if (typeof maChucNangOrGetter === 'function') {
+        // Lazy getter: () => PERMISSIONS.QUAN_LY_SANH.id
+        maChucNang = maChucNangOrGetter();
+      } else if (typeof maChucNangOrGetter === 'string') {
+        // String key: 'QUAN_LY_SANH'
+        const permissionService = (await import('../services/permission.service.js')).default;
+        maChucNang = permissionService.getPermissionId(maChucNangOrGetter);
+        if (!maChucNang) {
+          logger.error(`[RBAC] Permission key '${maChucNangOrGetter}' not found in database`);
+          return errorResponse(res, `Chuc nang '${maChucNangOrGetter}' khong ton tai`, 500);
+        }
+      } else {
+        // Numeric ID
+        maChucNang = maChucNangOrGetter;
+      }
+
+      // Validate maChucNang
+      if (!maChucNang || typeof maChucNang !== 'number') {
+        logger.error(`[RBAC] Invalid permission ID: ${maChucNang}`);
+        return errorResponse(res, `Ma chuc nang khong hop le`, 500);
+      }
 
       // Kiểm tra quyền trong database
       const hasPermission = await checkUserPermission(maNhom, maChucNang);

@@ -1,11 +1,12 @@
 import LoaiSanh from '../models/loaisanh.model.js';
+import { successResponse, errorResponse } from '../helpers/response.helper.js';
 import {
   validateLoaiSanhCreation,
   validateLoaiSanhUpdate,
   validateLoaiSanhDeletion,
 } from '../services/loaisanh.services.js';
 
-const createLoaiSanh = async (req, res) => {
+export const createLoaiSanh = async (req, res) => {
   try {
     const { tenLoaiSanh, donGiaBanToiThieu } = req.body;
 
@@ -22,7 +23,7 @@ const createLoaiSanh = async (req, res) => {
   }
 };
 
-const getAllLoaiSanh = async (req, res) => {
+export const getAllLoaiSanh = async (req, res) => {
   try {
     const loaiSanhs = await LoaiSanh.findAll();
     return successResponse(res, loaiSanhs, 'Danh sách loại sảnh', 200);
@@ -31,7 +32,7 @@ const getAllLoaiSanh = async (req, res) => {
   }
 };
 
-const getLoaiSanh = async (req, res) => {
+export const getLoaiSanh = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const loaiSanh = await LoaiSanh.findById(id);
@@ -44,7 +45,7 @@ const getLoaiSanh = async (req, res) => {
   }
 };
 
-const updateLoaiSanh = async (req, res) => {
+export const updateLoaiSanh = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const { tenLoaiSanh, donGiaBanToiThieu } = req.body;
@@ -70,7 +71,7 @@ const updateLoaiSanh = async (req, res) => {
   }
 };
 
-const deleteLoaiSanh = async (req, res) => {
+export const deleteLoaiSanh = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
@@ -84,14 +85,6 @@ const deleteLoaiSanh = async (req, res) => {
     await LoaiSanh.temDelete(id);
     return successResponse(res, { id }, 'Xóa loại sảnh thành công', 200);
   } catch (error) {
-    return errorResponse(res, error.message, 400);;
+    return errorResponse(res, error.message, 400);
   }
-};
-
-export default {
-  createLoaiSanh,
-  getAllLoaiSanh,
-  getLoaiSanh,
-  updateLoaiSanh,
-  deleteLoaiSanh,
 };
