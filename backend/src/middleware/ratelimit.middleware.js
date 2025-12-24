@@ -4,7 +4,7 @@ import { errorResponse } from '../helpers/response.helper.js';
 // Rate limiter cho API chung
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 phút
-  max: 100, // Giới hạn 100 requests mỗi IP trong 15 phút
+  max: 300, // Giới hạn 100 requests mỗi IP trong 15 phút
   message: 'Qua nhieu request tu IP nay, vui long thu lai sau',
   standardHeaders: true,
   legacyHeaders: false,

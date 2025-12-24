@@ -1,4 +1,4 @@
-.menu-page-wrapper {
+{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #444;
     background-color: #f5f7fa;
@@ -7,14 +7,14 @@
     padding-bottom: 50px;
 }
 
-.menu-page-wrapper .content-body {
+.content-body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
 
-.menu-page-wrapper .section-block {
+.section-block {
     background: white;
     border-radius: 20px;
     padding: 30px;
@@ -23,7 +23,7 @@
     margin-bottom: 30px;
 }
 
-.menu-page-wrapper .section-header-row {
+.section-header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,7 +32,7 @@
     gap: 20px;
 }
 
-.menu-page-wrapper .section-title {
+.section-title {
     font-size: 24px;
     font-weight: 800;
     color: #333;
@@ -41,7 +41,7 @@
     display: inline-block;
 }
 
-.menu-page-wrapper .section-title::after {
+.section-title::after {
     content: '';
     display: block;
     width: 50px;
@@ -54,14 +54,14 @@
 /* =========================================
    3. TABS (BỘ LỌC DANH MỤC)
    ========================================= */
-.menu-page-wrapper .menu-tabs {
+.menu-tabs {
     display: flex;
     gap: 12px;
     margin-bottom: 30px;
     flex-wrap: wrap;
 }
 
-.menu-page-wrapper .tab-btn {
+.tab-btn {
     padding: 10px 24px;
     border-radius: 50px;
     border: 1px solid #e0e0e0;
@@ -73,14 +73,14 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.menu-page-wrapper .tab-btn:hover {
+.tab-btn:hover {
     background-color: #f8f7ff;
     color: #8A7CDF;
     border-color: #d6d0f5;
     transform: translateY(-2px);
 }
 
-.menu-page-wrapper .tab-btn.active {
+.tab-btn.active {
     background-color: #8A7CDF;
     color: white;
     border-color: #8A7CDF;
@@ -90,13 +90,13 @@
 /* =========================================
    4. BẢNG DỮ LIỆU (TABLE)
    ========================================= */
-.menu-page-wrapper .custom-table {
+.custom-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
 }
 
-.menu-page-wrapper .custom-table th {
+.custom-table th {
     text-align: left;
     padding: 15px 20px;
     color: #000000;
@@ -109,16 +109,16 @@
 }
 
 /* Bo tròn góc cho header bảng */
-.menu-page-wrapper .custom-table th:first-child { 
+.custom-table th:first-child { 
     border-top-left-radius: 10px; 
     border-left: 1px solid #f0f0f0; 
 }
-.menu-page-wrapper .custom-table th:last-child { 
+.custom-table th:last-child { 
     border-top-right-radius: 10px; 
 /*     border-right: 1px solid #f0f0f0;  */
 }
 
-.menu-page-wrapper .custom-table td {
+.custom-table td {
     padding: 16px 20px;
     border-bottom: 1px solid #f9f9f9;
     vertical-align: middle;
@@ -127,13 +127,13 @@
     transition: all 0.2s;
 }
 
-.menu-page-wrapper .custom-table tbody tr:hover td {
+.custom-table tbody tr:hover td {
     background-color: #fcfcff;
     border-color: #f0f0f0;
 }
 
 /* Hình ảnh món ăn */
-.menu-page-wrapper .menu-thumbnail {
+.menu-thumbnail {
     width: 60px;
     height: 60px;
     border-radius: 12px;
@@ -143,7 +143,7 @@
 }
 
 
-.menu-page-wrapper .category-badge {
+.category-badge {
     display: inline-block;
     background-color: #f5f5f5;
     color: #666;
@@ -154,7 +154,7 @@
     border: 1px solid #eee;
 }
 
-.menu-page-wrapper .status-badge {
+.status-badge {
     padding: 6px 14px;
     border-radius: 30px;
     font-size: 12px;
@@ -163,30 +163,30 @@
     white-space: nowrap;
 }
 
-.menu-page-wrapper .status-badge.available {
+.status-badge.available {
     background-color: #E8F5E9; /* Xanh lá nhạt */
     color: #2E7D32;            /* Xanh lá đậm */
     border: 1px solid #C8E6C9;
 }
 
-.menu-page-wrapper .status-badge.soldout {
+.status-badge.soldout {
     background-color: #FFEBEE; /* Đỏ nhạt */
     color: #C62828;            /* Đỏ đậm */
     border: 1px solid #FFCDD2;
 }
 
-.menu-page-wrapper .controls-group {
+.controls-group {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.menu-page-wrapper .search-box {
+.search-box {
     position: relative;
     width: 300px;
 }
 
-.menu-page-wrapper .search-box input {
+.search-box input {
     width: 100%;
     padding: 12px 45px 12px 20px;
     border: 1px solid #e0e0e0;
@@ -198,13 +198,13 @@
     transition: all 0.3s;
 }
 
-.menu-page-wrapper .search-box input:focus {
+.search-box input:focus {
     background-color: white;
     border-color: #8A7CDF;
     box-shadow: 0 0 0 4px rgba(138, 124, 223, 0.15);
 }
 
-.menu-page-wrapper .search-icon {
+.search-icon {
     position: absolute;
     right: 15px;
     top: 50%;
@@ -213,7 +213,7 @@
     font-size: 16px;
 }
 
-.menu-page-wrapper .add-btn {
+.add-btn {
     background: linear-gradient(135deg, #8A7CDF 0%, #705ecf 100%);
     color: white;
     border: none;
@@ -230,13 +230,13 @@
     white-space: nowrap;
 }
 
-.menu-page-wrapper .add-btn:hover {
+.add-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(138, 124, 223, 0.4);
 }
 
 /* Nút Icon Sửa/Xóa */
-.menu-page-wrapper .action-cells {
+.action-cells {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -244,7 +244,7 @@
 }
 
 
-.menu-page-wrapper .icon-btn {
+.icon-btn {
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -256,20 +256,20 @@
     transition: all 0.2s ease;
     font-size: 14px;
 }
-.menu-page-wrapper .custom-table th:last-child { 
+.custom-table th:last-child { 
     border-top-right-radius: 10px; 
     text-align: center !important; 
 }
-.menu-page-wrapper .edit-btn { background-color: #e3f2fd; color: #1976d2; }
-.menu-page-wrapper .edit-btn:hover { background-color: #1976d2; color: white; transform: rotate(15deg); }
+.edit-btn { background-color: #e3f2fd; color: #1976d2; }
+.edit-btn:hover { background-color: #1976d2; color: white; transform: rotate(15deg); }
 
-.menu-page-wrapper .delete-btn { background-color: #ffebee; color: #ef5350; }
-.menu-page-wrapper .delete-btn:hover { background-color: #ef5350; color: white; transform: scale(1.1); }
+.delete-btn { background-color: #ffebee; color: #ef5350; }
+.delete-btn:hover { background-color: #ef5350; color: white; transform: scale(1.1); }
 
 /* Text Alignment Helpers */
-.menu-page-wrapper .text-center { text-align: center;}
-.menu-page-wrapper .text-right { text-align: right; }
-.menu-page-wrapper .text-left { text-align: left; }
+.text-center { text-align: center;}
+.text-right { text-align: right; }
+.text-left { text-align: left; }
 
 /* ==================== MODAL STYLES ==================== */
 .modal-overlay {
@@ -467,12 +467,12 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .menu-page-wrapper .content-body { padding: 0 10px; }
-    .menu-page-wrapper .section-header-row { flex-direction: column; align-items: flex-start; }
-    .menu-page-wrapper .controls-group { width: 100%; flex-direction: column; }
-    .menu-page-wrapper .search-box { width: 100%; }
-    .menu-page-wrapper .add-btn { width: 100%; justify-content: center; }
-    .menu-page-wrapper .section-block { padding: 20px; overflow-x: auto; }
+    .content-body { padding: 0 10px; }
+    .section-header-row { flex-direction: column; align-items: flex-start; }
+    .controls-group { width: 100%; flex-direction: column; }
+    .search-box { width: 100%; }
+    .add-btn { width: 100%; justify-content: center; }
+    .section-block { padding: 20px; overflow-x: auto; }
     
     .modal-content {
         width: 95%;

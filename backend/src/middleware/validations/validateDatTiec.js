@@ -43,10 +43,24 @@ export const createDatTiecSchema = Joi.object({
     'number.positive': 'Ma thuc don phai lon hon 0',
     'any.required': 'Ma thuc don la bat buoc'
   }),
-  tienDatCoc: Joi.number().precision(2).min(0).required().messages({
+  tienDatCoc: Joi.number().precision(2).min(0).required().custom((value, helpers) => {
+    const tongTienDuKien = helpers.state.ancestors[0].tongTienDuKien;
+    if (tongTienDuKien && value < tongTienDuKien * 0.15) {
+      return helpers.error('any.custom', { 
+        message: 'Tien dat coc phai it nhat 15% tong tien du kien' 
+      });
+    }
+    return value;
+  }).messages({
     'number.base': 'Tien dat coc phai la so',
     'number.min': 'Tien dat coc phai lon hon hoac bang 0',
-    'any.required': 'Tien dat coc la bat buoc'
+    'any.required': 'Tien dat coc la bat buoc',
+    'any.custom': 'Tien dat coc phai it nhat 15% tong tien du kien'
+  }),
+  tongTienDuKien: Joi.number().precision(2).min(0).required().messages({
+    'number.base': 'Tong tien du kien phai la so',
+    'number.min': 'Tong tien du kien phai lon hon hoac bang 0',
+    'any.required': 'Tong tien du kien la bat buoc'
   }),
   soLuongBan: Joi.number().integer().positive().min(1).required().messages({
     'number.base': 'So luong ban phai la so',

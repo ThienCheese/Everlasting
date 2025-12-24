@@ -354,7 +354,7 @@ const MenuManagement = () => {
   // ==================== RENDER ====================
   
   return (
-    <div className="menu-page-wrapper">
+    <div className="management-container">
       <div className="content-body">
         
         {/* ==================== SECTION 1: QUẢN LÝ MÓN ĂN ==================== */}

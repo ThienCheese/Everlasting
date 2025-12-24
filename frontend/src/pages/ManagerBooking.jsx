@@ -252,6 +252,7 @@ const ManagerBooking = () => {
         maSanh: selectedHall.MaSanh,
         maThucDon: maThucDon,
         tienDatCoc: parseFloat(deposit),
+        tongTienDuKien: parseFloat(totals.grandTotal),
         soLuongBan: totals.tables,
         soBanDuTru: parseInt(customer.soBanDuTru)
       };
@@ -298,7 +299,7 @@ const ManagerBooking = () => {
   }
 
   return (
-    <div className="mb-wrapper">
+    <div className="management-container">
       <div className="mb-header">
         <h2><FaLayerGroup /> Đặt Tiệc (Manager Mode)</h2>
         <div className="mb-booking-id">#BK-NEW</div>

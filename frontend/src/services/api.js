@@ -44,8 +44,8 @@ const fetchWithAuth = async (url, options = {}) => {
       }));
       
       // Also redirect directly as fallback
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+      if (window.location.pathname !== '/') {
+        window.location.href = '/';
       }
       
       throw new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
@@ -85,8 +85,8 @@ const fetchWithAuth = async (url, options = {}) => {
         }));
         
         // Also redirect directly as fallback
-        if (window.location.pathname !== '/login') {
-          window.location.href = '/login';
+        if (window.location.pathname !== '/') {
+          window.location.href = '/';
         }
         
         throw new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
@@ -94,10 +94,13 @@ const fetchWithAuth = async (url, options = {}) => {
 
       // Save new tokens
       const newAccessToken = refreshData.data.accessToken;
-      const newRefreshToken = refreshData.data.refreshToken;
       
       localStorage.setItem('accessToken', newAccessToken);
-      localStorage.setItem('refreshToken', newRefreshToken);
+      
+      // Only update refresh token if backend provides a new one
+      if (refreshData.data.refreshToken) {
+        localStorage.setItem('refreshToken', refreshData.data.refreshToken);
+      }
 
       // Notify all waiting requests
       onTokenRefreshed(newAccessToken);

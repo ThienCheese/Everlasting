@@ -114,19 +114,11 @@ const Stats = () => {
     const totalGuests = danhSachDatTiec
       .filter(dt => !dt.DaHuy)
       .reduce((sum, dt) => sum + (dt.SoLuongBan * 10), 0);
-    
-    const depositedBookings = danhSachDatTiec.filter(dt => 
-      !dt.DaHuy && parseFloat(dt.TienDatCoc || 0) > 0
-    ).length;
-    const depositRate = totalBookings > 0 
-      ? Math.round((depositedBookings / totalBookings) * 100) 
-      : 0;
 
     return {
       totalRevenue,
       totalBookings,
-      totalGuests,
-      depositRate
+      totalGuests
     };
   };
 
@@ -257,14 +249,7 @@ const Stats = () => {
         value: formatCurrency(stats.totalGuests), 
         icon: <FaUserFriends />, 
         color: "orange" 
-    },
-    { 
-        id: 4, 
-        title: "Tỉ Lệ Đặt Cọc", 
-        value: stats.depositRate + "%", 
-        icon: <FaChartLine />, 
-        color: "blue" 
-    },
+    }
   ];
 
   if (loading && !danhSachHoaDon.length) {
