@@ -50,9 +50,22 @@ export const deleteLimiter = rateLimit({
   }
 });
 
+// Rate limiter cho flow đặt tiệc (cần nhiều requests)
+export const bookingLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 phút
+  max: 50, // Giới hạn 50 requests mỗi phút (cho phép tạo thực đơn + nhiều món ăn + nhiều dịch vụ)
+  message: 'Qua nhieu thao tac dat tiec, vui long thu lai',
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) => {
+    return errorResponse(res, 'Qua nhieu thao tac, vui long doi mot chut', 429);
+  }
+});
+
 export default {
   apiLimiter,
   loginLimiter,
   createLimiter,
-  deleteLimiter
+  deleteLimiter,
+  bookingLimiter
 };

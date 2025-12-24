@@ -27,10 +27,96 @@
 }
 .header-text p { font-size: 14px; color: #666; margin: 0; }
 
-/* Filter Dropdown */
+/* Filter Controls */
 .stats-filter {
-    display: flex; align-items: center; gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.filter-group select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: #8A7CDF;
+}
+
+.refresh-btn,
+.create-report-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.refresh-btn {
+    background: #f5f5f5;
+    color: #555;
+}
+
+.refresh-btn:hover {
+    background: #e0e0e0;
+}
+
+.refresh-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.create-report-btn {
+    background: #8A7CDF;
+    color: white;
+}
+
+.create-report-btn:hover {
+    background: #705ecf;
+}
+
+.create-report-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.loading-stats {
+    padding: 60px;
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+.empty-message {
+    padding: 40px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
 .filter-label { font-size: 14px; font-weight: 600; color: #555; }
 .filter-dropdown { position: relative; }
 .filter-btn {
