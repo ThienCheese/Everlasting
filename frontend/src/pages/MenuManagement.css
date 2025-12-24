@@ -495,3 +495,141 @@
         justify-content: center;
     }
 }
+
+/* ==================== QUẢN LÝ MÓN ĂN TRONG THỰC ĐƠN MẪU ==================== */
+
+.btn-manage-dishes {
+    background: linear-gradient(135deg, #8A7CDF 0%, #9F8FE8 100%);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-manage-dishes:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(138, 124, 223, 0.3);
+}
+
+.modal-large {
+    max-width: 800px;
+}
+
+.add-dish-section {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.add-dish-section h4 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.dish-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #8A7CDF;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    background: white;
+    transition: border-color 0.2s;
+}
+
+.dish-select:hover {
+    border-color: #7869CC;
+}
+
+.dish-select:focus {
+    outline: none;
+    border-color: #8A7CDF;
+    box-shadow: 0 0 0 3px rgba(138, 124, 223, 0.1);
+}
+
+.current-dishes-section h4 {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.dishes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dish-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.dish-item:hover {
+    border-color: #8A7CDF;
+    box-shadow: 0 2px 8px rgba(138, 124, 223, 0.1);
+}
+
+.dish-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dish-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.dish-category {
+    font-size: 12px;
+    color: #8A7CDF;
+    font-weight: 500;
+}
+
+.dish-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #8A7CDF;
+    margin-top: 4px;
+}
+
+.btn-remove-dish {
+    background: #ffebee;
+    color: #f44336;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-remove-dish:hover {
+    background: #f44336;
+    color: white;
+    transform: scale(1.1);
+}

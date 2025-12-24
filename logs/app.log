@@ -1531,3 +1531,72 @@
 2025-12-23T15:00:35.383Z [INFO] : HTTP Request
 2025-12-23T15:00:37.189Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
 2025-12-23T15:00:37.192Z [INFO] : HTTP Request
+2025-12-24T00:46:57.794Z [INFO] : HTTP Request
+2025-12-24T00:46:57.797Z [INFO] : HTTP Request
+2025-12-24T00:47:08.492Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-24T00:47:08.494Z [INFO] : HTTP Request
+2025-12-24T00:47:08.502Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-24T00:47:08.504Z [INFO] : HTTP Request
+2025-12-24T00:47:08.542Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-24T00:47:08.543Z [INFO] : HTTP Request
+2025-12-24T00:47:08.560Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-24T00:47:08.562Z [INFO] : HTTP Request
+2025-12-24T00:47:08.591Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-24T00:47:08.592Z [INFO] : HTTP Request
+2025-12-24T00:47:08.617Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-24T00:47:08.617Z [INFO] : HTTP Request
+2025-12-24T00:53:34.577Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-24T00:53:34.578Z [INFO] : HTTP Request
+2025-12-24T00:53:34.579Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-24T00:53:34.579Z [INFO] : HTTP Request
+2025-12-24T00:53:34.636Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-24T00:53:34.636Z [INFO] : HTTP Request
+2025-12-24T01:11:21.880Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-24T01:11:21.881Z [INFO] : HTTP Request
+2025-12-24T01:11:27.400Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-24T01:11:27.401Z [INFO] : HTTP Request
+2025-12-24T01:11:35.675Z [ERROR] : [AUTH] Token expired
+2025-12-24T01:11:35.676Z [ERROR] : [ERROR] Token đã hết hạn
+2025-12-24T01:11:35.676Z [ERROR] : HTTP Request Error
+2025-12-24T01:11:35.686Z [INFO] : [REFRESH] Refresh token request received
+2025-12-24T01:11:35.848Z [INFO] : [REFRESH] Access token refreshed for user: admin
+2025-12-24T01:11:35.848Z [INFO] : [SUCCESS]Làm mới token thành công
+2025-12-24T01:11:35.848Z [INFO] : HTTP Request
+2025-12-24T01:11:35.859Z [INFO] : [AUTH] User authenticated: admin
+2025-12-24T01:11:35.862Z [ERROR] : [ERROR] Don gia la bat buoc
+2025-12-24T01:11:35.863Z [ERROR] : HTTP Request Error
+2025-12-24T01:11:40.257Z [INFO] : [AUTH] User authenticated: admin
+2025-12-24T01:11:40.257Z [ERROR] : [ERROR] Don gia la bat buoc
+2025-12-24T01:11:40.257Z [ERROR] : HTTP Request Error
+2025-12-24T01:15:30.520Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-24T01:15:30.523Z [INFO] : HTTP Request
+2025-12-24T01:15:31.630Z [INFO] : [AUTH] User authenticated: admin
+2025-12-24T01:15:31.631Z [INFO] : Audit Log
+2025-12-24T01:15:31.706Z [INFO] : [SUCCESS]Them mon an vao thuc don mau thanh cong
+2025-12-24T01:15:31.707Z [INFO] : HTTP Request
+2025-12-24T01:15:33.275Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-24T01:15:33.276Z [INFO] : HTTP Request
+2025-12-24T01:15:38.357Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-24T01:15:38.358Z [INFO] : HTTP Request
+2025-12-24T01:19:16.378Z [INFO] : HTTP Request
+2025-12-24T01:19:16.381Z [INFO] : HTTP Request
+2025-12-24T01:19:16.468Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-24T01:19:16.469Z [INFO] : HTTP Request
+2025-12-24T01:19:16.478Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-24T01:19:16.480Z [INFO] : HTTP Request
+2025-12-24T01:19:16.517Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-24T01:19:16.518Z [INFO] : HTTP Request
+2025-12-24T01:19:16.537Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-24T01:19:16.538Z [INFO] : HTTP Request
+2025-12-24T01:19:16.566Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-24T01:19:16.567Z [INFO] : HTTP Request
+2025-12-24T01:19:16.597Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-24T01:19:16.597Z [INFO] : HTTP Request
+2025-12-24T01:19:17.197Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-24T01:19:17.198Z [INFO] : HTTP Request
+2025-12-24T01:19:18.448Z [INFO] : [AUTH] User authenticated: admin
+2025-12-24T01:19:18.449Z [INFO] : Audit Log
+2025-12-24T01:19:18.503Z [INFO] : [SUCCESS]Them mon an vao thuc don mau thanh cong
+2025-12-24T01:19:18.505Z [INFO] : HTTP Request
+2025-12-24T01:19:19.803Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-24T01:19:19.805Z [INFO] : HTTP Request

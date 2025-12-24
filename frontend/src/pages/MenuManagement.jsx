@@ -19,6 +19,9 @@ const MenuManagement = () => {
   const [searchThucDonMau, setSearchThucDonMau] = useState('');
   const [showThucDonMauModal, setShowThucDonMauModal] = useState(false);
   const [editingThucDonMau, setEditingThucDonMau] = useState(null);
+  const [showManageMonAnModal, setShowManageMonAnModal] = useState(false);
+  const [selectedThucDonMau, setSelectedThucDonMau] = useState(null);
+  const [monAnInThucDonMau, setMonAnInThucDonMau] = useState([]);
   
   // Loại món ăn
   const [danhSachLoaiMon, setDanhSachLoaiMon] = useState([]);
@@ -234,6 +237,61 @@ const MenuManagement = () => {
     }
   };
 
+  // ==================== QUẢN LÝ MÓN ĂN TRONG THỰC ĐƠN MẪU ====================
+
+  const handleManageMonAn = async (thucDonMau) => {
+    setSelectedThucDonMau(thucDonMau);
+    setShowManageMonAnModal(true);
+    
+    try {
+      setLoading(true);
+      const response = await apiService.getMonAnThucDonMau(thucDonMau.MaThucDon);
+      setMonAnInThucDonMau(response.data || []);
+    } catch (err) {
+      console.error('Error fetching món ăn:', err);
+      setMonAnInThucDonMau([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddMonAnToThucDonMau = async (maMonAn) => {
+    if (!selectedThucDonMau) return;
+
+    try {
+      setLoading(true);
+      await apiService.addMonAnToThucDonMau(selectedThucDonMau.MaThucDon, maMonAn);
+      alert('Thêm món ăn thành công!');
+      
+      // Refresh danh sách món ăn
+      const response = await apiService.getMonAnThucDonMau(selectedThucDonMau.MaThucDon);
+      setMonAnInThucDonMau(response.data || []);
+    } catch (err) {
+      alert('Lỗi: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRemoveMonAnFromThucDonMau = async (maMonAn) => {
+    if (!selectedThucDonMau) return;
+    if (!window.confirm('Bạn có chắc muốn xóa món ăn này khỏi thực đơn mẫu?')) return;
+
+    try {
+      setLoading(true);
+      await apiService.removeMonAnFromThucDonMau(selectedThucDonMau.MaThucDon, maMonAn);
+      alert('Xóa món ăn thành công!');
+      
+      // Refresh danh sách món ăn
+      const response = await apiService.getMonAnThucDonMau(selectedThucDonMau.MaThucDon);
+      setMonAnInThucDonMau(response.data || []);
+    } catch (err) {
+      alert('Lỗi: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // ==================== CRUD HANDLERS - LOẠI MÓN ĂN ====================
   
   const handleCreateLoaiMon = () => {
@@ -422,14 +480,15 @@ const MenuManagement = () => {
               <tr>
                 <th style={{width: '20%'}}>Tên thực đơn</th>
                 <th style={{width: '15%'}}>Đơn giá hiện tại</th>
-                <th style={{width: '50%'}}>Ghi chú</th>
+                <th style={{width: '40%'}}>Ghi chú</th>
+                <th style={{width: '10%'}} className="text-center">Món ăn</th>
                 <th style={{width: '15%'}} className="text-center">Thao tác</th>
               </tr>
             </thead>
             <tbody>
               {thucDonMauFiltered.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="text-center">Không có dữ liệu</td>
+                  <td colSpan="5" className="text-center">Không có dữ liệu</td>
                 </tr>
               ) : (
                 thucDonMauFiltered.map((tdm) => (
@@ -440,6 +499,15 @@ const MenuManagement = () => {
                     </td>
                     <td style={{fontSize: '13px', lineHeight: '1.5', color: '#555'}}>
                       {tdm.GhiChu || '-'}
+                    </td>
+                    <td className="text-center">
+                      <button 
+                        className="btn-manage-dishes"
+                        onClick={() => handleManageMonAn(tdm)}
+                        title="Quản lý món ăn"
+                      >
+                        <FaPlus /> Món ăn
+                      </button>
                     </td>
                     <td className="text-center">
                       <div className="action-cells">
@@ -691,6 +759,84 @@ const MenuManagement = () => {
               </button>
               <button className="btn-primary" onClick={handleSaveLoaiMon} disabled={loading}>
                 <FaSave /> {loading ? 'Đang lưu...' : 'Lưu'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Quản lý Món ăn trong Thực đơn mẫu */}
+      {showManageMonAnModal && selectedThucDonMau && (
+        <div className="modal-overlay" onClick={() => setShowManageMonAnModal(false)}>
+          <div className="modal-content modal-large" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Quản lý món ăn - {selectedThucDonMau.TenThucDon}</h3>
+              <button className="close-btn" onClick={() => setShowManageMonAnModal(false)}>
+                <FaTimes />
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              {/* Section thêm món ăn */}
+              <div className="add-dish-section">
+                <h4>Thêm món ăn vào thực đơn</h4>
+                <div className="form-group">
+                  <label>Chọn món ăn</label>
+                  <select 
+                    className="dish-select"
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        handleAddMonAnToThucDonMau(parseInt(e.target.value));
+                        e.target.value = '';
+                      }
+                    }}
+                  >
+                    <option value="">-- Chọn món ăn để thêm --</option>
+                    {danhSachMonAn
+                      .filter(mon => !monAnInThucDonMau.some(m => m.MaMonAn === mon.MaMonAn))
+                      .map(mon => (
+                        <option key={mon.MaMonAn} value={mon.MaMonAn}>
+                          {mon.TenMonAn} - {Number(mon.DonGia).toLocaleString('vi-VN')} đ
+                        </option>
+                      ))
+                    }
+                  </select>
+                </div>
+              </div>
+
+              {/* Danh sách món ăn hiện tại */}
+              <div className="current-dishes-section">
+                <h4>Danh sách món ăn ({monAnInThucDonMau.length})</h4>
+                {loading ? (
+                  <p className="text-center">Đang tải...</p>
+                ) : monAnInThucDonMau.length === 0 ? (
+                  <p className="no-data">Chưa có món ăn nào trong thực đơn mẫu này</p>
+                ) : (
+                  <div className="dishes-list">
+                    {monAnInThucDonMau.map((mon) => (
+                      <div key={mon.MaMonAn} className="dish-item">
+                        <div className="dish-info">
+                          <div className="dish-name">{mon.TenMonAn}</div>
+                          <div className="dish-category">{mon.TenLoaiMonAn}</div>
+                          <div className="dish-price">{Number(mon.DonGia).toLocaleString('vi-VN')} đ</div>
+                        </div>
+                        <button 
+                          className="btn-remove-dish"
+                          onClick={() => handleRemoveMonAnFromThucDonMau(mon.MaMonAn)}
+                          title="Xóa món này"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button className="btn-primary" onClick={() => setShowManageMonAnModal(false)}>
+                Đóng
               </button>
             </div>
           </div>

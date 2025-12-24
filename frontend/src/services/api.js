@@ -715,6 +715,48 @@ const apiService = {
     return data;
   },
 
+  // Quản lý món ăn trong thực đơn mẫu
+  getMonAnThucDonMau: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/thucdonmau/${id}/monan`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  addMonAnToThucDonMau: async (maThucDonMau, maMonAn) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thucdonmau/${maThucDonMau}/monan`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ maMonAn })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Thêm món ăn thất bại');
+    }
+
+    return data;
+  },
+
+  removeMonAnFromThucDonMau: async (maThucDonMau, maMonAn) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thucdonmau/${maThucDonMau}/monan/${maMonAn}`, {
+      method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Xóa món ăn thất bại');
+    }
+
+    return data;
+  },
+
   // ==================== LOẠI MÓN ĂN (LOAIMONAN) ====================
   
   // Get all dish categories
