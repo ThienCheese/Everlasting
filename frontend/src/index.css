@@ -29,6 +29,11 @@ body {
   overflow-y: auto; /* Cho phép trang cuộn bình thường */
 }
 
+/* Đảm bảo container gốc chiếm đủ chiều cao viewport để footer có thể đẩy xuống đáy */
+html, body, #root {
+  height: 100%;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
