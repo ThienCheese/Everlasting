@@ -238,8 +238,8 @@ const Home = () => {
                         {danhSachMonAn.slice(0, 6).map((monAn) => (
                             <div key={monAn.MaMonAn} className="dish-card" onMouseEnter={playHoverSound}>
                                 <div className="dish-image">
-                                    {monAn.HinhAnh ? (
-                                        <img src={monAn.HinhAnh} alt={monAn.TenMonAn} />
+                                    {monAn.AnhURL ? (
+                                        <img src={monAn.AnhURL} alt={monAn.TenMonAn} />
                                     ) : (
                                         <div className="dish-placeholder">
                                             <MdOutlineRestaurantMenu size={40} />
@@ -268,8 +268,8 @@ const Home = () => {
                         {danhSachSanh.slice(0, 4).map((sanh) => (
                             <div key={sanh.MaSanh} className="hall-card" onMouseEnter={playHoverSound}>
                                 <div className="hall-image">
-                                    {sanh.HinhAnh ? (
-                                        <img src={sanh.HinhAnh} alt={sanh.TenSanh} />
+                                    {sanh.AnhURL ? (
+                                        <img src={sanh.AnhURL} alt={sanh.TenSanh} />
                                     ) : (
                                         <div className="hall-placeholder">
                                             <FaGem size={50} />

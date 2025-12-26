@@ -729,6 +729,17 @@ const apiService = {
 
     return data;
   },
+  
+  getMonAnByThucDonId: async (id) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thucdon/${id}/monan`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy danh sách món ăn thất bại');
+    }
+
+    return data;
+  },
 
   addMonAnToThucDonMau: async (maThucDonMau, maMonAn) => {
     const response = await fetchWithAuth(`${API_BASE_URL}/thucdonmau/${maThucDonMau}/monan`, {
