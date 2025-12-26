@@ -41,6 +41,7 @@ const ManagementPage = () => {
       setShifts(caData.data || []);
       setHalls(sanhData.data || []);
       setHallTypes(loaiSanhData.data || []);
+      setMenus(menuData.data || []);
     } catch (err) {
       setError(err.message);
       console.error('Error loading data:', err);
@@ -48,6 +49,7 @@ const ManagementPage = () => {
       setLoading(false);
     }
   };
+  
 
   // Icon mapping
   const getShiftIcon = (tenCa) => {

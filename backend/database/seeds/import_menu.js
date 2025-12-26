@@ -4,26 +4,23 @@
  */
 export async function seed(knex) {
   // --- PHẦN 1: XÓA DỮ LIỆU CŨ ---
-  // Lưu ý: Kiểm tra tên bảng trong DB của bạn. 
-  // Trong code này tôi giả định bảng là "MonAn" và "LoaiMon". 
-  // Nếu bảng loại món của bạn tên là "LoaiMonAn", hãy sửa lại dòng dưới.
-  await knex('MonAn').del();
-  await knex('LoaiMon').del(); 
+  // Phải xóa bảng con (MONAN) trước khi xóa bảng cha (LOAIMONAN) để tránh lỗi khóa ngoại (Foreign Key)
+  await knex('MONAN').del();
+  await knex('LOAIMONAN').del(); 
 
   // --- PHẦN 2: THÊM DỮ LIỆU LOẠI MÓN ---
-  // Tôi giả định bảng Loại Món có cột: MaLoai (hoặc Id) và TenLoai
-  // Bạn hãy kiểm tra lại bảng này trong Supabase để sửa key nếu cần.
-  await knex('LoaiMon').insert([
-    { id: 1, tenLoai: 'Khai vị' },
-    { id: 2, tenLoai: 'Món chính' },
-    { id: 3, tenLoai: 'Tráng miệng' },
-    { id: 4, tenLoai: 'Nước uống' },
-    { id: 5, tenLoai: 'Món chay' }
+  // Lưu ý: Đã sửa tên cột 'id' -> 'MaLoaiMonAn' và 'tenLoai' -> 'TenLoaiMonAn' khớp với Schema
+  await knex('LOAIMONAN').insert([
+    { MaLoaiMonAn: 1, TenLoaiMonAn: 'Khai vị' },
+    { MaLoaiMonAn: 2, TenLoaiMonAn: 'Món chính' },
+    { MaLoaiMonAn: 3, TenLoaiMonAn: 'Tráng miệng' },
+    { MaLoaiMonAn: 4, TenLoaiMonAn: 'Nước uống' },
+    { MaLoaiMonAn: 5, TenLoaiMonAn: 'Món chay' }
   ]);
 
   // --- PHẦN 3: THÊM DỮ LIỆU MÓN ĂN ---
-  // Đã cập nhật theo hình ảnh schema bạn gửi
-  await knex('MonAn').insert([
+  // Tên bảng sửa thành 'MONAN'
+  await knex('MONAN').insert([
     // ================== 1. KHAI VỊ (MaLoaiMonAn: 1) ==================
     {
       TenMonAn: 'Gỏi Ngó Sen Tôm Thịt',
@@ -453,4 +450,7 @@ export async function seed(knex) {
       AnhURL: "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766551560/app_uploads/wro2julrakwnezjqqb7o.png"
     }
   ]);
+  
+  // (Tùy chọn) Reset lại sequence ID của bảng LOAIMONAN để tránh lỗi trùng ID khi thêm mới sau này
+  await knex.raw('SELECT setval(\'"LOAIMONAN_MaLoaiMonAn_seq"\', 5, true)');
 }

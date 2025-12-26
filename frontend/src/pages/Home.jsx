@@ -26,11 +26,16 @@ const servicesData = [
 ];
 
 const galleryData = [
-  "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-  "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-  "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-  "https://images.unsplash.com/photo-1519225421980-715cb0202128?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-  "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766743842/app_uploads/uckzfspoyh1t3ybuzicv.jpg",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766743868/app_uploads/jwb5rzrks1j1ejant8vz.jpg",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766743935/app_uploads/xze5hgg1qks8uu2ye6ri.jpg",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766743980/app_uploads/hxhkcvbz1czf0cj20dup.jpg",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766744115/app_uploads/rcgjvtejdjhguag80jfl.jpg",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766744156/app_uploads/zcjumtki2nsn8ym2t5er.jpg",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766744559/app_uploads/ps9te3xgyzvwhrtaqgvm.jpg",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766744583/app_uploads/ncoyaixrbbp2ctxjicso.jpg",
+  "https://res.cloudinary.com/dvr4ujxsu/image/upload/v1766744614/app_uploads/unurbclxo61ibxfgpynm.jpg"
+
 ];
 const Home = () => {
     const playHoverSound = () => {

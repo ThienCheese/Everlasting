@@ -24,6 +24,6 @@ const errorHandler = (err, req, res, next) => {
         statusCode = 400;
         message = 'Duplicate Key';
     }
-    return errorResponse(res, statusCode, message);
+    return errorResponse(res, message, statusCode);
 };
 export default errorHandler;
