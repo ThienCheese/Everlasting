@@ -12,6 +12,7 @@ import sparkleImg1 from '../assets/bling1.png';
 import sparkleImg2 from '../assets/bling2.png';
 import sparkleImg3 from '../assets/bling3.png';
 import Header from "../components/Header";
+import apiService from '../services/api';
 
 import './Home.css';
 import logoImg from '../assets/weblogo.png';
@@ -40,6 +41,36 @@ const Home = () => {
     };
     const [isScrolled, setIsScrolled] = useState(false);
     const navigate=useNavigate();
+    
+    // State cho dữ liệu từ API
+    const [danhSachMonAn, setDanhSachMonAn] = useState([]);
+    const [danhSachDichVu, setDanhSachDichVu] = useState([]);
+    const [danhSachSanh, setDanhSachSanh] = useState([]);
+    const [loading, setLoading] = useState(true);
+    // Load dữ liệu từ API
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                setLoading(true);
+                const [monAnRes, dichVuRes, sanhRes] = await Promise.all([
+                    apiService.getAllMonAn(),
+                    apiService.getAllDichVu(),
+                    apiService.getSanh()
+                ]);
+                
+                setDanhSachMonAn(monAnRes.data || []);
+                setDanhSachDichVu(dichVuRes.data || []);
+                setDanhSachSanh(sanhRes.data || []);
+            } catch (error) {
+                console.error('Error loading data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        
+        loadData();
+    }, []);
+    
     //logic bat su kien cuon
     useEffect(() => {
         const handleScroll = () => {
@@ -189,6 +220,92 @@ const Home = () => {
                         </svg>
                     </button>
                 </div>
+            </section>
+
+            {/* Món ăn nổi bật */}
+            <section className="dishes-section">
+                <h2>Món ăn đặc sắc</h2>
+                <p className="section-subtitle">Thực đơn phong phú với hơn {danhSachMonAn.length} món ăn</p>
+                {loading ? (
+                    <div className="loading-spinner">Đang tải...</div>
+                ) : (
+                    <div className="dishes-grid">
+                        {danhSachMonAn.slice(0, 6).map((monAn) => (
+                            <div key={monAn.MaMonAn} className="dish-card" onMouseEnter={playHoverSound}>
+                                <div className="dish-image">
+                                    {monAn.HinhAnh ? (
+                                        <img src={monAn.HinhAnh} alt={monAn.TenMonAn} />
+                                    ) : (
+                                        <div className="dish-placeholder">
+                                            <MdOutlineRestaurantMenu size={40} />
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="dish-info">
+                                    <h3>{monAn.TenMonAn}</h3>
+                                    <p className="dish-category">{monAn.TenLoaiMonAn || 'Món ăn'}</p>
+                                    <p className="dish-price">{new Intl.NumberFormat('vi-VN').format(monAn.DonGia)} đ</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
+
+            {/* Sảnh tiệc */}
+            <section className="halls-section">
+                <h2>Sảnh tiệc sang trọng</h2>
+                <p className="section-subtitle">{danhSachSanh.length} sảnh với sức chứa đa dạng</p>
+                {loading ? (
+                    <div className="loading-spinner">Đang tải...</div>
+                ) : (
+                    <div className="halls-grid">
+                        {danhSachSanh.slice(0, 4).map((sanh) => (
+                            <div key={sanh.MaSanh} className="hall-card" onMouseEnter={playHoverSound}>
+                                <div className="hall-image">
+                                    {sanh.HinhAnh ? (
+                                        <img src={sanh.HinhAnh} alt={sanh.TenSanh} />
+                                    ) : (
+                                        <div className="hall-placeholder">
+                                            <FaGem size={50} />
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="hall-info">
+                                    <h3>{sanh.TenSanh}</h3>
+                                    <p className="hall-type">{sanh.TenLoaiSanh || 'Sảnh tiệc'}</p>
+                                    <div className="hall-details">
+                                        <span className="hall-capacity">Sức chứa: {sanh.SoLuongBanToiDa} bàn</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
+
+            {/* Dịch vụ bổ sung */}
+            <section className="services-extra-section">
+                <h2>Dịch vụ bổ sung</h2>
+                <p className="section-subtitle">Hoàn thiện trọn vẹn ngày trọng đại của bạn</p>
+                {loading ? (
+                    <div className="loading-spinner">Đang tải...</div>
+                ) : (
+                    <div className="services-extra-grid">
+                        {danhSachDichVu.slice(0, 8).map((dichVu) => (
+                            <div key={dichVu.MaDichVu} className="service-extra-card" onMouseEnter={playHoverSound}>
+                                <div className="service-extra-icon">
+                                    <RiCameraAiFill size={30} />
+                                </div>
+                                <div className="service-extra-content">
+                                    <h4>{dichVu.TenDichVu}</h4>
+                                    <p className="service-extra-category">{dichVu.TenLoaiDichVu || 'Dịch vụ'}</p>
+                                    <p className="service-extra-price">{new Intl.NumberFormat('vi-VN').format(dichVu.DonGia)} đ</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </section>
           
         </div>

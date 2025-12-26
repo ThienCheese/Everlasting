@@ -60,6 +60,24 @@ const ThucDon = {
 
   // Thêm món ăn vào thực đơn
   async addMonAn(maThucDon, maMonAn, donGiaThoiDiemDat) {
+    // Kiểm tra món ăn tồn tại và chưa bị xóa
+    const monAn = await db('MONAN')
+      .where({ MaMonAn: maMonAn, DaXoa: false })
+      .first();
+    
+    if (!monAn) {
+      throw new Error('Mon an khong ton tai hoac da bi xoa');
+    }
+    
+    // Kiểm tra món ăn đã tồn tại trong thực đơn chưa
+    const existing = await db('THUCDON_MONAN')
+      .where({ MaThucDon: maThucDon, MaMonAn: maMonAn })
+      .first();
+    
+    if (existing) {
+      throw new Error('Mon an da ton tai trong thuc don');
+    }
+    
     const [result] = await db('THUCDON_MONAN')
       .insert({
         MaThucDon: maThucDon,
