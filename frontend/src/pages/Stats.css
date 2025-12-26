@@ -313,6 +313,141 @@
 .status-item.pending .dot { background: #ef6c00; }
 .status-item.cancel .dot { background: #c62828; }
 
+/* --- BÁO CÁO DOANH THU CHI TIẾT THEO THÁNG --- */
+.monthly-report-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0,0,0,0.02);
+    margin-top: 30px;
+}
+
+.report-summary {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f7ff 0%, #f0f0f5 100%);
+    border-radius: 12px;
+    border-left: 4px solid #8A7CDF;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.summary-label {
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+}
+
+.summary-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #8A7CDF;
+}
+
+.report-table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.report-table thead {
+    background: linear-gradient(135deg, #8A7CDF 0%, #9F8FE8 100%);
+    color: white;
+}
+
+.report-table th {
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.report-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.report-table tbody tr:hover {
+    background-color: #f8f7ff;
+}
+
+.report-table tbody tr.has-revenue {
+    background-color: #fffef9;
+}
+
+.report-table td {
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.report-table .text-center {
+    text-align: center;
+}
+
+.report-table .text-right {
+    text-align: right;
+}
+
+.progress-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.progress-bar-mini {
+    width: 60px;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill-mini {
+    height: 100%;
+    background: linear-gradient(90deg, #8A7CDF 0%, #9F8FE8 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #8A7CDF;
+    min-width: 40px;
+}
+
+.report-table tfoot {
+    background: #f8f9fa;
+    border-top: 2px solid #8A7CDF;
+}
+
+.report-table tfoot .total-row td {
+    padding: 15px 20px;
+    font-size: 15px;
+    color: #333;
+}
+
+.report-table tfoot .total-row strong {
+    color: #8A7CDF;
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 900px) {
     .stats-main-section {
@@ -323,4 +458,26 @@
         padding-bottom: 10px;
     }
     .chart-col { min-width: 30px; }
+    
+    .monthly-report-section {
+        padding: 20px;
+    }
+    
+    .report-summary {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .report-table {
+        font-size: 12px;
+    }
+    
+    .report-table th,
+    .report-table td {
+        padding: 10px;
+    }
+    
+    .progress-bar-mini {
+        width: 40px;
+    }
 }

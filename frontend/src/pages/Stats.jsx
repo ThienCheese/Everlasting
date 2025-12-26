@@ -15,6 +15,7 @@ const Stats = () => {
   const [viewMode, setViewMode] = useState('year'); // 'year' or 'month'
   
   const [baoCao, setBaoCao] = useState(null);
+  const [chiTietBaoCao, setChiTietBaoCao] = useState([]);
   const [danhSachHoaDon, setDanhSachHoaDon] = useState([]);
   const [danhSachDatTiec, setDanhSachDatTiec] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -126,48 +127,33 @@ const Stats = () => {
 
   // Generate monthly revenue data for chart
   const generateRevenueData = () => {
-    if (viewMode === 'month' || !baoCao) {
-      // For month view or no yearly report, show monthly breakdown
-      const monthlyData = [];
-      for (let month = 1; month <= 12; month++) {
-        const monthHoaDon = danhSachHoaDon.filter(hd => {
-          const hdDate = new Date(hd.NgayLapHoaDon);
-          return hdDate.getMonth() + 1 === month && 
-                 hdDate.getFullYear() === selectedYear &&
-                 hd.TrangThai === 1;
-        });
-        
-        const revenue = monthHoaDon.reduce((sum, hd) => 
-          sum + parseFloat(hd.TongTienHoaDon || 0), 0
-        );
-        
-        monthlyData.push({
-          month: `T${month}`,
-          value: revenue,
-          label: formatCurrency(revenue / 1000000) + 'tr'
-        });
-      }
+    // Always calculate from actual data
+    const monthlyData = [];
+    for (let month = 1; month <= 12; month++) {
+      const monthHoaDon = danhSachHoaDon.filter(hd => {
+        const hdDate = new Date(hd.NgayLapHoaDon);
+        return hdDate.getMonth() + 1 === month && 
+               hdDate.getFullYear() === selectedYear &&
+               hd.TrangThai === 1;
+      });
       
-      // Normalize to percentage
-      const maxRevenue = Math.max(...monthlyData.map(d => d.value), 1);
-      return monthlyData.map(d => ({
-        ...d,
-        percentage: Math.round((d.value / maxRevenue) * 100)
-      }));
+      const revenue = monthHoaDon.reduce((sum, hd) => 
+        sum + parseFloat(hd.TongTienHoaDon || 0), 0
+      );
+      
+      monthlyData.push({
+        month: `T${month}`,
+        value: revenue,
+        label: formatCurrency(revenue / 1000000) + 'tr'
+      });
     }
     
-    // Use yearly report data if available
-    return baoCao.map(bc => {
-      const revenue = parseFloat(bc.TongDoanhThu || 0);
-      const maxRevenue = Math.max(...baoCao.map(b => parseFloat(b.TongDoanhThu || 0)), 1);
-      
-      return {
-        month: `T${bc.Thang}`,
-        value: revenue,
-        label: formatCurrency(revenue / 1000000) + 'tr',
-        percentage: Math.round((revenue / maxRevenue) * 100)
-      };
-    });
+    // Normalize to percentage
+    const maxRevenue = Math.max(...monthlyData.map(d => d.value), 1);
+    return monthlyData.map(d => ({
+      ...d,
+      percentage: Math.round((d.value / maxRevenue) * 100)
+    }));
   };
 
   // Calculate top halls
@@ -221,6 +207,51 @@ const Stats = () => {
   };
 
   const bookingStatuses = calculateBookingStatuses();
+
+  // Tính chi tiết báo cáo theo ngày
+  const calculateDailyReport = () => {
+    if (viewMode !== 'month') return [];
+    
+    const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+    const dailyData = [];
+    let tongDoanhThu = 0;
+    
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${selectedYear}-${String(selectedMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      
+      // Đếm số tiệc trong ngày
+      const soLuongTiec = danhSachDatTiec.filter(dt => {
+        const eventDate = new Date(dt.NgayDaiTiec).toISOString().split('T')[0];
+        return eventDate === dateStr && !dt.DaHuy;
+      }).length;
+      
+      // Tính doanh thu ngày (từ hóa đơn đã thanh toán)
+      const doanhThu = danhSachHoaDon
+        .filter(hd => {
+          const invoiceDate = new Date(hd.NgayLapHoaDon).toISOString().split('T')[0];
+          return invoiceDate === dateStr && hd.TrangThai === 1;
+        })
+        .reduce((sum, hd) => sum + parseFloat(hd.TongTienHoaDon || 0), 0);
+      
+      tongDoanhThu += doanhThu;
+      
+      dailyData.push({
+        ngay: day,
+        dateStr,
+        soLuongTiec,
+        doanhThu
+      });
+    }
+    
+    // Tính tỉ lệ % cho mỗi ngày
+    return dailyData.map(item => ({
+      ...item,
+      tiLe: tongDoanhThu > 0 ? ((item.doanhThu / tongDoanhThu) * 100).toFixed(2) : 0
+    }));
+  };
+
+  const dailyReport = calculateDailyReport();
+  const tongDoanhThuThang = dailyReport.reduce((sum, item) => sum + item.doanhThu, 0);
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('vi-VN').format(value);
@@ -403,6 +434,69 @@ const Stats = () => {
             </div>
 
         </div>
+
+        {/* --- 3. BÁO CÁO DOANH THU CHI TIẾT THEO THÁNG --- */}
+        {viewMode === 'month' && (
+          <div className="monthly-report-section">
+            <div className="section-head">
+              <h3>Báo Cáo Doanh Số Tháng {selectedMonth}/{selectedYear}</h3>
+            </div>
+            
+            <div className="report-summary">
+              <div className="summary-item">
+                <span className="summary-label">Tổng doanh thu:</span>
+                <span className="summary-value">{formatCurrency(tongDoanhThuThang)} đ</span>
+              </div>
+              <div className="summary-item">
+                <span className="summary-label">Tổng số tiệc:</span>
+                <span className="summary-value">{dailyReport.filter(d => d.soLuongTiec > 0).length} ngày</span>
+              </div>
+            </div>
+
+            <div className="report-table-container">
+              <table className="report-table">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Ngày</th>
+                    <th>Số Lượng Tiệc Cưới</th>
+                    <th>Doanh Thu</th>
+                    <th>Tỉ Lệ (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dailyReport.filter(item => item.soLuongTiec > 0).map((item, index) => (
+                    <tr key={item.ngay} className={item.doanhThu > 0 ? 'has-revenue' : ''}>
+                      <td>{index + 1}</td>
+                      <td>{String(item.ngay).padStart(2, '0')}/{String(selectedMonth).padStart(2, '0')}/{selectedYear}</td>
+                      <td className="text-center">{item.soLuongTiec}</td>
+                      <td className="text-right">{formatCurrency(item.doanhThu)} đ</td>
+                      <td className="text-center">
+                        <div className="progress-cell">
+                          <div className="progress-bar-mini">
+                            <div 
+                              className="progress-fill-mini" 
+                              style={{width: `${item.tiLe}%`}}
+                            ></div>
+                          </div>
+                          <span className="progress-text">{item.tiLe}%</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr className="total-row">
+                    <td colSpan="2"><strong>TỔNG CỘNG</strong></td>
+                    <td className="text-center"><strong>{dailyReport.reduce((sum, item) => sum + item.soLuongTiec, 0)}</strong></td>
+                    <td className="text-right"><strong>{formatCurrency(tongDoanhThuThang)} đ</strong></td>
+                    <td className="text-center"><strong>100%</strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

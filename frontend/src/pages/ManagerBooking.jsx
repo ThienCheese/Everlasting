@@ -196,22 +196,29 @@ const ManagerBooking = () => {
 
       // Step 1: Create ThucDon
       let maThucDon;
+      let danhSachMonAn = [];
       
       if (selectedSet) {
         // Get món ăn from template
         const monAnFromTemplate = await apiService.getMonAnThucDonMau(selectedSet.MaThucDon);
+        danhSachMonAn = monAnFromTemplate.data || [];
         
+        // Tính tổng giá từ danh sách món ăn thực tế
+        const tongDonGia = danhSachMonAn.reduce((sum, monAn) => 
+          sum + parseFloat(monAn.DonGia || 0), 0
+        );
+
         // Create new ThucDon
         const thucDonResult = await apiService.createThucDon({
           tenThucDon: `Thực đơn ${customer.tenChuRe} & ${customer.tenCoDau}`,
-          donGiaHienTai: selectedSet.DonGiaHienTai || 0,
+          donGiaHienTai: tongDonGia,
           ghiChu: `Tạo từ thực đơn mẫu: ${selectedSet.TenThucDon || ''}`
         });
         
         maThucDon = thucDonResult.data.MaThucDon;
 
         // Add món ăn to ThucDon
-        for (const monAn of monAnFromTemplate.data) {
+        for (const monAn of danhSachMonAn) {
           await apiService.addMonAnToThucDon(maThucDon, {
             maMonAn: monAn.MaMonAn,
             donGiaThoiDiemDat: monAn.DonGia
@@ -219,8 +226,10 @@ const ManagerBooking = () => {
         }
       } else {
         // Individual dishes mode
-        const tongDonGia = selectedSingleItems.reduce((sum, monAn) => 
-          sum + (monAn.DonGia || 0), 0
+        danhSachMonAn = selectedSingleItems;
+        
+        const tongDonGia = danhSachMonAn.reduce((sum, monAn) => 
+          sum + parseFloat(monAn.DonGia || 0), 0
         );
 
         // Create new ThucDon
@@ -233,7 +242,7 @@ const ManagerBooking = () => {
         maThucDon = thucDonResult.data.MaThucDon;
 
         // Add món ăn to ThucDon
-        for (const monAn of selectedSingleItems) {
+        for (const monAn of danhSachMonAn) {
           await apiService.addMonAnToThucDon(maThucDon, {
             maMonAn: monAn.MaMonAn,
             donGiaThoiDiemDat: monAn.DonGia
