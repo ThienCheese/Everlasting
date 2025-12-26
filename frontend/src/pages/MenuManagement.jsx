@@ -22,6 +22,10 @@ const MenuManagement = () => {
   const [showManageMonAnModal, setShowManageMonAnModal] = useState(false);
   const [selectedThucDonMau, setSelectedThucDonMau] = useState(null);
   const [monAnInThucDonMau, setMonAnInThucDonMau] = useState([]);
+
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [viewingThucDonMau, setViewingThucDonMau] = useState(null);
+  const [detailViewMode, setDetailViewMode] = useState('table'); // 'cards' | 'table'
   
   // Loại món ăn
   const [danhSachLoaiMon, setDanhSachLoaiMon] = useState([]);
@@ -291,6 +295,24 @@ const MenuManagement = () => {
       setLoading(false);
     }
   };
+  // Đặt hàm này gần khu vực handlers của Thực Đơn Mẫu
+
+  const handleViewDetail = async (tdm) => {
+  setViewingThucDonMau(tdm);
+  setShowDetailModal(true);
+  
+  try {
+    setLoading(true);
+    // Tái sử dụng API lấy món ăn đã có
+    const response = await apiService.getMonAnThucDonMau(tdm.MaThucDon);
+    setMonAnInThucDonMau(response.data || []);
+  } catch (err) {
+    console.error('Error fetching detail:', err);
+    setMonAnInThucDonMau([]);
+  } finally {
+    setLoading(false);
+  }
+};
 
   // ==================== CRUD HANDLERS - LOẠI MÓN ĂN ====================
   
@@ -493,7 +515,15 @@ const MenuManagement = () => {
               ) : (
                 thucDonMauFiltered.map((tdm) => (
                   <tr key={tdm.MaThucDon}>
-                    <td style={{fontWeight: '800', color: '#333'}}>{tdm.TenThucDon}</td>
+                    <td>
+                      <button 
+                        className="set-name-link"
+                        onClick={() => handleViewDetail(tdm)}
+                        title="Xem chi tiết thực đơn"
+                      >
+                        {tdm.TenThucDon}
+                      </button>
+                    </td>
                     <td style={{fontWeight: '600', color: '#8A7CDF'}}>
                       {Number(tdm.DonGiaHienTai).toLocaleString('vi-VN')} đ
                     </td>
@@ -842,6 +872,153 @@ const MenuManagement = () => {
           </div>
         </div>
       )}
+      {/* ==================== MODAL XEM CHI TIẾT THỰC ĐƠN ==================== */}
+        {showDetailModal && viewingThucDonMau && (
+          <div className="modal-overlay" onClick={() => setShowDetailModal(false)}>
+            <div className="modal-content modal-large" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header">
+                <h3>Chi tiết thực đơn: {viewingThucDonMau.TenThucDon}</h3>
+                <button className="close-btn" onClick={() => setShowDetailModal(false)}>
+                  <FaTimes />
+                </button>
+              </div>
+
+              <div className="modal-body detail-body">
+                {(() => {
+                  const tongTien = monAnInThucDonMau.reduce((sum, m) => sum + Number(m.DonGia || 0), 0);
+                  const chenhLech = tongTien - Number(viewingThucDonMau.DonGiaHienTai || 0);
+                  const byCategory = monAnInThucDonMau.reduce((acc, m) => {
+                    const key = m.TenLoaiMonAn || 'Khác';
+                    acc[key] = (acc[key] || 0) + 1;
+                    return acc;
+                  }, {});
+
+                  return (
+                    <div className="detail-grid">
+                      <div className="summary-cards">
+                        <div className="metric-card primary">
+                          <div className="metric-title">Giá set niêm yết</div>
+                          <div className="metric-value">
+                            {Number(viewingThucDonMau.DonGiaHienTai).toLocaleString('vi-VN')} đ
+                          </div>
+                        </div>
+                        <div className="metric-card success">
+                          <div className="metric-title">Tổng giá trị món</div>
+                          <div className="metric-value">
+                            {tongTien.toLocaleString('vi-VN')} đ
+                          </div>
+                        </div>
+                        <div className={`metric-card ${chenhLech <= 0 ? 'saving' : 'warning'}`}>
+                          <div className="metric-title">{chenhLech <= 0 ? 'Tiết kiệm' : 'Chênh lệch'}</div>
+                          <div className="metric-value">
+                            {Math.abs(chenhLech).toLocaleString('vi-VN')} đ
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="chips-row">
+                        {Object.entries(byCategory).map(([cat, count]) => (
+                          <span key={cat} className="chip">
+                            {cat} · {count} món
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="note-card">
+                        <div className="note-title">Ghi chú</div>
+                        <div className="note-content">{viewingThucDonMau.GhiChu || 'Không có'}</div>
+                      </div>
+
+                      <h4 className="section-heading">Danh sách món ăn ({monAnInThucDonMau.length})</h4>
+                      <div className="view-switch">
+                        <button
+                          className={`pill-btn ${detailViewMode === 'cards' ? 'active' : ''}`}
+                          onClick={() => setDetailViewMode('cards')}
+                        >
+                          Xem dạng thẻ
+                        </button>
+                        <button
+                          className={`pill-btn ${detailViewMode === 'table' ? 'active' : ''}`}
+                          onClick={() => setDetailViewMode('table')}
+                        >
+                          Xem dạng bảng
+                        </button>
+                      </div>
+
+                      {loading ? (
+                        <p className="text-center">Đang tải chi tiết...</p>
+                      ) : detailViewMode === 'table' ? (
+                        <div className="table-wrapper">
+                          <table className="detail-table">
+                            <thead>
+                              <tr>
+                                <th style={{width:'10%'}}>Hình</th>
+                                <th style={{width:'35%'}}>Tên món ăn</th>
+                                <th style={{width:'20%'}}>Loại</th>
+                                <th style={{width:'15%'}}>Đơn giá</th>
+                                <th style={{width:'20%'}}>Ghi chú</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {monAnInThucDonMau.length === 0 ? (
+                                <tr>
+                                  <td colSpan={5} className="text-center">Chưa có món ăn</td>
+                                </tr>
+                              ) : (
+                                monAnInThucDonMau.map((mon) => (
+                                  <tr key={mon.MaMonAn}>
+                                    <td>
+                                      <img
+                                        className="detail-thumb"
+                                        src={mon.AnhURL || 'https://via.placeholder.com/120?text=No+Image'}
+                                        alt={mon.TenMonAn}
+                                        onError={(e) => {e.target.onerror = null; e.target.src='https://via.placeholder.com/120?text=Error'}}
+                                      />
+                                    </td>
+                                    <td className="bold-col" title={mon.TenMonAn}>{mon.TenMonAn}</td>
+                                    <td><span className="category-badge">{mon.TenLoaiMonAn}</span></td>
+                                    <td className="price-col">{Number(mon.DonGia).toLocaleString('vi-VN')} đ</td>
+                                    <td className="note-col">{mon.GhiChu || '-'}</td>
+                                  </tr>
+                                ))
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      ) : (
+                        <div className="dish-card-grid">
+                          {monAnInThucDonMau.map((mon) => (
+                            <div key={mon.MaMonAn} className="dish-card">
+                              <div className="dish-image">
+                                <img 
+                                  src={mon.AnhURL || 'https://via.placeholder.com/240?text=No+Image'} 
+                                  alt={mon.TenMonAn}
+                                  onError={(e) => {e.target.onerror = null; e.target.src='https://via.placeholder.com/240?text=Error'}}
+                                />
+                                <span className="dish-chip">{mon.TenLoaiMonAn}</span>
+                              </div>
+                              <div className="dish-card-body">
+                                <div className="dish-card-title" title={mon.TenMonAn}>{mon.TenMonAn}</div>
+                                <div className="dish-card-price">{Number(mon.DonGia).toLocaleString('vi-VN')} đ</div>
+                                <div className="dish-card-note">{mon.GhiChu || ''}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+              </div>
+
+              <div className="modal-footer">
+                <button className="btn-primary" onClick={() => setShowDetailModal(false)}>
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
     </div>
   );
 };

@@ -16,6 +16,7 @@ import thamSoRoutes from './thamso.routes.js';
 import chucNangRoutes from './chucnang.routes.js';
 import phanQuyenRoutes from './phanquyen.routes.js';
 import systemRoutes from './system.routes.js';
+import uploadRoutes from './upload.routes.js';
 
 const router = express.Router();
 
@@ -38,5 +39,6 @@ router.use('/baocaodoanhso', baoCaoDoanhSoRoutes);
 router.use('/thamso', thamSoRoutes);
 router.use('/chucnang', chucNangRoutes);
 router.use('/phanquyen', phanQuyenRoutes);
+router.use('/upload', uploadRoutes);
 
 export default router;
