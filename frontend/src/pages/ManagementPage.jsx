@@ -41,7 +41,6 @@ const ManagementPage = () => {
       setShifts(caData.data || []);
       setHalls(sanhData.data || []);
       setHallTypes(loaiSanhData.data || []);
-
     } catch (err) {
       setError(err.message);
       console.error('Error loading data:', err);
