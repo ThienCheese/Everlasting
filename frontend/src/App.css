@@ -33,3 +33,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* Tối ưu cho trang đăng nhập/đăng ký: đặt nội dung sát phía trên */
+.main-auth {
+  padding-top: 0;
+}

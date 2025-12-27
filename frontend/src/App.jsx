@@ -75,7 +75,7 @@ const AppContent = () => {
         {/* Chỉ hiện Header nếu KHÔNG PHẢI trang login hoặc register */}
         {!isAuthPage && <Header />}
         
-        <div className="main-content">
+        <div className={isAuthPage ? 'main-content main-auth' : 'main-content'}>
            <Routes>
              <Route path="/" element={<Login />} />
              <Route path="/register" element={<Register />} />
