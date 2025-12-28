@@ -12,7 +12,12 @@ dotenv.config();
 
 // ✅ CORS - Cho phép frontend gọi API
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  origin: [
+    'http://localhost:5173', 
+    'http://localhost:3000',
+    'https://everlasting-frontend.vercel.app',
+    /\.vercel\.app$/
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
