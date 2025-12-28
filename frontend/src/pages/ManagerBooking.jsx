@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import apiService from '../services/api';
 import './ManagerBooking.css';
 import { 
-    FaUser, FaCalendarAlt, FaUsers, FaCheckCircle, 
-    FaUtensils, FaMusic, FaLayerGroup, FaMoneyBillWave, 
-    FaPlusCircle, FaMinusCircle, FaInfoCircle 
+  FaUser, FaCalendarAlt, FaUsers, FaCheckCircle, 
+  FaUtensils, FaMusic, FaLayerGroup, FaMoneyBillWave, 
+  FaPlusCircle, FaMinusCircle, FaInfoCircle, FaCheck 
 } from "react-icons/fa";
 
 const ManagerBooking = () => {
@@ -16,6 +16,10 @@ const ManagerBooking = () => {
   const [danhSachMonAn, setDanhSachMonAn] = useState([]);
   const [danhSachLoaiMonAn, setDanhSachLoaiMonAn] = useState([]);
   const [danhSachDichVu, setDanhSachDichVu] = useState([]);
+  // Ảnh đại diện cho set (lấy từ món trong set)
+  const [repImageBySet, setRepImageBySet] = useState({});
+  // Danh sách tên món theo từng set
+  const [monAnBySet, setMonAnBySet] = useState({});
 
   // --- 2. STATES ---
   const [customer, setCustomer] = useState({ 
@@ -85,6 +89,38 @@ const ManagerBooking = () => {
       setLoading(false);
     }
   };
+
+  // Sau khi có danh sách thực đơn mẫu, lấy ảnh đại diện từ món trong set
+  useEffect(() => {
+    const loadRepresentativeImages = async () => {
+      try {
+        const sets = danhSachThucDonMau || [];
+        if (sets.length === 0) return;
+        const repMap = {};
+        const dishesMap = {};
+        await Promise.all(
+          sets.map(async (set) => {
+            try {
+              const res = await apiService.getMonAnThucDonMau(set.MaThucDon);
+              const list = res.data || [];
+              const firstWithImage = list.find(m => !!m.AnhURL);
+              if (firstWithImage?.AnhURL) {
+                repMap[set.MaThucDon] = firstWithImage.AnhURL;
+              }
+              dishesMap[set.MaThucDon] = list.map(m => m.TenMonAn).filter(Boolean);
+            } catch {
+              // bỏ qua lỗi từng set
+            }
+          })
+        );
+        setRepImageBySet(repMap);
+        setMonAnBySet(dishesMap);
+      } catch {
+        // ignore
+      }
+    };
+    loadRepresentativeImages();
+  }, [danhSachThucDonMau]);
 
   // --- 4. HANDLERS ---
   
@@ -172,7 +208,7 @@ const ManagerBooking = () => {
   };
 
   const totals = calculateTotal();
-  const fmt = (num) => num.toLocaleString('vi-VN') + ' đ';
+  const fmt = (num) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(Number(num || 0)).replace('₫', 'đ');
 
   // --- 6. SUBMIT HANDLER ---
   const handleConfirmBooking = async () => {
@@ -472,9 +508,12 @@ const ManagerBooking = () => {
                               onClick={() => handleSelectSet(set)}
                             >
                                 <div className="set-img-wrapper">
-                                    {set.AnhURL && <img src={set.AnhURL} alt={set.TenThucDon} />}
-                                    {!set.AnhURL && <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=400" alt={set.TenThucDon} />}
-                                    {selectedSet?.MaThucDon === set.MaThucDon && <div className="check-corner"><FaCheckCircle/></div>}
+                                    { (set.AnhURL || repImageBySet[set.MaThucDon]) ? (
+                                      <img src={set.AnhURL || repImageBySet[set.MaThucDon]} alt={set.TenThucDon} />
+                                    ) : (
+                                      <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=400" alt={set.TenThucDon} />
+                                    ) }
+                                    {selectedSet?.MaThucDon === set.MaThucDon && <div className="check-corner"><FaCheck/></div>}
                                 </div>
                                 <div className="set-content">
                                     <div className="set-header">
@@ -482,6 +521,7 @@ const ManagerBooking = () => {
                                         <span className="set-price">{fmt(set.DonGiaHienTai || 0)}/bàn</span>
                                     </div>
                                     <p className="set-desc">{set.GhiChu || 'Thực đơn trọn gói cho tiệc cưới'}</p>
+                                    <p className="set-dishes">Món: {monAnBySet[set.MaThucDon]?.slice(0,6).join(', ') || 'Đang tải...'}{monAnBySet[set.MaThucDon] && monAnBySet[set.MaThucDon].length > 6 ? '...' : ''}</p>
                                 </div>
                             </div>
                         ))}

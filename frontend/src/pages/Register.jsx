@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './login.css'; // Sử dụng chung CSS với login
 import logoImg from '../assets/weblogo.png'; 
-import starImg from '../assets/star-img.png'; 
-import sparkleSound from '../assets/bell-notification.mp3';
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import clickSound from '../assets/mouse-click.mp3';
 import sunIcon from '../assets/dark_mode_light.webp';       
@@ -13,12 +11,6 @@ import speakerIcondarkmode from '../assets/sfx_on_dark.webp';
 import speakerIconOff from '../assets/sfx_off_light.webp';
 import speakerIcondarkmodeOff from '../assets/sfx_off_dark.webp';
 import apiService from '../services/api';
-
-const playStarSound = () => {
-  const audio = new Audio(sparkleSound);
-  audio.volume = 0.5;
-  audio.play();
-};
 
 const Register = () => {
   const navigate = useNavigate();
@@ -151,9 +143,7 @@ const Register = () => {
       </header>
 
       <main className="main-content">
-        <div className="star-container">
-          <img src={starImg} alt="Star" className="star-icon" onMouseEnter={playStarSound}/>
-        </div>
+        {/* Star removed per request */}
 
         <div className="login-box">
           <h2 className="login-title">SIGN UP</h2>
@@ -233,7 +223,7 @@ const Register = () => {
         </div>
       </main>
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <div className="footer-left">
           <span className="footer-logo"></span>
         </div>
@@ -248,7 +238,7 @@ const Register = () => {
             </a>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };

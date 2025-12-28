@@ -352,18 +352,26 @@
     padding: 60px 5%;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
 }
 
 .dishes-section h2,
 .halls-section h2,
 .services-extra-section h2 {
     text-align: center;
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 700;
     margin-bottom: 10px;
     color: #333;
 }
+.halls-section h2 { text-align: left; font-size: 24px; }
+.halls-section .section-subtitle { text-align: left; }
+.services-extra-section h2 { text-align: left; font-size: 24px; }
+.services-extra-section .section-subtitle { text-align: left; }
+
+/* Left-align title and subtitle for dishes section */
+.dishes-section h2 { text-align: left; }
+.dishes-section .section-subtitle { text-align: left; }
 
 .section-subtitle {
     text-align: center;
@@ -446,6 +454,7 @@
     padding: 60px 5%;
     max-width: 1200px;
     margin: 0 auto;
+    background-color: #ffffff;
 }
 
 .halls-grid {
@@ -527,7 +536,7 @@
     padding: 60px 5%;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
 }
 
 .services-extra-grid {

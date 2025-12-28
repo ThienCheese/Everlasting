@@ -25,7 +25,7 @@ const MenuManagement = () => {
 
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [viewingThucDonMau, setViewingThucDonMau] = useState(null);
-  const [detailViewMode, setDetailViewMode] = useState('table'); // 'cards' | 'table'
+  const [detailViewMode, setDetailViewMode] = useState('cards'); // 'cards' only for images
   
   // Loại món ăn
   const [danhSachLoaiMon, setDanhSachLoaiMon] = useState([]);
@@ -225,6 +225,8 @@ const MenuManagement = () => {
       setLoading(false);
     }
   };
+
+  // Đã bỏ chức năng upload ảnh cho Thực đơn mẫu theo yêu cầu
 
   const handleDeleteThucDonMau = async (id) => {
     if (!window.confirm('Bạn có chắc muốn xóa thực đơn mẫu này?')) return;
@@ -746,6 +748,8 @@ const MenuManagement = () => {
                   rows="4"
                 />
               </div>
+
+              {/* Bỏ phần thêm ảnh cho set món ăn */}
             </div>
 
             <div className="modal-footer">
@@ -887,14 +891,18 @@ const MenuManagement = () => {
                 {(() => {
                   const tongTien = monAnInThucDonMau.reduce((sum, m) => sum + Number(m.DonGia || 0), 0);
                   const chenhLech = tongTien - Number(viewingThucDonMau.DonGiaHienTai || 0);
-                  const byCategory = monAnInThucDonMau.reduce((acc, m) => {
-                    const key = m.TenLoaiMonAn || 'Khác';
-                    acc[key] = (acc[key] || 0) + 1;
-                    return acc;
-                  }, {});
+                  // Removed category chips; no need to aggregate by category
 
                   return (
                     <div className="detail-grid">
+                      {/* Ảnh đại diện set */}
+                      <div className="set-hero">
+                        <img
+                          src={viewingThucDonMau.AnhURL || 'https://via.placeholder.com/1200x300?text=No+Image'}
+                          alt={viewingThucDonMau.TenThucDon}
+                          onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/1200x300?text=Error'; }}
+                        />
+                      </div>
                       <div className="summary-cards">
                         <div className="metric-card primary">
                           <div className="metric-title">Giá set niêm yết</div>
@@ -916,13 +924,7 @@ const MenuManagement = () => {
                         </div>
                       </div>
 
-                      <div className="chips-row">
-                        {Object.entries(byCategory).map(([cat, count]) => (
-                          <span key={cat} className="chip">
-                            {cat} · {count} món
-                          </span>
-                        ))}
-                      </div>
+                      {/* Category chips removed per request */}
 
                       <div className="note-card">
                         <div className="note-title">Ghi chú</div>
@@ -930,61 +932,9 @@ const MenuManagement = () => {
                       </div>
 
                       <h4 className="section-heading">Danh sách món ăn ({monAnInThucDonMau.length})</h4>
-                      <div className="view-switch">
-                        <button
-                          className={`pill-btn ${detailViewMode === 'cards' ? 'active' : ''}`}
-                          onClick={() => setDetailViewMode('cards')}
-                        >
-                          Xem dạng thẻ
-                        </button>
-                        <button
-                          className={`pill-btn ${detailViewMode === 'table' ? 'active' : ''}`}
-                          onClick={() => setDetailViewMode('table')}
-                        >
-                          Xem dạng bảng
-                        </button>
-                      </div>
 
                       {loading ? (
                         <p className="text-center">Đang tải chi tiết...</p>
-                      ) : detailViewMode === 'table' ? (
-                        <div className="table-wrapper">
-                          <table className="detail-table">
-                            <thead>
-                              <tr>
-                                <th style={{width:'10%'}}>Hình</th>
-                                <th style={{width:'35%'}}>Tên món ăn</th>
-                                <th style={{width:'20%'}}>Loại</th>
-                                <th style={{width:'15%'}}>Đơn giá</th>
-                                <th style={{width:'20%'}}>Ghi chú</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {monAnInThucDonMau.length === 0 ? (
-                                <tr>
-                                  <td colSpan={5} className="text-center">Chưa có món ăn</td>
-                                </tr>
-                              ) : (
-                                monAnInThucDonMau.map((mon) => (
-                                  <tr key={mon.MaMonAn}>
-                                    <td>
-                                      <img
-                                        className="detail-thumb"
-                                        src={mon.AnhURL || 'https://via.placeholder.com/120?text=No+Image'}
-                                        alt={mon.TenMonAn}
-                                        onError={(e) => {e.target.onerror = null; e.target.src='https://via.placeholder.com/120?text=Error'}}
-                                      />
-                                    </td>
-                                    <td className="bold-col" title={mon.TenMonAn}>{mon.TenMonAn}</td>
-                                    <td><span className="category-badge">{mon.TenLoaiMonAn}</span></td>
-                                    <td className="price-col">{Number(mon.DonGia).toLocaleString('vi-VN')} đ</td>
-                                    <td className="note-col">{mon.GhiChu || '-'}</td>
-                                  </tr>
-                                ))
-                              )}
-                            </tbody>
-                          </table>
-                        </div>
                       ) : (
                         <div className="dish-card-grid">
                           {monAnInThucDonMau.map((mon) => (

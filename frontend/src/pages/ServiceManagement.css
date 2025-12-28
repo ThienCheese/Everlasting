@@ -146,6 +146,7 @@
     position: sticky;
     top: 100px;
     flex-shrink: 0;
+    text-align: left;
 }
 
 .sidebar-header {
@@ -160,12 +161,18 @@
 .btn-clear:hover { text-decoration: underline; }
 
 /* Filter Group */
-.filter-group { margin-bottom: 25px; }
+.filter-group { margin-bottom: 25px; display: flex; flex-direction: column; }
 .filter-title {
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: flex-start; align-items:center;
+    gap: 8px;text-align: start;
     font-weight: 700; color: #444; margin-bottom: 12px; cursor: pointer;
 }
-.icon-chevron { font-size: 12px; color: #888; }
+.icon-chevron { font-size: 12px; color: #888; transition: transform 0.2s ease; }
+
+/* Collapse behavior */
+.filter-group.collapsed .filter-options { display: none; }
+.filter-group.collapsed .price-inputs { display: none; }
+.filter-group.collapsed .icon-chevron { transform: rotate(-90deg); }
 
 /* Checkbox Style */
 /* .service-page-wrapper .custom-checkbox {
@@ -261,6 +268,27 @@
     font-size: 13px; outline: none;
 }
 .price-inputs input:focus { border-color: #8A7CDF; }
+
+/* Ensure filter options stack vertically */
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Add button at bottom, full width */
+.btn-add-category {
+    margin-top: 12px;
+    width: 100%;
+    background: #f6f5ff;
+    color: #6f62c8;
+    border: 1px solid rgba(138,124,223,0.25);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.btn-add-category:hover { background: #edeaff; }
 
 .btn-apply-filter {
     width: 100%; padding: 12px;
@@ -381,7 +409,7 @@
 @media (max-width: 900px) {
     .main-layout { flex-direction: column; }
     .filter-sidebar { width: 100%; position: static; margin-bottom: 20px; }
-    .filter-options { display: flex; flex-wrap: wrap; gap: 15px; }
+    .filter-options { display: flex; flex-direction: column; gap: 12px; }
     .knot-style-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 }
 
@@ -569,8 +597,8 @@
 }
 
 .btn-icon {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     cursor: pointer;

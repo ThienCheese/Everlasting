@@ -15,6 +15,10 @@ export const createThucDonMauSchema = Joi.object({
     'any.required': 'Don gia hien tai la bat buoc'
   }),
   ghiChu: Joi.string().allow('', null).max(500)
+  ,
+  anhURL: Joi.string().uri().allow('', null).messages({
+    'string.uri': 'Anh URL phai la duong dan hop le'
+  })
 });
 
 // Schema validation cho cập nhật thực đơn mẫu
@@ -28,6 +32,10 @@ export const updateThucDonMauSchema = Joi.object({
     'number.positive': 'Don gia hien tai phai lon hon 0'
   }),
   ghiChu: Joi.string().allow('', null).max(500)
+  ,
+  anhURL: Joi.string().uri().allow('', null).messages({
+    'string.uri': 'Anh URL phai la duong dan hop le'
+  })
 }).min(1);
 
 // Schema validation cho thêm món ăn vào thực đơn mẫu (không cần giá tại thời điểm đặt)

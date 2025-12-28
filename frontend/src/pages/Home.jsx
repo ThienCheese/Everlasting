@@ -89,6 +89,16 @@ const Home = () => {
     }
     const [activeIndex, setActiveIndex] = useState(0);
     const galleryRef = useRef(null);
+    const centerGalleryItem = (index) => {
+        const container = galleryRef.current;
+        if (!container) return;
+        const child = container.children?.[index];
+        if (!child) return;
+        const containerWidth = container.getBoundingClientRect().width;
+        const target = child.offsetLeft + child.offsetWidth / 2 - containerWidth / 2;
+        container.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+        setActiveIndex(index);
+    };
 
     const handleGalleryScroll = () => {
       if (galleryRef.current) {
@@ -115,9 +125,10 @@ const Home = () => {
       }
     };
   
-    useEffect(() => {
-      handleGalleryScroll(); 
-    }, []);
+        useEffect(() => {
+            // Center the 3rd album on initial load to avoid empty space
+            centerGalleryItem(2);
+        }, []);
     const SCROLL_AMOUNT = 320; 
 
     const scrollLeft = () => {

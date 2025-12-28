@@ -16,6 +16,8 @@ const ServiceManagement = () => {
   const [priceMin, setPriceMin] = useState('');
   const [priceMax, setPriceMax] = useState('');
   const [sortBy, setSortBy] = useState('newest');
+  const [expandCategories, setExpandCategories] = useState(true);
+  const [expandPrice, setExpandPrice] = useState(true);
   
   // Modal states
   const [showModal, setShowModal] = useState(false);
@@ -247,12 +249,12 @@ const ServiceManagement = () => {
                 </div>
 
                 {/* Nhóm lọc 1: Danh mục */}
-                <div className="filter-group">
-                    <div className="filter-title">
-                        <span>Danh mục</span>
-                        <FaChevronDown className="icon-chevron"/>
-                    </div>
-                    <div className="filter-options">
+                <div className={`filter-group ${expandCategories ? '' : 'collapsed'}`}>
+                  <div className="filter-title" onClick={() => setExpandCategories(!expandCategories)}>
+                    <span>Danh mục</span>
+                    <FaChevronDown className="icon-chevron"/>
+                  </div>
+                  <div className="filter-options">
                         {danhSachLoaiDichVu.map(loai => (
                             <label key={loai.MaLoaiDichVu} className="custom-checkbox">
                                 <input 
@@ -271,12 +273,12 @@ const ServiceManagement = () => {
                 </div>
 
                 {/* Nhóm lọc 2: Khoảng giá */}
-                <div className="filter-group">
-                    <div className="filter-title">
-                        <span>Khoảng giá</span>
-                        <FaChevronDown className="icon-chevron"/>
-                    </div>
-                    <div className="price-inputs">
+                <div className={`filter-group ${expandPrice ? '' : 'collapsed'}`}>
+                  <div className="filter-title" onClick={() => setExpandPrice(!expandPrice)}>
+                    <span>Khoảng giá</span>
+                    <FaChevronDown className="icon-chevron"/>
+                  </div>
+                  <div className="price-inputs">
                         <input 
                           type="number" 
                           placeholder="Thấp nhất" 
