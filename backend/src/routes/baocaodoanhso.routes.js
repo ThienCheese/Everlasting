@@ -17,15 +17,17 @@ import { auditLogger } from '../middleware/logging.middleware.js';
 
 const router = Router();
 
-// CRUD báo cáo doanh số
-router.post('/create', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), createLimiter, validateCreateBaoCao, auditLogger('BAOCAO_CREATE'), createBaoCao);
-router.get('/lists', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), validatePagination, getAllBaoCao);
-router.get('/details/:id', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), validateIdParam('id'), getBaoCao);
-router.get('/thang/:thang/nam/:nam', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), getBaoCaoByThangNam);
-router.put('/update/:id', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), validateIdParam('id'), validateUpdateBaoCao, auditLogger('BAOCAO_UPDATE'), updateBaoCao);
-router.delete('/delete/:id', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), validateIdParam('id'), deleteLimiter, auditLogger('BAOCAO_DELETE'), deleteBaoCao);
+// CRUD báo cáo doanh số - Admin (1) và Kế toán (6) có quyền truy cập
+const baoCaoPermission = [1, 6]; // QUAN_LY_NGUOI_DUNG hoặc QUAN_LY_HOA_DON
+
+router.post('/create', authMiddleware, requirePermission(baoCaoPermission), createLimiter, validateCreateBaoCao, auditLogger('BAOCAO_CREATE'), createBaoCao);
+router.get('/lists', authMiddleware, requirePermission(baoCaoPermission), validatePagination, getAllBaoCao);
+router.get('/details/:id', authMiddleware, requirePermission(baoCaoPermission), validateIdParam('id'), getBaoCao);
+router.get('/thang/:thang/nam/:nam', authMiddleware, requirePermission(baoCaoPermission), getBaoCaoByThangNam);
+router.put('/update/:id', authMiddleware, requirePermission(baoCaoPermission), validateIdParam('id'), validateUpdateBaoCao, auditLogger('BAOCAO_UPDATE'), updateBaoCao);
+router.delete('/delete/:id', authMiddleware, requirePermission(baoCaoPermission), validateIdParam('id'), deleteLimiter, auditLogger('BAOCAO_DELETE'), deleteBaoCao);
 
 // Lọc báo cáo
-router.get('/nam/:nam', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), getBaoCaoByNam);
+router.get('/nam/:nam', authMiddleware, requirePermission(baoCaoPermission), getBaoCaoByNam);
 
 export default router;

@@ -72,8 +72,9 @@ export const requireRole = (...allowedRoles) => {
 
 /**
  * Middleware kiểm tra quyền theo mã chức năng (RECOMMENDED)
- * @param {number|string|Function} maChucNangOrGetter - Mã chức năng, key string, hoặc getter function
+ * @param {number|string|number[]|Function} maChucNangOrGetter - Mã chức năng, key string, array IDs, hoặc getter function
  * @example requirePermission(1) // Trực tiếp dùng ID
+ * @example requirePermission([1, 6]) // User cần có 1 trong các quyền này
  * @example requirePermission('QUAN_LY_SANH') // Dùng key string (recommended)
  * @example requirePermission(() => PERMISSIONS.QUAN_LY_SANH.id) // Lazy evaluation
  */
@@ -86,39 +87,56 @@ export const requirePermission = (maChucNangOrGetter) => {
 
       const maNhom = req.user.maNhom;
 
-      // Resolve permission ID tại runtime
-      let maChucNang;
+      // Resolve permission ID(s) tại runtime
+      let maChucNangList;
       if (typeof maChucNangOrGetter === 'function') {
         // Lazy getter: () => PERMISSIONS.QUAN_LY_SANH.id
-        maChucNang = maChucNangOrGetter();
+        const result = maChucNangOrGetter();
+        maChucNangList = Array.isArray(result) ? result : [result];
+      } else if (Array.isArray(maChucNangOrGetter)) {
+        // Array of IDs: [1, 6]
+        maChucNangList = maChucNangOrGetter;
       } else if (typeof maChucNangOrGetter === 'string') {
         // String key: 'QUAN_LY_SANH'
         const permissionService = (await import('../services/permission.service.js')).default;
-        maChucNang = permissionService.getPermissionId(maChucNangOrGetter);
+        const maChucNang = permissionService.getPermissionId(maChucNangOrGetter);
         if (!maChucNang) {
           logger.error(`[RBAC] Permission key '${maChucNangOrGetter}' not found in database`);
           return errorResponse(res, `Chuc nang '${maChucNangOrGetter}' khong ton tai`, 500);
         }
+        maChucNangList = [maChucNang];
       } else {
         // Numeric ID
-        maChucNang = maChucNangOrGetter;
+        maChucNangList = [maChucNangOrGetter];
       }
 
-      // Validate maChucNang
-      if (!maChucNang || typeof maChucNang !== 'number') {
-        logger.error(`[RBAC] Invalid permission ID: ${maChucNang}`);
+      // Validate maChucNangList
+      if (!maChucNangList || maChucNangList.length === 0) {
+        logger.error(`[RBAC] Invalid permission list: ${maChucNangList}`);
         return errorResponse(res, `Ma chuc nang khong hop le`, 500);
       }
 
-      // Kiểm tra quyền trong database
-      const hasPermission = await checkUserPermission(maNhom, maChucNang);
+      // Kiểm tra user có ít nhất 1 quyền trong list
+      let hasPermission = false;
+      for (const maChucNang of maChucNangList) {
+        if (typeof maChucNang !== 'number') {
+          logger.error(`[RBAC] Invalid permission ID in array: ${maChucNang}`);
+          continue;
+        }
+        
+        const permitted = await checkUserPermission(maNhom, maChucNang);
+        if (permitted) {
+          hasPermission = true;
+          logger.info(`[RBAC] User ${req.user.id} (Nhom ${maNhom}) granted access via ChucNang ${maChucNang}`);
+          break;
+        }
+      }
 
       if (!hasPermission) {
-        logger.warn(`[RBAC] User ${req.user.id} (Nhom ${maNhom}) denied access to ChucNang ${maChucNang}`);
+        logger.warn(`[RBAC] User ${req.user.id} (Nhom ${maNhom}) denied access to ChucNang [${maChucNangList.join(', ')}]`);
         return errorResponse(res, `Ban khong co quyen truy cap chuc nang nay`, 403);
       }
 
-      logger.info(`[RBAC] User ${req.user.id} (Nhom ${maNhom}) granted access to ChucNang ${maChucNang}`);
       next();
     } catch (error) {
       logger.error(`[RBAC] Error checking permission: ${error.message}`);

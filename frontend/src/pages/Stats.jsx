@@ -214,39 +214,39 @@ const Stats = () => {
     
     const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
     const dailyData = [];
-    let tongDoanhThu = 0;
     
     for (let day = 1; day <= daysInMonth; day++) {
       const dateStr = `${selectedYear}-${String(selectedMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       
-      // Đếm số tiệc trong ngày
-      const soLuongTiec = danhSachDatTiec.filter(dt => {
+      // Tìm các tiệc trong ngày
+      const tiecTrongNgay = danhSachDatTiec.filter(dt => {
         const eventDate = new Date(dt.NgayDaiTiec).toISOString().split('T')[0];
         return eventDate === dateStr && !dt.DaHuy;
-      }).length;
+      });
       
-      // Tính doanh thu ngày (từ hóa đơn đã thanh toán)
-      const doanhThu = danhSachHoaDon
-        .filter(hd => {
-          const invoiceDate = new Date(hd.NgayLapHoaDon).toISOString().split('T')[0];
-          return invoiceDate === dateStr && hd.TrangThai === 1;
-        })
-        .reduce((sum, hd) => sum + parseFloat(hd.TongTienHoaDon || 0), 0);
-      
-      tongDoanhThu += doanhThu;
+      // Tính doanh thu từ hóa đơn của các tiệc trong ngày (match theo MaDatTiec)
+      const doanhThu = tiecTrongNgay.reduce((sum, tiec) => {
+        const hoaDon = danhSachHoaDon.find(hd => 
+          hd.MaDatTiec === tiec.MaDatTiec && hd.TrangThai === 1
+        );
+        return sum + (hoaDon ? parseFloat(hoaDon.TongTienHoaDon || 0) : 0);
+      }, 0);
       
       dailyData.push({
         ngay: day,
         dateStr,
-        soLuongTiec,
+        soLuongTiec: tiecTrongNgay.length,
         doanhThu
       });
     }
     
+    // Tính tổng doanh thu tháng
+    const tongDoanhThu = dailyData.reduce((sum, item) => sum + item.doanhThu, 0);
+    
     // Tính tỉ lệ % cho mỗi ngày
     return dailyData.map(item => ({
       ...item,
-      tiLe: tongDoanhThu > 0 ? ((item.doanhThu / tongDoanhThu) * 100).toFixed(2) : 0
+      tiLe: tongDoanhThu > 0 ? ((item.doanhThu / tongDoanhThu) * 100).toFixed(2) : '0.00'
     }));
   };
 

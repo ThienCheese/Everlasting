@@ -151,12 +151,12 @@ const AppContent = () => {
                } 
              />
              
-             {/* Thống kê - Chỉ Admin (MaChucNang = 1 - QUAN_LY_NGUOI_DUNG) */}
+             {/* Thống kê - Admin (1) và Kế toán (6) */}
              <Route 
                path="/stats" 
                element={
                  <ProtectedRoute>
-                   <WithPermission requiredPermissions={PERMISSIONS.QUAN_LY_NGUOI_DUNG || 1}>
+                   <WithPermission requiredPermissions={[PERMISSIONS.QUAN_LY_NGUOI_DUNG || 1, PERMISSIONS.QUAN_LY_HOA_DON || 6]}>
                      <Stats />
                    </WithPermission>
                  </ProtectedRoute>
