@@ -433,22 +433,19 @@ const InvoiceManagement = () => {
                         <div className="final-summary">
                              <div className="summary-row">
                                 <span>Tổng tiền bàn + Dịch vụ:</span>
-                                <span>{formatCurrency(selectedHoaDon.TongTienBan + selectedHoaDon.TongTienDichVu)} đ</span>
+                                <span>{formatCurrency(Number(selectedHoaDon.TongTienBan || 0) + Number(selectedHoaDon.TongTienDichVu || 0))} đ</span>
                             </div>
-                            {selectedHoaDon.TongTienPhat > 0 && (
-                                <div className="summary-row penalty">
-                                    <span>Phạt quá hạn ({selectedHoaDon.PhanTramPhatMotNgay}%/ngày):</span>
-                                    <span>+ {formatCurrency(selectedHoaDon.TongTienPhat)} đ</span>
-                                </div>
-                            )}
+                            <div className={`summary-row ${selectedHoaDon.TongTienPhat > 0 ? 'penalty' : ''}`}>
+                                <span>Tổng tiền phạt {selectedHoaDon.ApDungQuyDinhPhat && selectedHoaDon.PhanTramPhatMotNgay > 0 ? `(${selectedHoaDon.PhanTramPhatMotNgay}%/ngày)` : ''}:</span>
+                                <span>{selectedHoaDon.TongTienPhat > 0 ? '+' : ''} {formatCurrency(selectedHoaDon.TongTienPhat || 0)} đ</span>
+                            </div>
                             <div className="summary-row big-total">
                                 <span>TỔNG HÓA ĐƠN:</span>
-                                <span>{formatCurrency(selectedHoaDon.TongTienHoaDon)} đ</span>
+                                <span>{formatCurrency(Number(selectedHoaDon.TongTienHoaDon || 0) + Number(selectedHoaDon.TongTienPhat || 0))} đ</span>
                             </div>
                              <div className="summary-row paid">
-                                <span>Tiền cọc (Đã trả):</span>
-                                {/* Lấy tiền đặt cọc từ thông tin tiệc */}
-                                <span>- {formatCurrency(bookingDetails.thongTinTiec?.TienDatCoc || 0)} đ</span>
+                                <span>Tiền đặt cọc (Đã trả):</span>
+                                <span>- {formatCurrency(selectedHoaDon.TienDatCoc || bookingDetails.thongTinTiec?.TienDatCoc || 0)} đ</span>
                             </div>
                              <div className="summary-row remaining">
                                 <span>CÒN LẠI PHẢI THANH TOÁN:</span>

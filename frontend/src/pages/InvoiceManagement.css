@@ -572,6 +572,20 @@
     justify-content: space-between;
     margin-bottom: 10px;
     font-size: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+.summary-row span {
+    color: #333;
+}
+
+.summary-row.penalty {
+    color: #d32f2f;
+}
+
+.summary-row.penalty span {
+    color: #d32f2f;
 }
 
 .summary-row.big-total {
@@ -583,10 +597,27 @@
     margin-top: 10px;
 }
 
+.summary-row.big-total span {
+    color: #8A7CDF;
+}
+
+.summary-row.paid {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.summary-row.paid span {
+    color: #2e7d32;
+}
+
 .summary-row.remaining {
     color: #d32f2f;
     font-weight: 700;
     font-size: 18px;
+}
+
+.summary-row.remaining span {
+    color: #d32f2f;
 }
 
 .header-actions {

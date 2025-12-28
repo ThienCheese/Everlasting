@@ -13,7 +13,7 @@ import {
   getDatTiecByMonth
 } from '../controller/dattiec.controller.js';
 import authMiddleware from '../middleware/auth.middleware.js';
-import { validateCreateDatTiec, validateUpdateDatTiec, validateAddDichVu } from '../middleware/validations/validateDatTiec.js';
+import { validateCreateDatTiec, validateUpdateDatTiec, validateAddDichVu, validateMinTablePrice } from '../middleware/validations/validateDatTiec.js';
 import { createLimiter, deleteLimiter, bookingLimiter } from '../middleware/ratelimit.middleware.js';
 import { validateIdParam, validatePagination } from '../middleware/sanitize.middleware.js';
 import { auditLogger } from '../middleware/logging.middleware.js';
@@ -23,10 +23,10 @@ const router = Router();
 
 // Quản lý đặt tiệc - MaChucNang = 5 (Admin, Lễ tân, Quản lý, Bếp trưởng, Kế toán)
 // CRUD đặt tiệc
-router.post('/create', authMiddleware, requirePermission('QUAN_LY_DAT_TIEC'), bookingLimiter, validateCreateDatTiec, auditLogger('DATTIEC_CREATE'), createDatTiec);
+router.post('/create', authMiddleware, requirePermission('QUAN_LY_DAT_TIEC'), bookingLimiter, validateCreateDatTiec, validateMinTablePrice, auditLogger('DATTIEC_CREATE'), createDatTiec);
 router.get('/lists', authMiddleware, requirePermission('QUAN_LY_DAT_TIEC'), validatePagination, getAllDatTiec);
 router.get('/details/:id', authMiddleware, requirePermission('QUAN_LY_DAT_TIEC'), validateIdParam('id'), getDatTiec);
-router.put('/update/:id', authMiddleware, requirePermission('QUAN_LY_DAT_TIEC'), validateIdParam('id'), validateUpdateDatTiec, auditLogger('DATTIEC_UPDATE'), updateDatTiec);
+router.put('/update/:id', authMiddleware, requirePermission('QUAN_LY_DAT_TIEC'), validateIdParam('id'), validateUpdateDatTiec, validateMinTablePrice, auditLogger('DATTIEC_UPDATE'), updateDatTiec);
 router.put('/cancel/:id', authMiddleware, requirePermission('QUAN_LY_DAT_TIEC'), validateIdParam('id'), auditLogger('DATTIEC_CANCEL'), cancelDatTiec);
 
 // Quản lý dịch vụ trong đặt tiệc

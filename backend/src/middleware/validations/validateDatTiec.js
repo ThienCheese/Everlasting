@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import { errorResponse } from '../../helpers/response.helper.js';
+import Hall from '../../models/sanh.model.js';
 
 // Schema validation cho tạo đặt tiệc
 export const createDatTiecSchema = Joi.object({
@@ -155,4 +156,41 @@ export const validateAddDichVu = (req, res, next) => {
     return errorResponse(res, errors.join(', '), 400);
   }
   next();
+};
+
+// Middleware validation cho kiểm tra giá bàn tối thiểu
+export const validateMinTablePrice = async (req, res, next) => {
+  try {
+    const { maSanh, tongTienDuKien, soLuongBan } = req.body;
+
+    // Nếu không có đủ thông tin, bỏ qua validation này (để các validation khác xử lý)
+    if (!maSanh || !tongTienDuKien || !soLuongBan) {
+      return next();
+    }
+
+    // Lấy thông tin sảnh và loại sảnh
+    const sanh = await Hall.findById(maSanh);
+    
+    if (!sanh) {
+      return errorResponse(res, 'Sanh khong ton tai', 404);
+    }
+
+    // Tính giá 1 bàn
+    const giaBan = Number(tongTienDuKien) / Number(soLuongBan);
+    const donGiaBanToiThieu = Number(sanh.DonGiaBanToiThieu);
+
+    // Kiểm tra giá bàn có đạt yêu cầu tối thiểu không
+    if (giaBan < donGiaBanToiThieu) {
+      return errorResponse(
+        res, 
+        `Gia ban (${giaBan.toLocaleString('vi-VN')} VND) phai lon hon hoac bang don gia ban toi thieu cua loai sanh ${sanh.TenLoaiSanh} (${donGiaBanToiThieu.toLocaleString('vi-VN')} VND)`, 
+        400
+      );
+    }
+
+    next();
+  } catch (error) {
+    console.error('Error in validateMinTablePrice:', error);
+    return errorResponse(res, 'Loi khi kiem tra gia ban toi thieu', 500);
+  }
 };

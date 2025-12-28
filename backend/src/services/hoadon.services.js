@@ -50,23 +50,27 @@ export const calculateHoaDon = async (maDatTiec, ngayThanhToan, apDungQuyDinhPha
   // Tính tổng tiền hóa đơn
   let tongTienHoaDon = tongTienBan + tongTienDichVu;
 
-  // Tính phạt (nếu áp dụng quy định phạt)
+  // Tính phạt (chỉ khi frontend gửi apDungQuyDinhPhat = true)
   let tongTienPhat = 0;
   let phanTramPhatMotNgay = 0;
 
   if (apDungQuyDinhPhat) {
-    // Lấy tham số phạt
-    const thamSo = await ThamSo.get();
-    if (thamSo) {
-      phanTramPhatMotNgay = parseFloat(thamSo.PhanTramPhatTrenNgay);
-    }
-
-    // Tính số ngày trễ
+    // Chuẩn hóa ngày để so sánh (bỏ giờ phút giây)
     const ngayDaiTiec = new Date(datTiec.NgayDaiTiec);
     const ngayTT = new Date(ngayThanhToan);
-    
+    ngayDaiTiec.setHours(0, 0, 0, 0);
+    ngayTT.setHours(0, 0, 0, 0);
+
+    // Kiểm tra thanh toán trễ
     if (ngayTT > ngayDaiTiec) {
-      const soNgayTre = Math.floor((ngayTT - ngayDaiTiec) / (1000 * 60 * 60 * 24));
+      // Lấy tham số phạt từ bảng THAMSO
+      const thamSo = await ThamSo.get();
+      if (thamSo) {
+        phanTramPhatMotNgay = parseFloat(thamSo.PhanTramPhatTrenNgay);
+      }
+
+      // Tính số ngày trễ
+      const soNgayTre = Math.ceil((ngayTT - ngayDaiTiec) / (1000 * 60 * 60 * 24));
       
       // Công thức phạt: Tổng tiền hóa đơn * Phần trăm phạt 1 ngày * Số ngày trễ
       tongTienPhat = tongTienHoaDon * (phanTramPhatMotNgay / 100) * soNgayTre;
