@@ -91,9 +91,12 @@ class PermissionService {
       console.log(`   - Permission matrix loaded for ${Object.keys(this.permissionMatrix).length} roles`);
 
     } catch (error) {
-      console.error('❌ Failed to initialize permission service:', error);
+      console.error('❌ Failed to initialize permission service:', error.message);
       this.initPromise = null;
-      throw error;
+      
+      // Don't throw error - let the app continue without permission cache
+      // Permissions will be checked directly from database when needed
+      console.warn('⚠️  Permission service will fall back to database queries');
     }
   }
 
