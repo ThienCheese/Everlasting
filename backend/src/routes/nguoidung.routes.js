@@ -12,7 +12,7 @@ import {
 import authMiddleware from '../middleware/auth.middleware.js';
 import { validateRegister, validateLogin, validateUpdateUser } from '../middleware/validations/validateNguoiDung.js';
 import { loginLimiter, createLimiter, deleteLimiter } from '../middleware/ratelimit.middleware.js';
-import { requireAdmin } from '../middleware/authorization.middleware.js';
+import { requirePermission } from '../middleware/authorization.middleware.js';
 import { validateIdParam } from '../middleware/sanitize.middleware.js';
 import { auditLogger } from '../middleware/logging.middleware.js';
 
@@ -26,8 +26,8 @@ router.post('/logout', authMiddleware, auditLogger('USER_LOGOUT'), logout);
 
 // Protected routes
 router.get('/me', authMiddleware, getCurrentUser);
-router.get('/all', authMiddleware, requireAdmin, getAllUsers);
+router.get('/all', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), getAllUsers);
 router.put('/update/:id', authMiddleware, validateIdParam('id'), validateUpdateUser, auditLogger('USER_UPDATE'), updateUser);
-router.delete('/delete/:id', authMiddleware, requireAdmin, validateIdParam('id'), deleteLimiter, auditLogger('USER_DELETE'), deleteUser);
+router.delete('/delete/:id', authMiddleware, requirePermission('QUAN_LY_NGUOI_DUNG'), validateIdParam('id'), deleteLimiter, auditLogger('USER_DELETE'), deleteUser);
 
 export default router;

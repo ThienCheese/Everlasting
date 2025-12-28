@@ -5,7 +5,7 @@ import { successResponse, errorResponse } from '../helpers/response.helper.js';
 import authMiddleware from '../middleware/auth.middleware.js';
 import { validateCreateThucDonMau, validateUpdateThucDonMau, validateAddMonAnToTemplate, validateCreateFromTemplate } from '../middleware/validations/validateThucDonMau.js';
 import { createLimiter, deleteLimiter } from '../middleware/ratelimit.middleware.js';
-import { requireAdmin } from '../middleware/authorization.middleware.js';
+import { requirePermission } from '../middleware/authorization.middleware.js';
 import { validateIdParam, validatePagination } from '../middleware/sanitize.middleware.js';
 import { auditLogger } from '../middleware/logging.middleware.js';
 
@@ -39,7 +39,7 @@ router.get('/details/:id', validateIdParam('id'), async (req, res) => {
 });
 
 // Tạo thực đơn mẫu
-router.post('/create', authMiddleware, requireAdmin, createLimiter, validateCreateThucDonMau, auditLogger('THUCDONMAU_CREATE'), async (req, res) => {
+router.post('/create', authMiddleware, requirePermission('QUAN_LY_MON_AN'), createLimiter, validateCreateThucDonMau, auditLogger('THUCDONMAU_CREATE'), async (req, res) => {
   try {
     const { tenThucDon, donGiaHienTai, ghiChu, anhURL } = req.body;
 
@@ -57,7 +57,7 @@ router.post('/create', authMiddleware, requireAdmin, createLimiter, validateCrea
 });
 
 // Cập nhật thực đơn mẫu
-router.put('/update/:id', authMiddleware, requireAdmin, validateIdParam('id'), validateUpdateThucDonMau, auditLogger('THUCDONMAU_UPDATE'), async (req, res) => {
+router.put('/update/:id', authMiddleware, requirePermission('QUAN_LY_MON_AN'), validateIdParam('id'), validateUpdateThucDonMau, auditLogger('THUCDONMAU_UPDATE'), async (req, res) => {
   try {
     const thucDonMau = await ThucDonMau.findById(req.params.id);
     if (!thucDonMau) {
@@ -80,7 +80,7 @@ router.put('/update/:id', authMiddleware, requireAdmin, validateIdParam('id'), v
 });
 
 // Xóa thực đơn mẫu
-router.delete('/delete/:id', authMiddleware, requireAdmin, validateIdParam('id'), deleteLimiter, auditLogger('THUCDONMAU_DELETE'), async (req, res) => {
+router.delete('/delete/:id', authMiddleware, requirePermission('QUAN_LY_MON_AN'), validateIdParam('id'), deleteLimiter, auditLogger('THUCDONMAU_DELETE'), async (req, res) => {
   try {
     const thucDonMau = await ThucDonMau.findById(req.params.id);
     if (!thucDonMau) {
@@ -105,7 +105,7 @@ router.get('/:id/monan', validateIdParam('id'), async (req, res) => {
   }
 });
 
-router.post('/:id/monan', authMiddleware, requireAdmin, validateIdParam('id'), validateAddMonAnToTemplate, auditLogger('THUCDONMAU_ADD_MONAN'), async (req, res) => {
+router.post('/:id/monan', authMiddleware, requirePermission('QUAN_LY_MON_AN'), validateIdParam('id'), validateAddMonAnToTemplate, auditLogger('THUCDONMAU_ADD_MONAN'), async (req, res) => {
   try {
     const { maMonAn } = req.body;
     const result = await ThucDonMau.addMonAn(req.params.id, maMonAn);
@@ -115,7 +115,7 @@ router.post('/:id/monan', authMiddleware, requireAdmin, validateIdParam('id'), v
   }
 });
 
-router.delete('/:id/monan/:maMonAn', authMiddleware, requireAdmin, validateIdParam('id'), validateIdParam('maMonAn'), deleteLimiter, auditLogger('THUCDONMAU_REMOVE_MONAN'), async (req, res) => {
+router.delete('/:id/monan/:maMonAn', authMiddleware, requirePermission('QUAN_LY_MON_AN'), validateIdParam('id'), validateIdParam('maMonAn'), deleteLimiter, auditLogger('THUCDONMAU_REMOVE_MONAN'), async (req, res) => {
   try {
     await ThucDonMau.removeMonAn(req.params.id, req.params.maMonAn);
     return successResponse(res, { maMonAn: req.params.maMonAn }, 'Xoa mon an khoi thuc don mau thanh cong', 200);
@@ -125,7 +125,7 @@ router.delete('/:id/monan/:maMonAn', authMiddleware, requireAdmin, validateIdPar
 });
 
 // Sao chép thực đơn mẫu sang thực đơn thật
-router.post('/:id/copy', authMiddleware, requireAdmin, validateIdParam('id'), validateCreateFromTemplate, auditLogger('THUCDONMAU_COPY'), async (req, res) => {
+router.post('/:id/copy', authMiddleware, requirePermission('QUAN_LY_MON_AN'), validateIdParam('id'), validateCreateFromTemplate, auditLogger('THUCDONMAU_COPY'), async (req, res) => {
   try {
     const { tenThucDon, ghiChu } = req.body;
     const thucDon = await ThucDon.createFromTemplate(req.params.id, tenThucDon, ghiChu);

@@ -86,7 +86,7 @@ const Header = () => {
           <li className="nav-link-item" onClick={() => navigate('/home')}>Trang Chủ</li>
           
           {/* --- DROPDOWN QUẢN LÝ --- Chỉ hiện nếu có ít nhất 1 quyền quản lý */}
-          {(canAccess(2) || canAccess(3) || canAccess(4)) && (
+          {(canAccess(2) || canAccess(3) || canAccess(4) || canAccess(6)) && (
             <li className="nav-link-item dropdown-parent">
               <div className="dropdown-label">
                   Quản lý <span className="arrow">▼</span>
@@ -109,8 +109,10 @@ const Header = () => {
                     <li><span className="dropdown-item" onClick={() => navigate('/service-management')}>Quản lý dịch vụ</span></li>
                   )}
                   
-                  {/* Quản lý hóa đơn - Tạm thời hiển thị cho tất cả (chưa có trong CHUCNANG) */}
-                  <li><span className="dropdown-item" onClick={() => navigate('/invoice-management')}>Quản lý hóa đơn</span></li>
+                  {/* Quản lý hóa đơn - MaChucNang = 6 (Admin, Kế toán) */}
+                  {canAccess(6) && (
+                    <li><span className="dropdown-item" onClick={() => navigate('/invoice-management')}>Quản lý hóa đơn</span></li>
+                  )}
               </ul>
             </li>
           )}
@@ -120,8 +122,8 @@ const Header = () => {
             <li className="nav-link-item" onClick={() => navigate('/booking')}>Đặt tiệc</li>
           )}
           
-          {/* Thống kê - Tất cả trừ Guest (tạm thời hiển thị cho tất cả đã login) */}
-          {userRole !== 6 && (
+          {/* Thống kê - Chỉ Admin (MaChucNang = 1) */}
+          {(canAccess(1) || canAccess(6)) && (
             <li className="nav-link-item" onClick={() => navigate('/stats')}>Thống kê</li>
           )}
           

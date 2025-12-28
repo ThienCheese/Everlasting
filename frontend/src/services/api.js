@@ -1251,6 +1251,38 @@ const apiService = {
 
     return data;
   },
+
+  // ========== SYSTEM CONSTANTS ==========
+  
+  // Get system constants (roles, permissions, permission matrix)
+  getSystemConstants: async () => {
+    const response = await fetch(`${API_BASE_URL}/system/constants`, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy system constants thất bại');
+    }
+
+    return data;
+  },
+
+  // Get my permissions (requires auth)
+  getMyPermissions: async () => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/system/my-permissions`, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy quyền của tôi thất bại');
+    }
+
+    return data;
+  },
 };
 
 export default apiService;

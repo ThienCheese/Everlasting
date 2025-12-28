@@ -15,86 +15,11 @@ const RolesPage = () => {
 
   // --- DỮ LIỆU TỪ DATABASE ---
   const [users, setUsers] = useState([]);
-
-  // Hardcode roles và permissions
-  const roles = [
-    { id: 1, name: "Admin", displayName: "Admin" },
-    { id: 2, name: "Lễ tân", displayName: "Lễ tân" },
-    { id: 3, name: "Quản lý", displayName: "Quản lý" },
-    { id: 4, name: "Bếp trưởng", displayName: "Bếp trưởng" },
-    { id: 5, name: "Kế toán", displayName: "Kế toán" },
-    { id: 6, name: "Guest", displayName: "Guest" },
-  ];
-
-  // Hardcode permission matrix (read-only)
-  const permissionMatrix = [
-    {
-      name: "Quản lý người dùng",
-      permissions: {
-        1: true,  // Admin
-        2: false, // Lễ tân
-        3: false, // Quản lý
-        4: false, // Bếp trưởng
-        5: false, // Kế toán
-        6: false  // Guest
-      }
-    },
-    {
-      name: "Quản lý sảnh",
-      permissions: {
-        1: true,  // Admin
-        2: true,  // Lễ tân
-        3: true,  // Quản lý
-        4: false, // Bếp trưởng
-        5: false, // Kế toán
-        6: false  // Guest
-      }
-    },
-    {
-      name: "Quản lý món ăn",
-      permissions: {
-        1: true,  // Admin
-        2: false, // Lễ tân
-        3: true,  // Quản lý
-        4: true,  // Bếp trưởng
-        5: false, // Kế toán
-        6: false  // Guest
-      }
-    },
-    {
-      name: "Quản lý dịch vụ",
-      permissions: {
-        1: true,  // Admin
-        2: false, // Lễ tân
-        3: true,  // Quản lý
-        4: false, // Bếp trưởng
-        5: false, // Kế toán
-        6: false  // Guest
-      }
-    },
-    {
-      name: "Quản lý đặt tiệc",
-      permissions: {
-        1: true,  // Admin
-        2: true,  // Lễ tân
-        3: false, // Quản lý
-        4: true,  // Bếp trưởng
-        5: true,  // Kế toán
-        6: false  // Guest
-      }
-    },
-    {
-      name: "Public endpoints",
-      permissions: {
-        1: true,  // Admin
-        2: true,  // Lễ tân
-        3: true,  // Quản lý
-        4: true,  // Bếp trưởng
-        5: true,  // Kế toán
-        6: true   // Guest
-      }
-    }
-  ];
+  
+  // Load động từ database
+  const [roles, setRoles] = useState([]);
+  const [permissions, setPermissions] = useState([]);
+  const [permissionMatrix, setPermissionMatrix] = useState([]);
 
   // Track changes
   const [hasChanges, setHasChanges] = useState(false);
@@ -111,18 +36,72 @@ const RolesPage = () => {
 
   // --- LOAD DATA TỪ API ---
   useEffect(() => {
-    loadUsers();
+    loadSystemData();
   }, []);
 
-  const loadUsers = async () => {
+  const loadSystemData = async () => {
     setLoading(true);
     setError(null);
     
     try {
+      // Load system constants (roles, permissions, matrix)
+      const constantsResponse = await apiService.getSystemConstants();
+      
+      if (constantsResponse.success && constantsResponse.data) {
+        const { rolesById, permissionsById, permissionMatrix: matrixData } = constantsResponse.data;
+        
+        // Transform roles từ rolesById
+        const rolesArray = Object.keys(rolesById).map(id => ({
+          id: parseInt(id),
+          name: rolesById[id].key,
+          displayName: rolesById[id].name
+        })).sort((a, b) => a.id - b.id);
+        
+        // Transform permissions từ permissionsById
+        // Sử dụng TenChucNang (name) thay vì TenManHinh (screen) để hiển thị
+        const permissionsArray = Object.keys(permissionsById).map(id => ({
+          id: parseInt(id),
+          name: permissionsById[id].key,
+          displayName: permissionsById[id].name  // TenChucNang từ database (tiếng Việt)
+        })).sort((a, b) => a.id - b.id);
+        
+        // Transform permission matrix
+        const matrixArray = permissionsArray.map(permission => {
+          const permissionRow = {
+            id: permission.id,
+            name: permission.displayName,
+            permissions: {}
+          };
+          
+          // Kiểm tra từng role có quyền này không
+          rolesArray.forEach(role => {
+            const rolePermissions = matrixData[role.id] || [];
+            permissionRow.permissions[role.id] = rolePermissions.includes(permission.id);
+          });
+          
+          return permissionRow;
+        });
+        
+        setRoles(rolesArray);
+        setPermissions(permissionsArray);
+        setPermissionMatrix(matrixArray);
+      }
+
+      // Load users
+      await loadUsers();
+
+    } catch (err) {
+      console.error('Error loading system data:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadUsers = async () => {
+    try {
       const response = await apiService.getAllUsers();
       
-      console.log('Users response:', response);
-
       if (response.status === 'success' && response.data) {
         setUsers(response.data);
       } else {
@@ -131,9 +110,7 @@ const RolesPage = () => {
 
     } catch (err) {
       console.error('Error loading users:', err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      throw err;
     }
   };
 
@@ -257,7 +234,7 @@ const RolesPage = () => {
     return (
       <div className="roles-page-wrapper">
         <div className="content-body" style={{ textAlign: 'center', padding: '50px' }}>
-          <p>Đang tải dữ liệu...</p>
+          <p>Đang tải dữ liệu phân quyền...</p>
         </div>
       </div>
     );
@@ -268,7 +245,7 @@ const RolesPage = () => {
       <div className="roles-page-wrapper">
         <div className="content-body" style={{ textAlign: 'center', padding: '50px' }}>
           <p style={{ color: 'red' }}>Lỗi: {error}</p>
-          <button onClick={loadUsers}>Thử lại</button>
+          <button onClick={loadSystemData}>Thử lại</button>
         </div>
       </div>
     );
@@ -389,7 +366,7 @@ const RolesPage = () => {
                   color: '#1976d2',
                   fontSize: '14px'
                 }}>
-                  ℹ️ Bảng phân quyền này chỉ để xem. Liên hệ Admin nếu cần thay đổi quyền.
+                  ℹ️ Bảng phân quyền được load từ database (PHANQUYEN, CHUCNANG, NHOMNGUOIDUNG). Liên hệ Admin để thay đổi quyền.
                 </div>
                 
                 <div className="matrix-wrapper">
@@ -404,7 +381,7 @@ const RolesPage = () => {
                         </thead>
                         <tbody>
                             {permissionMatrix.map((perm, index) => (
-                                <tr key={index}>
+                                <tr key={perm.id || index}>
                                     <td className="sticky-col font-medium">{perm.name}</td>
                                     {roles.map(role => {
                                         const hasPermission = perm.permissions[role.id];
@@ -424,7 +401,7 @@ const RolesPage = () => {
                         </tbody>
                     </table>
                 </div>
-                <p className="note-text">*Bảng phân quyền được cấu hình sẵn trong hệ thống.</p>
+                <p className="note-text">*Dữ liệu được load trực tiếp từ database và cập nhật real-time.</p>
             </div>
         )}
 

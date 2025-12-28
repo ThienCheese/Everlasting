@@ -7,6 +7,7 @@ import WithPermission from './components/WithPermission';
 import AuthErrorHandler from './components/AuthErrorHandler';
 import authUtils from './utils/auth';
 import permissionService from './services/permissionService';
+import { PERMISSIONS } from './utils/permissions';
 
 // Import các trang
 import Home from './pages/Home';
@@ -126,12 +127,14 @@ const AppContent = () => {
                } 
              />
              
-             {/* Quản lý hóa đơn - Hiện tại không có trong CHUCNANG, tạm thời bỏ qua permission check */}
+             {/* Quản lý hóa đơn - MaChucNang = 6 (Admin, Kế toán) */}
              <Route 
                path="/invoice-management" 
                element={
                  <ProtectedRoute>
-                   <InvoiceManagement />
+                   <WithPermission requiredPermissions={PERMISSIONS.QUAN_LY_HOA_DON || 6}>
+                     <InvoiceManagement />
+                   </WithPermission>
                  </ProtectedRoute>
                } 
              />
@@ -148,12 +151,14 @@ const AppContent = () => {
                } 
              />
              
-             {/* Thống kê - Tất cả trừ Guest (tạm thời không check permission) */}
+             {/* Thống kê - Chỉ Admin (MaChucNang = 1 - QUAN_LY_NGUOI_DUNG) */}
              <Route 
                path="/stats" 
                element={
                  <ProtectedRoute>
-                   <Stats />
+                   <WithPermission requiredPermissions={PERMISSIONS.QUAN_LY_NGUOI_DUNG || 1}>
+                     <Stats />
+                   </WithPermission>
                  </ProtectedRoute>
                } 
              />
