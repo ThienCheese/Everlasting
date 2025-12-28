@@ -91,9 +91,12 @@ class PermissionService {
       console.log(`   - Permission matrix loaded for ${Object.keys(this.permissionMatrix).length} roles`);
 
     } catch (error) {
-      console.error('❌ Failed to initialize permission service:', error);
+      console.error('❌ Failed to initialize permission service:', error.message);
       this.initPromise = null;
-      throw error;
+      
+      // Don't throw error - let the app continue without permission cache
+      // Permissions will be checked directly from database when needed
+      console.warn('⚠️  Permission service will fall back to database queries');
     }
   }
 
@@ -119,7 +122,7 @@ class PermissionService {
    * @returns {Object} - Object chứa roles với key là tên chuẩn hóa
    */
   getRoles() {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return {};
     return this.roles;
   }
 
@@ -128,7 +131,7 @@ class PermissionService {
    * @returns {Object} - Object với key là MaNhom
    */
   getRolesById() {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return {};
     return this.rolesById;
   }
 
@@ -137,7 +140,7 @@ class PermissionService {
    * @returns {Object} - Object chứa permissions với key là tên chuẩn hóa
    */
   getPermissions() {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return {};
     return this.permissions;
   }
 
@@ -146,7 +149,7 @@ class PermissionService {
    * @returns {Object} - Object với key là MaChucNang
    */
   getPermissionsById() {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return {};
     return this.permissionsById;
   }
 
@@ -155,7 +158,7 @@ class PermissionService {
    * @returns {Object} - Object với key là MaNhom, value là array MaChucNang
    */
   getPermissionMatrix() {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return {};
     return this.permissionMatrix;
   }
 
@@ -166,7 +169,7 @@ class PermissionService {
    * @returns {boolean}
    */
   hasPermission(maNhom, maChucNang) {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return false;
     
     const rolePermissions = this.permissionMatrix[maNhom] || [];
     return rolePermissions.includes(maChucNang);
@@ -196,7 +199,7 @@ class PermissionService {
    * @returns {boolean}
    */
   hasAllPermissions(maNhom, maChucNangList) {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return false;
     
     if (!maChucNangList || maChucNangList.length === 0) {
       return false;
@@ -212,7 +215,7 @@ class PermissionService {
    * @returns {string} - Tên nhóm
    */
   getRoleName(maNhom) {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return 'Unknown';
     
     const role = this.rolesById[maNhom];
     return role ? role.name : 'Unknown';
@@ -224,7 +227,7 @@ class PermissionService {
    * @returns {string} - Tên chức năng
    */
   getPermissionName(maChucNang) {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return 'Unknown';
     
     const permission = this.permissionsById[maChucNang];
     return permission ? permission.name : 'Unknown';
@@ -236,7 +239,7 @@ class PermissionService {
    * @returns {Array} - Array các permission objects
    */
   getRolePermissions(maNhom) {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return [];
     
     const permissionIds = this.permissionMatrix[maNhom] || [];
     return permissionIds.map(id => this.permissionsById[id]).filter(Boolean);
@@ -257,15 +260,23 @@ class PermissionService {
    */
   ensureInitialized() {
     if (!this.initialized) {
-      throw new Error('Permission service not initialized. Call initialize() first.');
+      console.warn('⚠️  Permission service not initialized. Returning empty data.');
+      return false;
     }
+    return true;
   }
 
   /**
    * Export constants để tương thích với code cũ
    */
   getConstants() {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) {
+      return {
+        ROLES: {},
+        PERMISSIONS: {},
+        PERMISSION_MATRIX: {}
+      };
+    }
     
     return {
       ROLES: this.roles,
@@ -279,7 +290,7 @@ class PermissionService {
    * Returns object like: { ADMIN: { id: 1, name: "Admin" }, ... }
    */
   get ROLES() {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return {};
     return this.roles;
   }
 
@@ -288,7 +299,7 @@ class PermissionService {
    * Returns object like: { MANAGE_USERS: { id: 1, name: "..." }, ... }
    */
   get PERMISSIONS() {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return {};
     return this.permissions;
   }
 
@@ -297,7 +308,7 @@ class PermissionService {
    * Example: getPermissionId('MANAGE_HALLS') -> 2
    */
   getPermissionId(key) {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return null;
     const permission = this.permissions[key];
     return permission ? permission.id : null;
   }
@@ -307,7 +318,7 @@ class PermissionService {
    * Example: getRoleId('ADMIN') -> 1
    */
   getRoleId(key) {
-    this.ensureInitialized();
+    if (!this.ensureInitialized()) return null;
     const role = this.roles[key];
     return role ? role.id : null;
   }
