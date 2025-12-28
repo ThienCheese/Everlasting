@@ -23,6 +23,6 @@ export const validateCaUpdate = async (id, tenCa) => {
 export const validateCaDeletion = async (id) => {
   const daSuDung = await Ca.checkDaSuDung(id);
   if (daSuDung) {
-    throw new Error('Ca đang được sử dụng trong đặt tiệc, không thể xóa');
+    throw new Error('Ca đang được sử dụng trong đặt tiệc chưa thanh toán, không thể xóa. Các đặt tiệc đã thanh toán không ảnh hưởng.');
   }
 };

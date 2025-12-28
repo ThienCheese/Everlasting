@@ -43,12 +43,18 @@ export const validateHallUpdate = async (id, tenSanh, maLoaiSanh) => {
 
 export const validateHallDeletion = async (id) => {
   // Kiểm tra ràng buộc khóa ngoại
+  // Chỉ check đặt tiệc CHƯA có hóa đơn hoặc chưa thanh toán
   const datTiecCount = await db('DATTIEC')
-    .where({ MaSanh: id })
-    .count('MaDatTiec as count')
+    .leftJoin('HOADON', 'DATTIEC.MaDatTiec', 'HOADON.MaDatTiec')
+    .where('DATTIEC.MaSanh', id)
+    .where(function() {
+      this.whereNull('HOADON.MaHoaDon')  // Chưa có hóa đơn
+          .orWhere('HOADON.TrangThai', '!=', 1);  // Hoặc chưa thanh toán
+    })
+    .count('DATTIEC.MaDatTiec as count')
     .first();
 
   if (parseInt(datTiecCount.count) > 0) {
-    throw new Error('Sảnh đang được sử dụng trong đặt tiệc, không thể xóa');
+    throw new Error('Sảnh đang được sử dụng trong đặt tiệc chưa thanh toán, không thể xóa. Các đặt tiệc đã thanh toán không ảnh hưởng.');
   }
 };

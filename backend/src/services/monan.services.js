@@ -41,13 +41,20 @@ export const validateDishUpdate = async (id, tenMonAn, maLoaiMonAn) => {
 };
 
 export const validateDishDeletion = async (id) => {
-  // Kiểm tra món ăn có trong thực đơn không
+  // Kiểm tra món ăn có trong thực đơn của đặt tiệc chưa thanh toán không
   const count = await db('THUCDON_MONAN')
-    .where({ MaMonAn: id })
-    .count('MaMonAn as count')
+    .join('THUCDON', 'THUCDON_MONAN.MaThucDon', 'THUCDON.MaThucDon')
+    .join('DATTIEC', 'THUCDON.MaThucDon', 'DATTIEC.MaThucDon')
+    .leftJoin('HOADON', 'DATTIEC.MaDatTiec', 'HOADON.MaDatTiec')
+    .where('THUCDON_MONAN.MaMonAn', id)
+    .where(function() {
+      this.whereNull('HOADON.MaHoaDon')  // Chưa có hóa đơn
+          .orWhere('HOADON.TrangThai', '!=', 1);  // Hoặc chưa thanh toán
+    })
+    .count('THUCDON_MONAN.MaMonAn as count')
     .first();
 
   if (parseInt(count.count) > 0) {
-    throw new Error('Món ăn đang được sử dụng trong thực đơn, không thể xóa');
+    throw new Error('Món ăn đang được sử dụng trong thực đơn của đặt tiệc chưa thanh toán, không thể xóa. Các đặt tiệc đã thanh toán không ảnh hưởng.');
   }
 };

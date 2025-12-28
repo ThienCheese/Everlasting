@@ -20,10 +20,17 @@ const Ca = {
   },
 
   // Kiểm tra ca đã được dùng trong đặt tiệc chưa
+  // Chỉ check đặt tiệc CHƯA có hóa đơn hoặc hóa đơn chưa thanh toán
+  // Nếu đã có hóa đơn thanh toán (TrangThai = 1) thì cho phép xóa mềm
   async checkDaSuDung(maCa) {
     const count = await db('DATTIEC')
-      .where({ MaCa: maCa })
-      .count('MaDatTiec as count')
+      .leftJoin('HOADON', 'DATTIEC.MaDatTiec', 'HOADON.MaDatTiec')
+      .where('DATTIEC.MaCa', maCa)
+      .where(function() {
+        this.whereNull('HOADON.MaHoaDon')  // Chưa có hóa đơn
+            .orWhere('HOADON.TrangThai', '!=', 1);  // Hoặc chưa thanh toán
+      })
+      .count('DATTIEC.MaDatTiec as count')
       .first();
     return parseInt(count.count) > 0;
   },

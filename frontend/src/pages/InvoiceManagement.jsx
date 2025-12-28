@@ -329,6 +329,7 @@ const InvoiceManagement = () => {
                                 <p><strong>Cặp đôi:</strong> {selectedHoaDon.TenChuRe} & {selectedHoaDon.TenCoDau}</p>
                                 <p><strong>Ngày đãi tiệc:</strong> {formatDate(selectedHoaDon.NgayDaiTiec)}</p>
                                 <p><strong>Sảnh:</strong> {selectedHoaDon.TenSanh}</p>
+                                <p><strong>Ca:</strong> {bookingDetails.thongTinTiec?.TenCa || 'Chưa xác định'}</p>
                             </div>
                              <div className="section-col right-align">
                                 <h3>Trạng thái thanh toán</h3>
