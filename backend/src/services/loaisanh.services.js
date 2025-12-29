@@ -19,19 +19,38 @@ export const validateLoaiSanhUpdate = async (id, tenLoaiSanh) => {
     }
   }
 
-  const daDuocDatTiec = await LoaiSanh.checkDaDuocDatTiec(id);
-  if (daDuocDatTiec) {
-    throw new Error('Loại sảnh đã được đặt tiệc, không thể cập nhật');
+  // Kiểm tra loại sảnh có đang được sử dụng trong đặt tiệc chưa thanh toán không
+  const datTiecCount = await db('SANH')
+    .join('DATTIEC', 'SANH.MaSanh', 'DATTIEC.MaSanh')
+    .leftJoin('HOADON', 'DATTIEC.MaDatTiec', 'HOADON.MaDatTiec')
+    .where('SANH.MaLoaiSanh', id)
+    .where(function() {
+      this.whereNull('HOADON.MaHoaDon')  // Chưa có hóa đơn
+          .orWhere('HOADON.TrangThai', '!=', 1);  // Hoặc chưa thanh toán
+    })
+    .count('DATTIEC.MaDatTiec as count')
+    .first();
+
+  if (parseInt(datTiecCount.count) > 0) {
+    throw new Error('Loại sảnh đang được sử dụng trong đặt tiệc chưa thanh toán, không thể cập nhật. Các đặt tiệc đã thanh toán không ảnh hưởng.');
   }
 };
 
 export const validateLoaiSanhDeletion = async (id) => {
-  const sanhCount = await knex('SANH')
-    .where({ MaLoaiSanh: id })
-    .count('MaSanh as count')
+  // Kiểm tra loại sảnh có đang được sử dụng trong đặt tiệc chưa thanh toán không
+  const datTiecCount = await db('SANH')
+    .join('DATTIEC', 'SANH.MaSanh', 'DATTIEC.MaSanh')
+    .leftJoin('HOADON', 'DATTIEC.MaDatTiec', 'HOADON.MaDatTiec')
+    .where('SANH.MaLoaiSanh', id)
+    .where('SANH.DaXoa', false)  // Chỉ check sảnh chưa bị xóa
+    .where(function() {
+      this.whereNull('HOADON.MaHoaDon')  // Chưa có hóa đơn
+          .orWhere('HOADON.TrangThai', '!=', 1);  // Hoặc chưa thanh toán
+    })
+    .count('DATTIEC.MaDatTiec as count')
     .first();
 
-  if (parseInt(sanhCount.count) > 0) {
-    throw new Error('Loại sảnh đang được sử dụng, không thể xóa');
+  if (parseInt(datTiecCount.count) > 0) {
+    throw new Error('Loại sảnh đang được sử dụng trong đặt tiệc chưa thanh toán, không thể xóa. Các đặt tiệc đã thanh toán không ảnh hưởng.');
   }
 };
