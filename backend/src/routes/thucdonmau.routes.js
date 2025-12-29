@@ -41,11 +41,11 @@ router.get('/details/:id', validateIdParam('id'), async (req, res) => {
 // Tạo thực đơn mẫu
 router.post('/create', authMiddleware, requirePermission('QUAN_LY_MON_AN'), createLimiter, validateCreateThucDonMau, auditLogger('THUCDONMAU_CREATE'), async (req, res) => {
   try {
-    const { tenThucDon, donGiaHienTai, ghiChu } = req.body;
+    const { tenThucDon, ghiChu } = req.body;
 
     const thucDonMau = await ThucDonMau.create({
       TenThucDon: tenThucDon,
-      DonGiaHienTai: donGiaHienTai,
+      DonGiaHienTai: 0, // Mặc định bằng 0, sẽ cập nhật khi thêm món ăn
       GhiChu: ghiChu
     });
 

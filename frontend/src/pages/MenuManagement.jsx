@@ -183,7 +183,6 @@ const MenuManagement = () => {
   const handleCreateThucDonMau = () => {
     setEditingThucDonMau({
       tenThucDon: '',
-      donGiaHienTai: '',
       ghiChu: ''
     });
     setShowThucDonMauModal(true);
@@ -204,11 +203,14 @@ const MenuManagement = () => {
       setLoading(true);
       const payload = {
         tenThucDon: editingThucDonMau.tenThucDon,
-        ghiChu: editingThucDonMau.ghiChu,
-        donGiaHienTai: parseFloat(editingThucDonMau.donGiaHienTai)
+        ghiChu: editingThucDonMau.ghiChu
       };
 
       if (editingThucDonMau.maThucDon) {
+        // Khi update, thêm donGiaHienTai nếu có
+        if (editingThucDonMau.donGiaHienTai !== undefined) {
+          payload.donGiaHienTai = parseFloat(editingThucDonMau.donGiaHienTai);
+        }
         await apiService.updateThucDonMau(editingThucDonMau.maThucDon, payload);
         alert('Cập nhật thực đơn mẫu thành công!');
       } else {
@@ -729,15 +731,17 @@ const MenuManagement = () => {
                 />
               </div>
 
-              <div className="form-group">
-                <label>Đơn giá hiện tại *</label>
-                <input
-                  type="number"
-                  value={editingThucDonMau.donGiaHienTai}
-                  onChange={(e) => setEditingThucDonMau({...editingThucDonMau, donGiaHienTai: e.target.value})}
-                  placeholder="Nhập đơn giá hiện tại"
-                />
-              </div>
+              {editingThucDonMau.maThucDon && (
+                <div className="form-group">
+                  <label>Đơn giá hiện tại (chỉ đọc)</label>
+                  <input
+                    type="number"
+                    value={editingThucDonMau.donGiaHienTai}
+                    disabled
+                    placeholder="Tự động tính từ món ăn"
+                  />
+                </div>
+              )}
 
               <div className="form-group">
                 <label>Ghi chú</label>

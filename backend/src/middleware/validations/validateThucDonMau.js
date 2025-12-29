@@ -9,10 +9,9 @@ export const createThucDonMauSchema = Joi.object({
     'string.max': 'Ten thuc don khong duoc qua 100 ky tu',
     'any.required': 'Ten thuc don la bat buoc'
   }),
-  donGiaHienTai: Joi.number().precision(2).positive().required().messages({
+  donGiaHienTai: Joi.number().precision(2).min(0).optional().messages({
     'number.base': 'Don gia hien tai phai la so',
-    'number.positive': 'Don gia hien tai phai lon hon 0',
-    'any.required': 'Don gia hien tai la bat buoc'
+    'number.min': 'Don gia hien tai phai lon hon hoac bang 0'
   }),
   ghiChu: Joi.string().allow('', null).max(500)
 });
