@@ -180,6 +180,8 @@ const ManagerBooking = () => {
     const hallPrice = loaiSanh ? parseFloat(loaiSanh.DonGiaBanToiThieu || 0) : 0;
     
     const tables = Math.ceil(customer.guests / 10);
+    const reserveTables = parseInt(customer.soBanDuTru || 0);
+    const totalTables = tables + reserveTables;
 
     // Parse tất cả giá trị sang số
     const setPrice = selectedSet ? parseFloat(selectedSet.DonGiaHienTai || 0) : 0;
@@ -188,7 +190,7 @@ const ManagerBooking = () => {
     );
     const menuPricePerTable = setPrice + singleItemsPrice;
     
-    const totalMenuPrice = menuPricePerTable * tables;
+    const totalMenuPrice = menuPricePerTable * totalTables;
     const totalServicePrice = selectedServices.reduce((acc, curr) => 
       acc + (parseFloat(curr.DonGia || 0) * parseInt(curr.soLuong || 1)), 0
     );
@@ -200,6 +202,8 @@ const ManagerBooking = () => {
         hall: hallPrice,
         menuPerTable: menuPricePerTable,
         tables: tables,
+        reserveTables: reserveTables,
+        totalTables: totalTables,
         totalMenu: totalMenuPrice,
         service: totalServicePrice,
         grandTotal: grandTotal,
@@ -626,7 +630,7 @@ const ManagerBooking = () => {
                         <p><strong>Liên hệ:</strong> {customer.phone || "---"}</p>
                         <p><strong>Ca:</strong> {danhSachCa.find(c => c.MaCa === parseInt(customer.maCa))?.TenCa || "---"}</p>
                         <p><strong>Ngày:</strong> {customer.date || "---"}</p>
-                        <p><strong>Quy mô:</strong> {customer.guests} khách ({totals.tables} bàn)</p>
+                        <p><strong>Quy mô:</strong> {customer.guests} khách ({totals.tables} bàn + {totals.reserveTables} dự trữ = {totals.totalTables} bàn)</p>
                     </div>
                     <div className="divider"></div>
 
@@ -660,7 +664,7 @@ const ManagerBooking = () => {
                                 <span>{fmt(totals.menuPerTable)}</span>
                             </div>
                             <div className="bill-item-row total-sub">
-                                <span>Thành tiền ({totals.tables} bàn):</span>
+                                <span>Thành tiền ({totals.totalTables} bàn):</span>
                                 <span>{fmt(totals.totalMenu)}</span>
                             </div>
                         </>

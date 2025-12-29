@@ -397,6 +397,217 @@ sequenceDiagram
 
 ---
 
+### 3.3. Menu Creation from Template
+
+**Purpose:** Mỗi khi tạo đặt tiệc, hệ thống tự động tạo một bản sao THUCDON mới từ THUCDON_MAU để lưu giữ giá món ăn tại thời điểm đặt.
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant MB as ManagerBooking.jsx
+    participant C as Controller
+    participant S as dattiec.services.js
+    participant TDS as thucdon.services.js
+    participant M as Model
+    participant DB as Database
+    
+    U->>MB: Select ThucDonMau & fill booking form
+    MB->>C: POST /api/dattiec/create
+    Note over MB,C: { maThucDonMau: 5, ... }
+    
+    C->>S: validateDatTiecCreation(data)
+    S->>M: ThucDonMau.findById(5)
+    M->>DB: SELECT * FROM THUCDON_MAU WHERE MaThucDonMau = 5
+    DB-->>S: ThucDonMau data
+    
+    S->>TDS: createThucDonFromTemplate(maThucDonMau)
+    
+    TDS->>M: ThucDonMau.getChiTiet(5)
+    M->>DB: SELECT MA.MaMonAn, MA.TenMonAn, MA.DonGia<br/>FROM CHITIET_THUCDONMAU CTM<br/>JOIN MONAN MA ON CTM.MaMonAn = MA.MaMonAn<br/>WHERE CTM.MaThucDonMau = 5
+    DB-->>TDS: [<br/>  { MaMonAn: 1, TenMonAn: "Tôm Hùm", DonGia: 850000 },<br/>  { MaMonAn: 2, TenMonAn: "Bò Wagyu", DonGia: 1200000 },<br/>  ...<br/>]
+    
+    TDS->>TDS: Calculate TongDonGiaThoiDiemDat
+    Note over TDS: Sum all DonGia from current dishes<br/>850,000 + 1,200,000 + ... = 4,500,000
+    
+    TDS->>M: ThucDon.create({ TongDonGiaThoiDiemDat: 4500000 })
+    M->>DB: INSERT INTO THUCDON<br/>(TongDonGiaThoiDiemDat, NgayTao)<br/>VALUES (4500000, NOW())
+    DB-->>M: { MaThucDon: 123 }
+    M-->>TDS: New ThucDon created
+    
+    TDS->>TDS: Prepare dish mappings
+    Note over TDS: Create array of<br/>{ MaThucDon: 123, MaMonAn: dish.MaMonAn }
+    
+    TDS->>M: ThucDon.addDishes(123, dishIds)
+    M->>DB: INSERT INTO CHITIET_THUCDON<br/>(MaThucDon, MaMonAn)<br/>VALUES (123, 1), (123, 2), ...
+    DB-->>M: Inserted
+    M-->>TDS: Dishes linked to menu
+    
+    TDS-->>S: Return { maThucDon: 123 }
+    
+    S->>S: Update booking data: data.maThucDon = 123
+    
+    S-->>C: Validation passed + maThucDon assigned
+    
+    C->>M: DatTiec.create({ ..., MaThucDon: 123 })
+    M->>DB: INSERT INTO DATTIEC (..., MaThucDon) VALUES (..., 123)
+    DB-->>M: New booking
+    M-->>C: Created booking
+    
+    C-->>MB: 201: { success: true, data: booking }
+    MB-->>U: Show "Đặt tiệc thành công"
+```
+
+**Why Create New Menu?**
+- **Price Snapshot:** Giá món ăn có thể thay đổi theo thời gian. Tạo THUCDON mới giúp lưu giá tại thời điểm đặt.
+- **Data Integrity:** Nếu THUCDON_MAU bị sửa/xóa sau này, đặt tiệc cũ vẫn giữ nguyên thông tin.
+- **Historical Record:** Mỗi đặt tiệc có menu riêng, dễ dàng truy vết và kiểm toán.
+
+**Related Code:**
+```javascript
+// backend/src/services/thucdon.services.js
+const createThucDonFromTemplate = async (maThucDonMau) => {
+  // 1. Get all dishes from template
+  const chiTiet = await ThucDonMau.getChiTiet(maThucDonMau);
+  
+  // 2. Calculate total price at current moment
+  const tongDonGia = chiTiet.reduce((sum, dish) => sum + dish.DonGia, 0);
+  
+  // 3. Create new THUCDON
+  const newThucDon = await ThucDon.create({
+    TongDonGiaThoiDiemDat: tongDonGia,
+    NgayTao: new Date()
+  });
+  
+  // 4. Copy all dishes to new menu
+  const dishIds = chiTiet.map(dish => dish.MaMonAn);
+  await ThucDon.addDishes(newThucDon.MaThucDon, dishIds);
+  
+  return newThucDon.MaThucDon;
+};
+
+// backend/src/services/dattiec.services.js
+const validateDatTiecCreation = async (data) => {
+  // ... other validations ...
+  
+  // Create menu from template
+  const maThucDon = await thucdonService.createThucDonFromTemplate(
+    data.maThucDonMau
+  );
+  
+  data.maThucDon = maThucDon;
+  
+  return data;
+};
+```
+
+---
+
+### 3.4. Menu Creation Flow Diagram
+
+```mermaid
+flowchart TD
+    A[Start: User creates booking] --> B[User selects THUCDON_MAU]
+    B --> C[System: validateDatTiecCreation]
+    
+    C --> D[Get THUCDON_MAU details]
+    D --> E[Query CHITIET_THUCDONMAU]
+    
+    E --> F[Get current prices from MONAN]
+    F --> G{All dishes exist?}
+    
+    G -->|No| H[Error: Món ăn không tồn tại]
+    G -->|Yes| I[Calculate TongDonGiaThoiDiemDat]
+    
+    I --> J[Sum all DonGia]
+    J --> K[Create new THUCDON record]
+    
+    K --> L[INSERT INTO THUCDON]
+    L --> M[Get new MaThucDon]
+    
+    M --> N[Copy dish associations]
+    N --> O[INSERT INTO CHITIET_THUCDON for each dish]
+    
+    O --> P[Link THUCDON to DATTIEC]
+    P --> Q[Complete booking creation]
+    
+    Q --> R[End: Booking created with snapshot menu]
+    
+    H --> S[Stop: Return error to user]
+    
+    style A fill:#4CAF50
+    style K fill:#FF9800
+    style L fill:#2196F3
+    style O fill:#2196F3
+    style R fill:#4CAF50
+    style H fill:#ff6b6b
+    style S fill:#ff6b6b
+```
+
+---
+
+### 3.5. Data Snapshot Example
+
+**Scenario:** Giá món ăn thay đổi sau khi đặt tiệc
+
+```mermaid
+gantt
+    title Menu Price Changes Over Time
+    dateFormat YYYY-MM-DD
+    
+    section Món Ăn
+    Tôm Hùm Alaska: 850,000đ    :2025-01-01, 2025-02-15
+    Tôm Hùm Alaska: 920,000đ    :2025-02-15, 2025-03-31
+    
+    section Booking A
+    Đặt tiệc ngày 10/01  :milestone, 2025-01-10, 0d
+    THUCDON snapshot: 850,000đ :crit, 2025-01-10, 2025-03-31
+    
+    section Booking B  
+    Đặt tiệc ngày 20/02  :milestone, 2025-02-20, 0d
+    THUCDON snapshot: 920,000đ :crit, 2025-02-20, 2025-03-31
+```
+
+**Explanation:**
+1. **10/01/2025:** Booking A được tạo
+   - Tôm Hùm Alaska đang giá 850,000đ
+   - System tạo THUCDON với TongDonGiaThoiDiemDat dựa trên 850,000đ
+   - DATTIEC.MaThucDon → THUCDON này
+
+2. **15/02/2025:** Admin tăng giá Tôm Hùm Alaska → 920,000đ
+   - MONAN.DonGia được cập nhật
+   - Booking A vẫn giữ giá cũ (850,000đ) vì đã có THUCDON riêng
+
+3. **20/02/2025:** Booking B được tạo
+   - Tôm Hùm Alaska hiện giá 920,000đ
+   - System tạo THUCDON mới với giá mới
+   - Booking A và B có menu riêng biệt với giá khác nhau
+
+**Database State:**
+```sql
+-- MONAN table (current prices)
+MaMonAn | TenMonAn         | DonGia
+1       | Tôm Hùm Alaska   | 920000  -- Current price after increase
+
+-- THUCDON table (historical snapshots)
+MaThucDon | TongDonGiaThoiDiemDat | NgayTao
+101       | 4500000               | 2025-01-10  -- Booking A's menu
+102       | 4850000               | 2025-02-20  -- Booking B's menu (higher total)
+
+-- DATTIEC table
+MaDatTiec | MaThucDon | NgayDaiTiec | ...
+501       | 101       | 2025-03-01  | -- Uses old prices
+502       | 102       | 2025-03-15  | -- Uses new prices
+```
+
+**Related Files:**
+- Service: `src/services/thucdon.services.js` (createThucDonFromTemplate)
+- Service: `src/services/dattiec.services.js` (validateDatTiecCreation)
+- Model: `src/models/thucdon.model.js` (create, addDishes)
+- Model: `src/models/thucdonmau.model.js` (getChiTiet)
+- Model: `src/models/monan.model.js` (getCurrentPrices)
+
+---
+
 ## 4. CREATE INVOICE FLOW
 
 ```mermaid
