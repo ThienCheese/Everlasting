@@ -11646,3 +11646,325 @@
 2025-12-29T07:54:02.953Z [INFO] : HTTP Request
 2025-12-29T07:54:02.959Z [INFO] : [SUCCESS]Lay danh sach dat tiec thanh cong
 2025-12-29T07:54:02.960Z [INFO] : HTTP Request
+2025-12-29T07:57:16.393Z [INFO] : HTTP Request
+2025-12-29T07:57:16.393Z [INFO] : HTTP Request
+2025-12-29T07:57:16.650Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T07:57:16.651Z [INFO] : HTTP Request
+2025-12-29T07:57:16.692Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T07:57:16.693Z [INFO] : HTTP Request
+2025-12-29T07:57:16.701Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T07:57:16.703Z [INFO] : HTTP Request
+2025-12-29T07:57:16.750Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T07:57:16.751Z [INFO] : HTTP Request
+2025-12-29T07:57:16.805Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T07:57:16.806Z [INFO] : HTTP Request
+2025-12-29T07:57:16.806Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T07:57:16.806Z [INFO] : HTTP Request
+2025-12-29T07:57:19.086Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T07:57:19.086Z [INFO] : HTTP Request
+2025-12-29T07:57:19.087Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T07:57:19.087Z [INFO] : HTTP Request
+2025-12-29T07:57:19.133Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T07:57:19.134Z [INFO] : HTTP Request
+2025-12-29T07:57:19.136Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T07:57:19.137Z [INFO] : HTTP Request
+2025-12-29T07:57:19.137Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T07:57:19.137Z [INFO] : HTTP Request
+2025-12-29T07:57:19.189Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T07:57:19.190Z [INFO] : HTTP Request
+2025-12-29T07:57:26.947Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T07:57:26.948Z [INFO] : HTTP Request
+2025-12-29T09:13:16.504Z [INFO] : HTTP Request
+2025-12-29T09:13:16.508Z [INFO] : HTTP Request
+2025-12-29T09:13:16.608Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:13:16.609Z [INFO] : HTTP Request
+2025-12-29T09:13:16.660Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:13:16.661Z [INFO] : HTTP Request
+2025-12-29T09:13:16.663Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:13:16.664Z [INFO] : HTTP Request
+2025-12-29T09:13:16.710Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:13:16.711Z [INFO] : HTTP Request
+2025-12-29T09:13:16.714Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:13:16.714Z [INFO] : HTTP Request
+2025-12-29T09:13:16.807Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:13:16.808Z [INFO] : HTTP Request
+2025-12-29T09:13:19.167Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:13:19.168Z [INFO] : HTTP Request
+2025-12-29T09:13:19.173Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:13:19.174Z [INFO] : HTTP Request
+2025-12-29T09:13:19.217Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:13:19.218Z [INFO] : HTTP Request
+2025-12-29T09:13:19.225Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:13:19.226Z [INFO] : HTTP Request
+2025-12-29T09:13:19.275Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:13:19.276Z [INFO] : HTTP Request
+2025-12-29T09:13:19.315Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:13:19.317Z [INFO] : HTTP Request
+2025-12-29T09:13:19.324Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:13:19.325Z [INFO] : HTTP Request
+2025-12-29T09:13:19.368Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:13:19.369Z [INFO] : HTTP Request
+2025-12-29T09:13:19.375Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:13:19.375Z [INFO] : HTTP Request
+2025-12-29T09:13:19.419Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:13:19.419Z [INFO] : HTTP Request
+2025-12-29T09:13:19.422Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:13:19.423Z [INFO] : HTTP Request
+2025-12-29T09:13:19.468Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:13:19.469Z [INFO] : HTTP Request
+2025-12-29T09:13:19.517Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:13:19.518Z [INFO] : HTTP Request
+2025-12-29T09:13:19.518Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:13:19.519Z [INFO] : HTTP Request
+2025-12-29T09:13:19.568Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.569Z [INFO] : HTTP Request
+2025-12-29T09:13:19.569Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.569Z [INFO] : HTTP Request
+2025-12-29T09:13:19.616Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.617Z [INFO] : HTTP Request
+2025-12-29T09:13:19.618Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.619Z [INFO] : HTTP Request
+2025-12-29T09:13:19.666Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.666Z [INFO] : HTTP Request
+2025-12-29T09:13:19.666Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.667Z [INFO] : HTTP Request
+2025-12-29T09:13:19.715Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.715Z [INFO] : HTTP Request
+2025-12-29T09:13:19.716Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.716Z [INFO] : HTTP Request
+2025-12-29T09:13:19.764Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.764Z [INFO] : HTTP Request
+2025-12-29T09:13:19.764Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:13:19.765Z [INFO] : HTTP Request
+2025-12-29T09:16:32.438Z [INFO] : HTTP Request
+2025-12-29T09:16:32.440Z [INFO] : HTTP Request
+2025-12-29T09:18:55.171Z [INFO] : Audit Log
+2025-12-29T09:18:55.171Z [INFO] : [LOGIN] Login request received
+2025-12-29T09:18:55.338Z [INFO] : [LOGIN] User logged in successfully: admin
+2025-12-29T09:18:55.338Z [INFO] : [SUCCESS]Đăng nhập thành công
+2025-12-29T09:18:55.339Z [INFO] : HTTP Request
+2025-12-29T09:18:55.446Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:18:55.447Z [INFO] : HTTP Request
+2025-12-29T09:18:55.490Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:18:55.492Z [INFO] : HTTP Request
+2025-12-29T09:18:55.500Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:18:55.501Z [INFO] : HTTP Request
+2025-12-29T09:18:55.554Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:18:55.554Z [INFO] : HTTP Request
+2025-12-29T09:18:55.601Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:18:55.602Z [INFO] : HTTP Request
+2025-12-29T09:18:55.602Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:18:55.603Z [INFO] : HTTP Request
+2025-12-29T09:19:08.455Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:19:08.459Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:19:08.505Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 5
+2025-12-29T09:19:08.508Z [INFO] : [SUCCESS]Lay danh sach hoa don thanh cong
+2025-12-29T09:19:08.509Z [INFO] : HTTP Request
+2025-12-29T09:19:08.510Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:19:08.555Z [INFO] : [SUCCESS]Lay danh sach dat tiec thanh cong
+2025-12-29T09:19:08.557Z [INFO] : HTTP Request
+2025-12-29T09:19:08.558Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:19:08.559Z [INFO] : [SUCCESS]Lay danh sach hoa don thanh cong
+2025-12-29T09:19:08.559Z [INFO] : HTTP Request
+2025-12-29T09:19:08.606Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 5
+2025-12-29T09:19:08.656Z [INFO] : [SUCCESS]Lay danh sach dat tiec thanh cong
+2025-12-29T09:19:08.656Z [INFO] : HTTP Request
+2025-12-29T09:19:11.372Z [INFO] : [SUCCESS]Lấy danh sách loại dịch vụ thành công
+2025-12-29T09:19:11.372Z [INFO] : HTTP Request
+2025-12-29T09:19:11.374Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:19:11.374Z [INFO] : HTTP Request
+2025-12-29T09:19:11.421Z [INFO] : [SUCCESS]Lấy danh sách loại dịch vụ thành công
+2025-12-29T09:19:11.421Z [INFO] : HTTP Request
+2025-12-29T09:19:11.422Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:19:11.422Z [INFO] : HTTP Request
+2025-12-29T09:19:12.861Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:19:12.861Z [INFO] : HTTP Request
+2025-12-29T09:19:12.861Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:19:12.862Z [INFO] : HTTP Request
+2025-12-29T09:19:12.862Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:19:12.862Z [INFO] : HTTP Request
+2025-12-29T09:19:12.911Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:19:12.912Z [INFO] : HTTP Request
+2025-12-29T09:19:12.912Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:19:12.913Z [INFO] : HTTP Request
+2025-12-29T09:19:12.913Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:19:12.913Z [INFO] : HTTP Request
+2025-12-29T09:19:34.698Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:19:34.748Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 2
+2025-12-29T09:19:34.750Z [ERROR] : [ERROR] Ten loai la bat buoc, "tenLoaiSanh" is not allowed
+2025-12-29T09:19:34.750Z [ERROR] : HTTP Request Error
+2025-12-29T09:19:45.817Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:19:45.869Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 2
+2025-12-29T09:19:45.870Z [ERROR] : [ERROR] Ten loai la bat buoc, "tenLoaiSanh" is not allowed
+2025-12-29T09:19:45.870Z [ERROR] : HTTP Request Error
+2025-12-29T09:20:11.206Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:20:11.317Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 2
+2025-12-29T09:20:11.318Z [ERROR] : [ERROR] "tenLoaiSanh" is not allowed
+2025-12-29T09:20:11.319Z [ERROR] : HTTP Request Error
+2025-12-29T09:20:38.585Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:20:38.636Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 2
+2025-12-29T09:20:38.637Z [ERROR] : [ERROR] "tenLoaiSanh" is not allowed
+2025-12-29T09:20:38.638Z [ERROR] : HTTP Request Error
+2025-12-29T09:20:52.905Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:20:52.907Z [INFO] : HTTP Request
+2025-12-29T09:20:52.920Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:20:52.923Z [INFO] : HTTP Request
+2025-12-29T09:20:52.956Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:20:52.957Z [INFO] : HTTP Request
+2025-12-29T09:20:52.973Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:20:52.974Z [INFO] : HTTP Request
+2025-12-29T09:20:53.021Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:20:53.023Z [INFO] : HTTP Request
+2025-12-29T09:20:53.059Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:20:53.060Z [INFO] : HTTP Request
+2025-12-29T09:21:10.387Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:21:10.436Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 3
+2025-12-29T09:21:10.437Z [INFO] : Audit Log
+2025-12-29T09:21:10.556Z [INFO] : [SUCCESS]Tạo loại món ăn thành công
+2025-12-29T09:21:10.557Z [INFO] : HTTP Request
+2025-12-29T09:21:11.648Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:21:11.650Z [INFO] : HTTP Request
+2025-12-29T09:21:11.700Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:21:11.701Z [INFO] : HTTP Request
+2025-12-29T09:21:13.319Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:21:13.372Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 3
+2025-12-29T09:21:13.372Z [INFO] : Audit Log
+2025-12-29T09:21:13.547Z [INFO] : [SUCCESS]Xóa loại món ăn thành công
+2025-12-29T09:21:13.547Z [INFO] : HTTP Request
+2025-12-29T09:21:14.478Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:21:14.479Z [INFO] : HTTP Request
+2025-12-29T09:21:14.527Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:21:14.527Z [INFO] : HTTP Request
+2025-12-29T09:23:11.592Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:23:11.594Z [INFO] : HTTP Request
+2025-12-29T09:23:11.596Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:23:11.597Z [INFO] : HTTP Request
+2025-12-29T09:23:11.643Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:23:11.645Z [INFO] : HTTP Request
+2025-12-29T09:23:11.646Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:23:11.647Z [INFO] : HTTP Request
+2025-12-29T09:23:11.693Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:23:11.694Z [INFO] : HTTP Request
+2025-12-29T09:23:11.696Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:23:11.697Z [INFO] : HTTP Request
+2025-12-29T09:23:23.107Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:23:23.156Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 2
+2025-12-29T09:23:23.157Z [INFO] : Audit Log
+2025-12-29T09:23:23.212Z [ERROR] : [ERROR] Tên loại sảnh đã tồn tại
+2025-12-29T09:23:23.213Z [ERROR] : HTTP Request Error
+2025-12-29T09:23:54.254Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:23:54.254Z [INFO] : HTTP Request
+2025-12-29T09:23:54.254Z [INFO] : [SUCCESS]Lấy danh sách loại dịch vụ thành công
+2025-12-29T09:23:54.255Z [INFO] : HTTP Request
+2025-12-29T09:23:54.303Z [INFO] : [SUCCESS]Lấy danh sách loại dịch vụ thành công
+2025-12-29T09:23:54.304Z [INFO] : HTTP Request
+2025-12-29T09:23:54.304Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:23:54.304Z [INFO] : HTTP Request
+2025-12-29T09:23:55.496Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:23:55.496Z [INFO] : HTTP Request
+2025-12-29T09:23:55.545Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:23:55.547Z [INFO] : HTTP Request
+2025-12-29T09:23:55.548Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:23:55.548Z [INFO] : HTTP Request
+2025-12-29T09:23:55.595Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:23:55.597Z [INFO] : HTTP Request
+2025-12-29T09:23:55.645Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:23:55.646Z [INFO] : HTTP Request
+2025-12-29T09:23:55.650Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:23:55.650Z [INFO] : HTTP Request
+2025-12-29T09:24:28.027Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:24:28.076Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 3
+2025-12-29T09:24:28.076Z [INFO] : Audit Log
+2025-12-29T09:24:28.179Z [ERROR] : [ERROR] insert into "THUCDON_MAU" ("AnhURL", "DaXoa", "DonGiaHienTai", "GhiChu", "MaThucDon", "TenThucDon") values ($1, $2, $3, $4, $5, $6) returning * - column "AnhURL" of relation "THUCDON_MAU" does not exist
+2025-12-29T09:24:28.179Z [ERROR] : HTTP Request Error
+2025-12-29T09:24:54.010Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:24:54.011Z [INFO] : HTTP Request
+2025-12-29T09:25:00.848Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:25:00.897Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 3
+2025-12-29T09:25:00.898Z [INFO] : Audit Log
+2025-12-29T09:25:00.993Z [ERROR] : [ERROR] insert into "THUCDON_MAU" ("AnhURL", "DaXoa", "DonGiaHienTai", "GhiChu", "MaThucDon", "TenThucDon") values ($1, $2, $3, $4, $5, $6) returning * - column "AnhURL" of relation "THUCDON_MAU" does not exist
+2025-12-29T09:25:00.993Z [ERROR] : HTTP Request Error
+2025-12-29T09:25:21.578Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:25:21.579Z [INFO] : HTTP Request
+2025-12-29T09:25:21.579Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:25:21.579Z [INFO] : HTTP Request
+2025-12-29T09:25:21.626Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:25:21.628Z [INFO] : HTTP Request
+2025-12-29T09:25:21.629Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:25:21.630Z [INFO] : HTTP Request
+2025-12-29T09:25:21.679Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:25:21.680Z [INFO] : HTTP Request
+2025-12-29T09:25:21.725Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:25:21.726Z [INFO] : HTTP Request
+2025-12-29T09:25:21.731Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:25:21.731Z [INFO] : HTTP Request
+2025-12-29T09:25:21.773Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:25:21.774Z [INFO] : HTTP Request
+2025-12-29T09:25:21.780Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:25:21.782Z [INFO] : HTTP Request
+2025-12-29T09:25:21.821Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:25:21.822Z [INFO] : HTTP Request
+2025-12-29T09:25:21.832Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:25:21.833Z [INFO] : HTTP Request
+2025-12-29T09:25:21.873Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:25:21.874Z [INFO] : HTTP Request
+2025-12-29T09:25:21.923Z [INFO] : [SUCCESS]Lấy danh sách dịch vụ thành công
+2025-12-29T09:25:21.923Z [INFO] : HTTP Request
+2025-12-29T09:25:21.937Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:25:21.938Z [INFO] : HTTP Request
+2025-12-29T09:25:21.972Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:21.973Z [INFO] : HTTP Request
+2025-12-29T09:25:21.986Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:21.987Z [INFO] : HTTP Request
+2025-12-29T09:25:22.022Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:22.023Z [INFO] : HTTP Request
+2025-12-29T09:25:22.038Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:22.039Z [INFO] : HTTP Request
+2025-12-29T09:25:22.071Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:22.072Z [INFO] : HTTP Request
+2025-12-29T09:25:22.088Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:22.089Z [INFO] : HTTP Request
+2025-12-29T09:25:22.121Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:22.122Z [INFO] : HTTP Request
+2025-12-29T09:25:22.138Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:22.139Z [INFO] : HTTP Request
+2025-12-29T09:25:22.171Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:22.171Z [INFO] : HTTP Request
+2025-12-29T09:25:22.189Z [INFO] : [SUCCESS]Lay danh sach mon an thanh cong
+2025-12-29T09:25:22.189Z [INFO] : HTTP Request
+2025-12-29T09:26:06.163Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:26:06.164Z [INFO] : HTTP Request
+2025-12-29T09:26:06.164Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:26:06.164Z [INFO] : HTTP Request
+2025-12-29T09:26:06.210Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:26:06.211Z [INFO] : HTTP Request
+2025-12-29T09:26:06.213Z [INFO] : [SUCCESS]Lay danh sach thanh cong
+2025-12-29T09:26:06.213Z [INFO] : HTTP Request
+2025-12-29T09:26:06.266Z [INFO] : [SUCCESS]Lấy danh sách ca thành công
+2025-12-29T09:26:06.266Z [INFO] : HTTP Request
+2025-12-29T09:26:06.267Z [INFO] : [SUCCESS]Danh sách loại sảnh
+2025-12-29T09:26:06.267Z [INFO] : HTTP Request
+2025-12-29T09:26:09.533Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:26:09.534Z [INFO] : HTTP Request
+2025-12-29T09:26:09.581Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:26:09.582Z [INFO] : HTTP Request
+2025-12-29T09:26:09.583Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:26:09.583Z [INFO] : HTTP Request
+2025-12-29T09:26:09.630Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:26:09.630Z [INFO] : HTTP Request
+2025-12-29T09:26:09.648Z [INFO] : [SUCCESS]Lấy danh sách loại món ăn thành công
+2025-12-29T09:26:09.648Z [INFO] : HTTP Request
+2025-12-29T09:26:09.679Z [INFO] : [SUCCESS]Lấy danh sách món ăn thành công
+2025-12-29T09:26:09.680Z [INFO] : HTTP Request
+2025-12-29T09:26:30.739Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:26:30.786Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 3
+2025-12-29T09:26:30.787Z [INFO] : Audit Log
+2025-12-29T09:26:30.883Z [ERROR] : [ERROR] insert into "THUCDON_MAU" ("AnhURL", "DaXoa", "DonGiaHienTai", "GhiChu", "MaThucDon", "TenThucDon") values ($1, $2, $3, $4, $5, $6) returning * - column "AnhURL" of relation "THUCDON_MAU" does not exist
+2025-12-29T09:26:30.884Z [ERROR] : HTTP Request Error
+2025-12-29T09:28:34.491Z [INFO] : [AUTH] User authenticated: admin
+2025-12-29T09:28:34.541Z [INFO] : [RBAC] User 6 (Nhom 1) granted access via ChucNang 3
+2025-12-29T09:28:34.542Z [INFO] : Audit Log
+2025-12-29T09:28:34.646Z [INFO] : [SUCCESS]Tao thuc don mau thanh cong
+2025-12-29T09:28:34.648Z [INFO] : HTTP Request
+2025-12-29T09:28:35.582Z [INFO] : [SUCCESS]Lay danh sach thuc don mau thanh cong
+2025-12-29T09:28:35.584Z [INFO] : HTTP Request

@@ -41,13 +41,12 @@ router.get('/details/:id', validateIdParam('id'), async (req, res) => {
 // Tạo thực đơn mẫu
 router.post('/create', authMiddleware, requirePermission('QUAN_LY_MON_AN'), createLimiter, validateCreateThucDonMau, auditLogger('THUCDONMAU_CREATE'), async (req, res) => {
   try {
-    const { tenThucDon, donGiaHienTai, ghiChu, anhURL } = req.body;
+    const { tenThucDon, donGiaHienTai, ghiChu } = req.body;
 
     const thucDonMau = await ThucDonMau.create({
       TenThucDon: tenThucDon,
       DonGiaHienTai: donGiaHienTai,
-      GhiChu: ghiChu,
-      AnhURL: anhURL || null
+      GhiChu: ghiChu
     });
 
     return successResponse(res, thucDonMau, 'Tao thuc don mau thanh cong', 201);
@@ -64,13 +63,12 @@ router.put('/update/:id', authMiddleware, requirePermission('QUAN_LY_MON_AN'), v
       return errorResponse(res, 'Thuc don mau khong ton tai', 404);
     }
 
-    const { tenThucDon, donGiaHienTai, ghiChu, anhURL } = req.body;
+    const { tenThucDon, donGiaHienTai, ghiChu } = req.body;
 
     const updated = await ThucDonMau.update(req.params.id, {
       TenThucDon: tenThucDon || thucDonMau.TenThucDon,
       DonGiaHienTai: donGiaHienTai !== undefined ? donGiaHienTai : thucDonMau.DonGiaHienTai,
-      GhiChu: ghiChu !== undefined ? ghiChu : thucDonMau.GhiChu,
-      AnhURL: anhURL !== undefined ? anhURL : thucDonMau.AnhURL
+      GhiChu: ghiChu !== undefined ? ghiChu : thucDonMau.GhiChu
     });
 
     return successResponse(res, updated, 'Cap nhat thuc don mau thanh cong', 200);
