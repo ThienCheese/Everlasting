@@ -40,6 +40,9 @@ export const updateDishSchema = Joi.object({
   ghiChu: Joi.string().allow('', null).max(500),
   anhURL: Joi.string().uri().allow('', null).messages({
     'string.uri': 'URL anh khong hop le'
+  }),
+  daXoa: Joi.boolean().messages({
+    'boolean.base': 'Trang thai xoa phai la boolean'
   })
 }).min(1);
 

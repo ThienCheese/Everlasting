@@ -21,6 +21,16 @@ export const validateLoaiMonAnUpdate = async (id, tenLoaiMonAn) => {
 };
 
 export const validateLoaiMonAnDeletion = async (id) => {
+  // Kiểm tra còn món ăn nào chưa bị xóa thuộc loại này không
+  const monAnCount = await db('MONAN')
+    .where({ MaLoaiMonAn: id, DaXoa: false })
+    .count('MaMonAn as count')
+    .first();
+
+  if (parseInt(monAnCount.count) > 0) {
+    throw new Error('Còn ' + monAnCount.count + ' món ăn đang thuộc loại này, không thể xóa. Vui lòng xóa hoặc chuyển các món ăn sang loại khác trước.');
+  }
+
   // Kiểm tra loại món ăn có trong thực đơn của đặt tiệc chưa thanh toán không
   const count = await db('MONAN')
     .join('THUCDON_MONAN', 'MONAN.MaMonAn', 'THUCDON_MONAN.MaMonAn')
@@ -28,7 +38,6 @@ export const validateLoaiMonAnDeletion = async (id) => {
     .join('DATTIEC', 'THUCDON.MaThucDon', 'DATTIEC.MaThucDon')
     .leftJoin('HOADON', 'DATTIEC.MaDatTiec', 'HOADON.MaDatTiec')
     .where('MONAN.MaLoaiMonAn', id)
-    .where('MONAN.DaXoa', false)  // Chỉ check món ăn chưa bị xóa
     .where(function() {
       this.whereNull('HOADON.MaHoaDon')  // Chưa có hóa đơn
           .orWhere('HOADON.TrangThai', '!=', 1);  // Hoặc chưa thanh toán

@@ -37,12 +37,21 @@ export const validateLoaiSanhUpdate = async (id, tenLoaiSanh) => {
 };
 
 export const validateLoaiSanhDeletion = async (id) => {
+  // Kiểm tra còn sảnh nào chưa bị xóa thuộc loại này không
+  const sanhCount = await db('SANH')
+    .where({ MaLoaiSanh: id, DaXoa: false })
+    .count('MaSanh as count')
+    .first();
+
+  if (parseInt(sanhCount.count) > 0) {
+    throw new Error('Còn ' + sanhCount.count + ' sảnh đang thuộc loại này, không thể xóa. Vui lòng xóa hoặc chuyển các sảnh sang loại khác trước.');
+  }
+
   // Kiểm tra loại sảnh có đang được sử dụng trong đặt tiệc chưa thanh toán không
   const datTiecCount = await db('SANH')
     .join('DATTIEC', 'SANH.MaSanh', 'DATTIEC.MaSanh')
     .leftJoin('HOADON', 'DATTIEC.MaDatTiec', 'HOADON.MaDatTiec')
     .where('SANH.MaLoaiSanh', id)
-    .where('SANH.DaXoa', false)  // Chỉ check sảnh chưa bị xóa
     .where(function() {
       this.whereNull('HOADON.MaHoaDon')  // Chưa có hóa đơn
           .orWhere('HOADON.TrangThai', '!=', 1);  // Hoặc chưa thanh toán

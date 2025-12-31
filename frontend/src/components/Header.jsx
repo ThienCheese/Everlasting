@@ -131,6 +131,11 @@ const Header = () => {
           {canAccess(1) && (
             <li className="nav-link-item" onClick={() => navigate('/roles')}>Phân quyền</li>
           )}
+          
+          {/* Cài đặt - Chỉ Admin (MaChucNang = 1) */}
+          {canAccess(1) && (
+            <li className="nav-link-item" onClick={() => navigate('/settings')}>Cài đặt</li>
+          )}
         </ul>
       </div>
 

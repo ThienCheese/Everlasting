@@ -18,6 +18,7 @@ import InvoiceManagement from './pages/InvoiceManagement';
 import Stats from './pages/Stats';
 import RolesPage from './pages/RolesPage';
 import ManagerBooking from './pages/ManagerBooking';
+import Settings from './pages/Settings';
 import Login from './pages/login';
 import Register from './pages/Register';
 
@@ -170,6 +171,18 @@ const AppContent = () => {
                  <ProtectedRoute>
                    <WithPermission requiredPermissions={PERMISSIONS.QUAN_LY_NGUOI_DUNG || 1}>
                      <RolesPage />
+                   </WithPermission>
+                 </ProtectedRoute>
+               } 
+             />
+             
+             {/* Cài đặt tham số - Chỉ Admin */}
+             <Route 
+               path="/settings" 
+               element={
+                 <ProtectedRoute>
+                   <WithPermission requiredPermissions={PERMISSIONS.QUAN_LY_NGUOI_DUNG || 1}>
+                     <Settings />
                    </WithPermission>
                  </ProtectedRoute>
                } 

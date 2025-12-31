@@ -437,7 +437,7 @@ const MenuManagement = () => {
                 </tr>
               ) : (
                 monAnHienThi.map((mon) => (
-                  <tr key={mon.MaMonAn}>
+                  <tr key={mon.MaMonAn} style={mon.DaXoa ? {opacity: 0.6, background: '#f9f9f9'} : {}}>
                     <td>
                       {mon.AnhURL ? (
                         <img src={mon.AnhURL} alt={mon.TenMonAn} className="menu-thumbnail" />
@@ -445,7 +445,10 @@ const MenuManagement = () => {
                         <div className="menu-thumbnail-placeholder">No Image</div>
                       )}
                     </td>
-                    <td style={{fontWeight: '600', color: '#333'}}>{mon.TenMonAn}</td>
+                    <td style={{fontWeight: '600', color: '#333'}}>
+                      {mon.TenMonAn}
+                      {mon.DaXoa && <span style={{marginLeft: '8px', padding: '2px 8px', background: '#ff4444', color: 'white', borderRadius: '4px', fontSize: '11px', fontWeight: 'normal'}}>Unavailable</span>}
+                    </td>
                     <td>
                       <span className="category-badge">{mon.TenLoaiMonAn}</span>
                     </td>
@@ -601,8 +604,11 @@ const MenuManagement = () => {
                 </tr>
               ) : (
                 loaiMonFiltered.map((loai) => (
-                  <tr key={loai.MaLoaiMonAn}>
-                    <td style={{fontWeight: 'bold', fontSize: '15px'}}>{loai.TenLoaiMonAn}</td>
+                  <tr key={loai.MaLoaiMonAn} style={loai.DaXoa ? {opacity: 0.6, background: '#f9f9f9'} : {}}>
+                    <td style={{fontWeight: 'bold', fontSize: '15px'}}>
+                      {loai.TenLoaiMonAn}
+                      {loai.DaXoa && <span style={{marginLeft: '8px', padding: '2px 8px', background: '#ff4444', color: 'white', borderRadius: '4px', fontSize: '11px', fontWeight: 'normal'}}>Unavailable</span>}
+                    </td>
                     <td className="text-center">
                       <div className="action-cells">
                         <button 

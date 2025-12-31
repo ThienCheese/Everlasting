@@ -32,6 +32,17 @@ const ThamSo = {
   // Cập nhật phần trăm phạt trễ
   async updatePhanTramPhatTrenNgay(phanTram) {
     return this.update({ PhanTramPhatTrenNgay: phanTram });
+  },
+
+  // Lấy phần trăm đặt cọc
+  async getPhanTramCoc() {
+    const thamSo = await this.get();
+    return thamSo ? thamSo.PhanTramCoc : 30;
+  },
+
+  // Cập nhật phần trăm đặt cọc
+  async updatePhanTramCoc(phanTram) {
+    return this.update({ PhanTramCoc: phanTram });
   }
 };
 

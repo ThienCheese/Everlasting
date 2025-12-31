@@ -1252,6 +1252,42 @@ const apiService = {
     return data;
   },
 
+  // ========== THAM SO (PARAMETERS) ==========
+  
+  // Get system parameters
+  getThamSo: async () => {
+    const response = await fetch(`${API_BASE_URL}/thamso`, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Lấy tham số thất bại');
+    }
+
+    return data;
+  },
+
+  // Update system parameters (Admin only)
+  updateThamSo: async (thamSoData) => {
+    const response = await fetchWithAuth(`${API_BASE_URL}/thamso/update`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(thamSoData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Cập nhật tham số thất bại');
+    }
+
+    return data;
+  },
+
   // ========== SYSTEM CONSTANTS ==========
   
   // Get system constants (roles, permissions, permission matrix)

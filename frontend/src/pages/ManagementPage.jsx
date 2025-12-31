@@ -226,8 +226,11 @@ const ManagementPage = () => {
                 <tr><td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>Không có dữ liệu</td></tr>
               ) : (
                 filteredHalls.map((hall) => (
-                  <tr key={hall.MaSanh}>
-                    <td style={{fontWeight: 'bold'}}>{hall.TenSanh}</td>
+                  <tr key={hall.MaSanh} style={hall.DaXoa ? {opacity: 0.6, background: '#f9f9f9'} : {}}>
+                    <td style={{fontWeight: 'bold'}}>
+                      {hall.TenSanh}
+                      {hall.DaXoa && <span style={{marginLeft: '8px', padding: '2px 8px', background: '#ff4444', color: 'white', borderRadius: '4px', fontSize: '11px', fontWeight: 'normal'}}>Unavailable</span>}
+                    </td>
                     <td><span style={{padding: '4px 8px', background: '#f0f0f0', borderRadius: '4px', fontSize: '12px'}}>{hall.TenLoaiSanh || 'N/A'}</span></td>
                     <td className="text-center">{hall.SoLuongBanToiDa}</td>
                     <td className="note-text">{hall.GhiChu || 'Không có ghi chú'}</td>
@@ -277,8 +280,11 @@ const ManagementPage = () => {
                       <tr><td colSpan="5" style={{textAlign: 'center', padding: '20px'}}>Không có dữ liệu</td></tr>
                     ) : (
                       filteredHallTypes.map((type) => (
-                        <tr key={type.MaLoaiSanh}>
-                            <td style={{fontWeight: 'bold', color: '#333'}}>{type.TenLoaiSanh}</td>
+                        <tr key={type.MaLoaiSanh} style={type.DaXoa ? {opacity: 0.6, background: '#f9f9f9'} : {}}>
+                            <td style={{fontWeight: 'bold', color: '#333'}}>
+                              {type.TenLoaiSanh}
+                              {type.DaXoa && <span style={{marginLeft: '8px', padding: '2px 8px', background: '#ff4444', color: 'white', borderRadius: '4px', fontSize: '11px', fontWeight: 'normal'}}>Unavailable</span>}
+                            </td>
                             <td style={{fontSize: '14px', color: '#555'}}>Loại sảnh tiêu chuẩn</td>
                             <td style={{fontWeight: 'bold', color: '#8A7CDF'}}>{type.DonGiaBanToiThieu ? `${parseInt(type.DonGiaBanToiThieu).toLocaleString()} VND` : 'N/A'}</td>
                             <td style={{fontSize: '13px', color: '#777', fontStyle: 'italic'}}>Giá theo bàn</td>
